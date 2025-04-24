@@ -1,161 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Camila Solano</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-    body {
-      margin: 0;
-      font-family: 'Press Start 2P', cursive;
-      background-color: black;
-      color: #00ff00;
-      text-align: center;
-      overflow: hidden;
-    }
-    .screen {
-      display: none;
-      height: 100vh;
-      width: 100vw;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-    .active {
-      display: flex;
-    }
-    h1 {
-      font-size: 32px;
-      animation: colorCycle 2s infinite;
-    }
-    .subtitle {
-      font-size: 12px;
-      color: white;
-      margin-top: -10px;
-    }
-    h2, p, a, button {
-      margin: 15px;
-    }
-    .animated-name {
-      animation: colorCycle 2s infinite;
-    }
-    a, button {
-      background: none;
-      border: none;
-      color: #ccff00;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 14px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    a:hover, button:hover {
-      color: yellow;
-    }
-    .options { display: flex; flex-direction: column; }
-
-    @keyframes colorCycle {
-      0% { color: #ff0000; }
-      25% { color: #ffff00; }
-      50% { color: #00ff00; }
-      75% { color: #00ffff; }
-      100% { color: #ff00ff; }
-    }
-
-    .fade-out {
-      animation: fadeOut 1s forwards;
-    }
-    @keyframes fadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; visibility: hidden; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio de Camila Solano</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <div id="start-screen" class="screen active">
-    <h1>BIENVENIDOS</h1>
-    <p class="subtitle">WELCOME</p>
-    <p class="animated-name">CAMILA SOLANO</p>
-    <p style="font-size: 12px;">@xcaaaam in IG</p>
-    <div class="options">
-      <button onclick="transition(goToMenu)">CONTINUE</button>
-      <button onclick="transition(() => window.open('https://github.com/tu-usuario', '_blank'))">NEW GAME</button>
-      <button onclick="transition(goToSettings)">SETTINGS</button>
-      <button onclick="transition(() => window.close())">QUIT</button>
+    <div class="game-container">
+        <h1>BIENVENIDOS</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="continueGame()">CONTINUE</a></li>
+                <li><a href="https://github.com/tu_usuario" target="_blank">NEW GAME</a></li>
+                <li><a href="#" onclick="openSettings()">SETTINGS</a></li>
+                <li><a href="#" onclick="closeWindow()">QUIT</a></li>
+            </ul>
+        </nav>
     </div>
-  </div>
 
-  <div id="main-menu" class="screen">
-    <h2>MENU</h2>
-    <div class="options">
-      <a href="#sobre-mi">ABOUT ME</a>
-      <a href="#proyectos">PROJECTS</a>
-      <a href="#ideas">IDEAS</a>
-      <a href="#blog">BLOG</a>
-      <a href="#contacto">CONTACT</a>
-    </div>
-  </div>
+    <script>
+        function continueGame() {
+            // Redirigir al menú de opciones
+            window.location.href = "menu.html"; // Cambia esto a la URL de tu menú
+        }
 
-  <div id="settings" class="screen">
-    <h2>SETTINGS</h2>
-    <p>🔊 VOLUME: [||||----]</p>
-    <p>🎨 COLOR: GREEN</p>
-    <p>🌐 LANGUAGE: ESPAÑOL</p>
-    <button onclick="backToStart()">BACK</button>
-  </div>
+        function openSettings() {
+            // Redirigir a la página de configuración
+            window.location.href = "settings.html"; // Cambia esto a la URL de tu configuración
+        }
 
-  <section id="sobre-mi" class="screen">
-    <h2>Sobre mí</h2>
-    <p>Aquí incluiré mi resumen profesional, trayectoria y experiencia. (CV)</p>
-  </section>
-
-  <section id="proyectos" class="screen">
-    <h2>Proyectos</h2>
-    <ul>
-      <li><strong>The Agave</strong>: Marca de licor de agave con dos presentaciones.</li>
-      <li><strong>Top of Talent</strong>: Proyecto en desarrollo enfocado en talento humano.</li>
-      <li><strong>Producción musical</strong>: Creaciones propias, colaboraciones y lanzamientos.</li>
-    </ul>
-  </section>
-
-  <section id="ideas" class="screen">
-    <h2>Ideas</h2>
-    <p>Espacio para compartir ideas que me gustaría desarrollar. (Aquí irán descripciones específicas)</p>
-  </section>
-
-  <section id="blog" class="screen">
-    <h2>Blog</h2>
-    <p>Mis reflexiones y pensamientos sobre la vida. Enlace a Medium: <a href="#" target="_blank">Ver en Medium</a></p>
-  </section>
-
-  <section id="contacto" class="screen">
-    <h2>Contacto</h2>
-    <p>Redes sociales: IG @xcaaaam, correo, ciudad.</p>
-  </section>
-
-  <script>
-    function transition(callback) {
-      const startScreen = document.getElementById('start-screen');
-      startScreen.classList.add('fade-out');
-      setTimeout(callback, 1000);
-    }
-
-    function goToMenu() {
-      document.getElementById('start-screen').classList.remove('active');
-      document.getElementById('main-menu').classList.add('active');
-    }
-
-    function goToSettings() {
-      document.getElementById('start-screen').classList.remove('active');
-      document.getElementById('settings').classList.add('active');
-    }
-
-    function backToStart() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('start-screen').classList.add('active');
-    }
-  </script>
-
+        function closeWindow() {
+            window.close();
+        }
+    </script>
 </body>
 </html>
+
+
