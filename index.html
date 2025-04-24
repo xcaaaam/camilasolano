@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Camila Solano Córdova</title>
+  <title>Camila Solano</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     body {
@@ -26,7 +26,7 @@
       display: flex;
     }
     h1 {
-      font-size: 64px;
+      font-size: 80px;
       animation: colorCycle 2s infinite;
     }
     .subtitle {
@@ -41,6 +41,13 @@
     .animated-handle {
       font-size: 12px;
       color: white;
+    }
+    .animated-handle a {
+      color: white;
+      text-decoration: none;
+    }
+    .animated-handle a::before {
+      content: "🌐 ";
     }
     h2, p, a, button {
       margin: 15px;
@@ -89,8 +96,8 @@
   <div id="start-screen" class="screen active">
     <h1>BIENVENIDOS</h1>
     <p class="subtitle">WELCOME</p>
-    <p class="animated-name">CAMILA SOLANO CÓRDOVA</p>
-    <p class="animated-handle">@xcaaaam</p>
+    <p class="animated-name">CAMILA SOLANO</p>
+    <p class="animated-handle"><a href="https://www.instagram.com/xcaaaam/" target="_blank">@xcaaaam in IG</a></p>
     <div class="options">
       <button onclick="transition(goToMenu)">CONTINUE</button>
       <button onclick="transition(goToProjectsIdeas)">NEW GAME</button>
@@ -164,13 +171,19 @@
 
   <section id="blog" class="screen">
     <h2>Blog</h2>
-    <p>Mis reflexiones y pensamientos sobre la vida. Enlace a Medium: <a href="#" target="_blank">Ver en Medium</a></p>
+    <p>HERE IS MY PAGE ON MEDIUM, IN CASE YOU WANT TO READ SOME OF MY THOUGHTS AND MOTIVATIONS.</p>
+    <a href="https://medium.com/@xcaaaam" target="_blank">Ver en Medium</a>
     <button onclick="backToStart()">BACK</button>
   </section>
 
   <section id="contacto" class="screen">
     <h2>Contacto</h2>
-    <p>Redes sociales: IG @xcaaaam, correo, ciudad.</p>
+    <p>IN CASE YOU WOULD LIKE TO GET IN TOUCH WITH ME:</p>
+    <p>
+      <a href="https://www.instagram.com/xcaaaam/" target="_blank">🌐 IN CASE YOU WANT TO KNOW ABOUT ME</a><br>
+      <a href="https://www.linkedin.com/in/camila-solano-c%C3%B3rdova-5810431a6/" target="_blank">💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE</a><br>
+      <a href="https://vsco.co/xcaaaam" target="_blank">📷 SO YOU CAN JUDGE MY CREATIVITY</a>
+    </p>
     <button onclick="backToStart()">BACK</button>
   </section>
 
@@ -178,7 +191,10 @@
     function transition(callback) {
       const startScreen = document.getElementById('start-screen');
       startScreen.classList.add('fade-out');
-      setTimeout(callback, 1000);
+      setTimeout(() => {
+        startScreen.classList.remove('fade-out');
+        callback();
+      }, 1000);
     }
 
     function goToMenu() {
