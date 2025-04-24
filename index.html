@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Camila Solano Córdova</title>
+  <title>Camila Solano</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     body {
@@ -89,8 +89,8 @@
   <div id="start-screen" class="screen active">
     <h1>BIENVENIDOS</h1>
     <p class="subtitle">WELCOME</p>
-    <p class="animated-name">CAMILA SOLANO CÓRDOVA</p>
-    <p class="animated-handle">@xcaaaam</p>
+    <p class="animated-name">CAMILA SOLANO</p>
+    <p class="animated-handle">@xcaaaam in IG</p>
     <div class="options">
       <button onclick="transition(goToMenu)">CONTINUE</button>
       <button onclick="transition(goToProjectsIdeas)">NEW GAME</button>
@@ -111,7 +111,7 @@
 
   <div id="projects-ideas" class="screen">
     <h2>MY NEW GAME - PROJECTS & IDEAS</h2>
-    <div class="options" style="display: flex; justify-content: space-around; width: 80vw;">
+    <div class="options" style="display: flex; justify-content: space-around; width: 80vw; flex-wrap: wrap;">
       <div>
         <h3>PROJECTS</h3>
         <ul>
@@ -148,7 +148,7 @@
       <select>
         <option>ESPAÑOL</option>
         <option>ENGLISH</option>
-        <option>PORTUGUES</option>
+        <option>PORTUGUESE</option>
         <option>ITALIANO</option>
       </select>
     </p>
@@ -159,16 +159,19 @@
   <section id="sobre-mi" class="screen">
     <h2>Sobre mí</h2>
     <p>Aquí incluiré mi resumen profesional, trayectoria y experiencia. (CV)</p>
+    <button onclick="backToStart()">BACK</button>
   </section>
 
   <section id="blog" class="screen">
     <h2>Blog</h2>
     <p>Mis reflexiones y pensamientos sobre la vida. Enlace a Medium: <a href="#" target="_blank">Ver en Medium</a></p>
+    <button onclick="backToStart()">BACK</button>
   </section>
 
   <section id="contacto" class="screen">
     <h2>Contacto</h2>
     <p>Redes sociales: IG @xcaaaam, correo, ciudad.</p>
+    <button onclick="backToStart()">BACK</button>
   </section>
 
   <script>
@@ -201,4 +204,3 @@
 
 </body>
 </html>
-
