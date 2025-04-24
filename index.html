@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Camila Solano Córdova</title>
+  <title>Camila Solano</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     body {
@@ -77,7 +77,7 @@
     <h1>BIENVENIDOS</h1>
     <p class="subtitle">WELCOME</p>
     <p class="animated-name">CAMILA SOLANO</p>
-    <p style="font-size: 11px;">@xcaaaam</p>
+    <p style="font-size: 12px;">@xcaaaam in IG</p>
     <div class="options">
       <button onclick="transition(goToMenu)">CONTINUE</button>
       <button onclick="transition(() => window.open('https://github.com/tu-usuario', '_blank'))">NEW GAME</button>
@@ -99,9 +99,16 @@
 
   <div id="settings" class="screen">
     <h2>SETTINGS</h2>
-    <p>🔊 VOLUME: [||||----]</p>
-    <p>🎨 COLOR: GREEN</p>
-    <p>🌐 LANGUAGE: ESPAÑOL</p>
+    <p>🔊 VOLUME: <input type="range" min="0" max="100" value="50" /></p>
+    <p>🎨 COLOR: <select>
+      <option value="green">GREEN</option>
+      <option value="red">RED</option>
+      <option value="blue">BLUE</option>
+    </select></p>
+    <p>🌐 LANGUAGE: <select>
+      <option value="es">ESPAÑOL</option>
+      <option value="en">ENGLISH</option>
+    </select></p>
     <button onclick="backToStart()">BACK</button>
   </div>
 
@@ -111,53 +118,4 @@
   </section>
 
   <section id="proyectos" class="screen">
-    <h2>Proyectos</h2>
-    <ul>
-      <li><strong>The Agave</strong>: Marca de licor de agave con dos presentaciones.</li>
-      <li><strong>Top of Talent</strong>: Proyecto en desarrollo enfocado en talento humano.</li>
-      <li><strong>Producción musical</strong>: Creaciones propias, colaboraciones y lanzamientos.</li>
-    </ul>
-  </section>
-
-  <section id="ideas" class="screen">
-    <h2>Ideas</h2>
-    <p>Espacio para compartir ideas que me gustaría desarrollar. (Aquí irán descripciones específicas)</p>
-  </section>
-
-  <section id="blog" class="screen">
-    <h2>Blog</h2>
-    <p>Mis reflexiones y pensamientos sobre la vida. Enlace a Medium: <a href="#" target="_blank">Ver en Medium</a></p>
-  </section>
-
-  <section id="contacto" class="screen">
-    <h2>Contacto</h2>
-    <p>Redes sociales: IG @xcaaaam, correo, ciudad.</p>
-  </section>
-
-  <script>
-    function transition(callback) {
-      const startScreen = document.getElementById('start-screen');
-      startScreen.classList.add('fade-out');
-      setTimeout(callback, 1000);
-    }
-
-    function goToMenu() {
-      document.getElementById('start-screen').classList.remove('active');
-      document.getElementById('main-menu').classList.add('active');
-    }
-
-    function goToSettings() {
-      document.getElementById('start-screen').classList.remove('active');
-      document.getElementById('settings').classList.add('active');
-    }
-
-    function backToStart() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('start-screen').classList.add('active');
-    }
-  </script>
-
-</body>
-</html>
-
-
+    <h2>
