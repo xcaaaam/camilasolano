@@ -26,7 +26,7 @@
       display: flex;
     }
     h1 {
-      font-size: 32px;
+      font-size: 64px;
       animation: colorCycle 2s infinite;
     }
     .subtitle {
@@ -34,11 +34,16 @@
       color: white;
       margin-top: -10px;
     }
+    .animated-name {
+      font-size: 24px;
+      animation: colorCycle 2s infinite;
+    }
+    .animated-handle {
+      font-size: 12px;
+      color: white;
+    }
     h2, p, a, button {
       margin: 15px;
-    }
-    .animated-name {
-      animation: colorCycle 2s infinite;
     }
     a, button {
       background: none;
@@ -69,6 +74,14 @@
       from { opacity: 1; }
       to { opacity: 0; visibility: hidden; }
     }
+    #music-controls {
+      margin-top: 20px;
+    }
+    #music-controls button {
+      color: white;
+      font-size: 12px;
+      margin: 5px;
+    }
   </style>
 </head>
 <body>
@@ -77,10 +90,10 @@
     <h1>BIENVENIDOS</h1>
     <p class="subtitle">WELCOME</p>
     <p class="animated-name">CAMILA SOLANO</p>
-    <p style="font-size: 12px;">@xcaaaam in IG</p>
+    <p class="animated-handle">@xcaaaam in IG</p>
     <div class="options">
       <button onclick="transition(goToMenu)">CONTINUE</button>
-      <button onclick="transition(() => window.open('https://github.com/tu-usuario', '_blank'))">NEW GAME</button>
+      <button onclick="transition(goToProjectsIdeas)">NEW GAME</button>
       <button onclick="transition(goToSettings)">SETTINGS</button>
       <button onclick="transition(() => window.close())">QUIT</button>
     </div>
@@ -90,25 +103,56 @@
     <h2>MENU</h2>
     <div class="options">
       <a href="#sobre-mi">ABOUT ME</a>
-      <a href="#proyectos">PROJECTS</a>
-      <a href="#ideas">IDEAS</a>
       <a href="#blog">BLOG</a>
       <a href="#contacto">CONTACT</a>
+      <button onclick="backToStart()">BACK</button>
     </div>
+  </div>
+
+  <div id="projects-ideas" class="screen">
+    <h2>MY NEW GAME - PROJECTS & IDEAS</h2>
+    <div class="options" style="display: flex; justify-content: space-around; width: 80vw;">
+      <div>
+        <h3>PROJECTS</h3>
+        <ul>
+          <li><strong>The Agave</strong>: Marca de licor de agave con dos presentaciones.</li>
+          <li><strong>Top of Talent</strong>: Proyecto en desarrollo enfocado en talento humano.</li>
+          <li><strong>Producción musical</strong>: Creaciones propias, colaboraciones y lanzamientos.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>IDEAS</h3>
+        <p>Espacio para compartir ideas que me gustaría desarrollar. (Aquí irán descripciones específicas)</p>
+      </div>
+    </div>
+    <button onclick="backToStart()">BACK</button>
   </div>
 
   <div id="settings" class="screen">
     <h2>SETTINGS</h2>
-    <p>🔊 VOLUME: <input type="range" min="0" max="100" value="50" /></p>
-    <p>🎨 COLOR: <select>
-      <option value="green">GREEN</option>
-      <option value="red">RED</option>
-      <option value="blue">BLUE</option>
-    </select></p>
-    <p>🌐 LANGUAGE: <select>
-      <option value="es">ESPAÑOL</option>
-      <option value="en">ENGLISH</option>
-    </select></p>
+    <audio id="bg-music" src="https://cdn.pixabay.com/audio/2023/03/27/audio_2cc8ac44d6.mp3" preload="auto"></audio>
+    <div id="music-controls">
+      <button onclick="document.getElementById('bg-music').play()">▶️ PLAY</button>
+      <button onclick="document.getElementById('bg-music').pause()">⏸️ PAUSE</button>
+    </div>
+    <p>
+      🔊 VOLUME:
+      <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="document.getElementById('bg-music').volume = this.value">
+    </p>
+    <p>
+      🎨 COLOR:
+      <input type="color" onchange="document.body.style.backgroundColor = this.value">
+    </p>
+    <p>
+      🌐 LANGUAGE:
+      <select>
+        <option>ESPAÑOL</option>
+        <option>ENGLISH</option>
+        <option>PORTUGUESE</option>
+        <option>ITALIANO</option>
+      </select>
+    </p>
+    <p>📍 LOCATION: MILAN, ITALY</p>
     <button onclick="backToStart()">BACK</button>
   </div>
 
@@ -117,5 +161,44 @@
     <p>Aquí incluiré mi resumen profesional, trayectoria y experiencia. (CV)</p>
   </section>
 
-  <section id="proyectos" class="screen">
-    <h2>
+  <section id="blog" class="screen">
+    <h2>Blog</h2>
+    <p>Mis reflexiones y pensamientos sobre la vida. Enlace a Medium: <a href="#" target="_blank">Ver en Medium</a></p>
+  </section>
+
+  <section id="contacto" class="screen">
+    <h2>Contacto</h2>
+    <p>Redes sociales: IG @xcaaaam, correo, ciudad.</p>
+  </section>
+
+  <script>
+    function transition(callback) {
+      const startScreen = document.getElementById('start-screen');
+      startScreen.classList.add('fade-out');
+      setTimeout(callback, 1000);
+    }
+
+    function goToMenu() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('main-menu').classList.add('active');
+    }
+
+    function goToProjectsIdeas() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('projects-ideas').classList.add('active');
+    }
+
+    function goToSettings() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('settings').classList.add('active');
+    }
+
+    function backToStart() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('start-screen').classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
+
