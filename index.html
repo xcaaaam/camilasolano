@@ -309,7 +309,52 @@
 </head>
 <body>
 
-  <!-- Resto del HTML permanece igual hasta la sección de settings -->
+  <div id="start-screen" class="screen active" role="main" aria-label="Pantalla de inicio">
+    <h1 class="typewriter">BIENVENIDOS</h1>
+    <p class="subtitle">WELCOME</p>
+    <p class="animated-name">CAMILA SOLANO CÓRDOVA</p>
+    <p class="animated-handle"><a href="https://www.instagram.com/xcaaaam/" target="_blank" aria-label="Instagram de Camila">@xcaaaam</a></p>
+    <div class="options">
+      <button onclick="transition(goToMenu)" aria-label="Continuar al menú">CONTINUE</button>
+      <button onclick="transition(goToProjectsIdeas)" aria-label="Ver proyectos e ideas">NEW GAME</button>
+      <button onclick="transition(goToSettings)" aria-label="Ajustes">SETTINGS</button>
+      <button onclick="confirmExit()" aria-label="Salir">QUIT</button>
+    </div>
+  </div>
+
+  <div id="main-menu" class="screen" role="navigation" aria-label="Menú principal">
+    <h2>MENU</h2>
+    <div class="options">
+      <button onclick="transition(goToAboutMe)" aria-label="Sobre mí">ABOUT ME</button>
+      <button onclick="transition(goToBlog)" aria-label="Blog">BLOG</button>
+      <button onclick="transition(goToContact)" aria-label="Contacto">CONTACT</button>
+      <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+    </div>
+  </div>
+
+  <div id="projects-ideas" class="screen" role="region" aria-label="Proyectos e ideas">
+    <h2>MY NEW GAME - PROJECTS & IDEAS</h2>
+    <div class="projects-container">
+      <div class="projects-column">
+        <h3>PROJECTS</h3>
+        <ul>
+          <li><strong>The Agave</strong>: Marca de licor de agave con dos presentaciones.</li>
+          <li><strong>Top of Talent</strong>: Proyecto en desarrollo enfocado en talento humano.</li>
+          <li><strong>Producción musical</strong>: Creaciones propias, colaboraciones y lanzamientos.</li>
+          <li><strong>Portfolio Digital</strong>: Sitio creado con GitHub Pages para compartir mi trabajo.</li>
+        </ul>
+      </div>
+      <div class="projects-column">
+        <h3>IDEAS</h3>
+        <ul>
+          <li><strong>Diseño y gestión de marca</strong>: Conceptualización de marcas con propósito.</li>
+          <li><strong>Proyectos sociales con música</strong>: Iniciativas de impacto con identidad sonora.</li>
+          <li><strong>Negocios internacionales sostenibles</strong>: Comercio exterior con enfoque ético.</li>
+        </ul>
+      </div>
+    </div>
+    <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+  </div>
 
   <div id="settings" class="screen" role="region" aria-label="Ajustes">
     <h2>SETTINGS</h2>
@@ -358,10 +403,74 @@
     <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
   </div>
 
-  <!-- Resto del HTML permanece igual -->
+  <section id="sobre-mi" class="screen" role="region" aria-label="Sobre mí">
+    <h2>ABOUT ME</h2>
+    <h3>PROFILE</h3>
+    <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
+
+    <h3>WORK EXPERIENCE</h3>
+    <p><strong>Mar 2023 – Aug 2024</strong> | Cuenca, Ecuador | SiatiGroup – Commercial Support</p>
+    <ul>
+      <li>Quotations, negotiation with agents all over the world.</li>
+      <li>Customer service and cargo tracking.</li>
+      <li>Imports and exports worldwide.</li>
+      <li>Administration and handling of certain office tasks.</li>
+      <li>Knowledge in documentation for trade and customs processes.</li>
+      <li>Maintain a portfolio of import customers nationwide.</li>
+    </ul>
+    <p><strong>Jul 2021 – Aug 2021</strong> | Cuenca, Ecuador | TRAMSUR Customs Agency – Intern</p>
+    <ul>
+      <li>Use the ECUAPASS system.</li>
+      <li>Perform customs declarations, pre-settlements and documentation processes.</li>
+    </ul>
+    <p><strong>Jan 2021 – May 2021</strong> | Cuenca, Ecuador | Turi y Chiquintad GADs – Intern</p>
+    <ul>
+      <li>Develop projects for international cooperation and environmental management.</li>
+      <li>Apply for international cooperation for COVID-19 education support project.</li>
+    </ul>
+    <p><strong>Jun 2020 – Dec 2020</strong> | Cuenca, Ecuador | Chordeleg GAD – Intern</p>
+    <ul>
+      <li>Teach English classes to people in the Chordeleg Canton.</li>
+    </ul>
+
+    <h3>EDUCATION</h3>
+    <ul>
+      <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
+      <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
+      <li><strong>2005 – 2018</strong> | Unidad Educativa Salesiana María Auxilidora, Ecuador – Bachelor of Science</li>
+    </ul>
+
+    <h3>INTERESTS</h3>
+    <ul>
+      <li>Crypto, Web 3 technologies and investment</li>
+      <li>International business, foreign trade and finance</li>
+      <li>Technology in business: finance, sustainability, AI</li>
+      <li>Music, entertainment and design</li>
+    </ul>
+
+    <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+  </section>
+
+  <section id="blog" class="screen" role="region" aria-label="Blog">
+    <h2>Blog</h2>
+    <p>HERE IS MY PAGE ON MEDIUM, IN CASE YOU WANT TO READ SOME OF MY THOUGHTS AND MOTIVATIONS.</p>
+    <a href="https://medium.com/@xcaaaam" target="_blank" aria-label="Medium de Camila">Ver en Medium</a>
+    <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+  </section>
+
+  <section id="contacto" class="screen" role="region" aria-label="Contacto">
+    <h2>Contacto</h2>
+    <p>IN CASE YOU WOULD LIKE TO GET IN TOUCH WITH ME:</p>
+    <div class="options">
+      <a href="https://www.instagram.com/xcaaaam/" target="_blank" aria-label="Instagram de Camila">📲 IN CASE YOU WANT TO KNOW ABOUT ME</a>
+      <a href="https://www.linkedin.com/in/camila-solano-c%C3%B3rdova-5810431a6/" target="_blank" aria-label="LinkedIn de Camila">💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE</a>
+      <a href="https://vsco.co/xcaaaam" target="_blank" aria-label="VSCO de Camila">📷 SO YOU CAN JUDGE MY CREATIVITY</a>
+      <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+    </div>
+  </section>
 
   <script>
-    // Variables globales
+    // Variables globales - VERSIÓN FINAL FUNCIONAL
     const musicPlayer = {
       audio: new Audio(),
       currentTrackIndex: 0,
@@ -370,18 +479,35 @@
       isRepeat: false,
       playlist: [
         {
-          title: "FREE GAME",
-          url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
-          duration: "4:29"
+          title: "Arcade Game Theme",
+          url: "https://assets.mixkit.co/music/preview/mixkit-game-show-suspense-waiting-668.mp3",
+          duration: "0:15"
         },
-
+        {
+          title: "Retro Game Sound",
+          url: "https://assets.mixkit.co/music/preview/mixkit-arcade-game-explosion-1699.mp3",
+          duration: "0:08"
+        },
+        {
+          title: "8-bit Adventure",
+          url: "https://assets.mixkit.co/music/preview/mixkit-arcade-mechanical-bling-210.mp3",
+          duration: "0:10"
+        }
       ],
+      
       init: function() {
-        this.audio.volume = 0.5;
+        // Esperar interacción del usuario para inicializar el audio
+        document.addEventListener('click', this.initializeAudio.bind(this), { once: true });
         this.renderPlaylist();
+      },
+      
+      initializeAudio: function() {
+        console.log("Inicializando audio...");
+        this.audio.volume = 0.5;
         this.setupEventListeners();
         this.loadTrack(this.currentTrackIndex);
       },
+      
       renderPlaylist: function() {
         const playlistElement = document.getElementById('playlist');
         playlistElement.innerHTML = '';
@@ -397,33 +523,44 @@
           playlistElement.appendChild(li);
         });
       },
+      
       setupEventListeners: function() {
         this.audio.addEventListener('timeupdate', this.updateProgressBar.bind(this));
         this.audio.addEventListener('ended', this.handleTrackEnd.bind(this));
         this.audio.addEventListener('loadedmetadata', this.updateTrackTime.bind(this));
+        this.audio.addEventListener('error', (e) => {
+          console.error('Error de audio:', e);
+        });
         
         document.getElementById('volume-control').addEventListener('input', (e) => {
           this.audio.volume = e.target.value;
         });
       },
+      
       loadTrack: function(index) {
         this.currentTrackIndex = index;
         this.audio.src = this.playlist[index].url;
         this.updatePlaylistUI();
       },
+      
       play: function() {
         this.audio.play()
           .then(() => {
             this.isPlaying = true;
             document.getElementById('play-btn').textContent = '⏸️';
           })
-          .catch(e => console.error('Error al reproducir:', e));
+          .catch(e => {
+            console.error('Error al reproducir:', e);
+            alert('Por favor haz clic primero en cualquier parte de la página para activar el audio');
+          });
       },
+      
       pause: function() {
         this.audio.pause();
         this.isPlaying = false;
         document.getElementById('play-btn').textContent = '▶️';
       },
+      
       togglePlay: function() {
         if (this.isPlaying) {
           this.pause();
@@ -431,6 +568,7 @@
           this.play();
         }
       },
+      
       playNext: function() {
         if (this.isShuffle) {
           this.currentTrackIndex = Math.floor(Math.random() * this.playlist.length);
@@ -440,6 +578,7 @@
         this.loadTrack(this.currentTrackIndex);
         this.play();
       },
+      
       playPrevious: function() {
         if (this.audio.currentTime > 3) {
           this.audio.currentTime = 0;
@@ -449,6 +588,7 @@
           this.play();
         }
       },
+      
       handleTrackEnd: function() {
         if (this.isRepeat) {
           this.audio.currentTime = 0;
@@ -457,34 +597,38 @@
           this.playNext();
         }
       },
+      
       toggleShuffle: function() {
         this.isShuffle = !this.isShuffle;
         const btn = document.getElementById('shuffle-btn');
         btn.style.color = this.isShuffle ? 'var(--neon-yellow)' : '';
         btn.style.textShadow = this.isShuffle ? 'var(--neon-glow)' : '';
       },
+      
       toggleRepeat: function() {
         this.isRepeat = !this.isRepeat;
         const btn = document.getElementById('repeat-btn');
         btn.style.color = this.isRepeat ? 'var(--neon-yellow)' : '';
         btn.style.textShadow = this.isRepeat ? 'var(--neon-glow)' : '';
       },
+      
       updateProgressBar: function() {
         const progressPercent = (this.audio.currentTime / this.audio.duration) * 100;
         document.getElementById('progress-bar').style.width = `${progressPercent}%`;
-        
-        // Actualizar tiempo actual
         document.getElementById('current-time').textContent = this.formatTime(this.audio.currentTime);
       },
+      
       updateTrackTime: function() {
         document.getElementById('total-time').textContent = this.formatTime(this.audio.duration);
       },
+      
       formatTime: function(seconds) {
         if (isNaN(seconds)) return "0:00";
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
         return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
       },
+      
       updatePlaylistUI: function() {
         const items = document.querySelectorAll('#playlist li');
         items.forEach((item, index) => {
@@ -500,16 +644,13 @@
         menu: "MENU",
         about: "SOBRE MÍ",
         contact: "CONTACTO",
-        // ... añadir más traducciones
       },
       en: {
         welcome: "WELCOME",
         menu: "MENU",
         about: "ABOUT ME",
         contact: "CONTACT",
-        // ... añadir más traducciones
-      },
-      // ... añadir más idiomas
+      }
     };
 
     function changeLanguage(lang) {
@@ -525,10 +666,8 @@
 
     // Inicialización
     document.addEventListener('DOMContentLoaded', function() {
-      // Iniciar reproductor
       musicPlayer.init();
       
-      // Configurar eventos
       document.getElementById('bg-color-picker').addEventListener('input', function() {
         document.body.style.backgroundColor = this.value;
       });
@@ -537,11 +676,10 @@
         changeLanguage(this.value);
       });
       
-      // Efecto de máquina de escribir
       typeWriterEffect();
     });
 
-    // Funciones de navegación (se mantienen igual)
+    // Funciones de navegación
     function transition(callback) {
       const activeScreen = document.querySelector('.screen.active');
       if (activeScreen) {
@@ -555,7 +693,46 @@
       }
     }
 
-    // ... resto de funciones de navegación se mantienen igual
+    function goToMenu() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('main-menu').classList.add('active');
+    }
+
+    function goToProjectsIdeas() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('projects-ideas').classList.add('active');
+    }
+
+    function goToSettings() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('settings').classList.add('active');
+    }
+
+    function goToAboutMe() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('sobre-mi').classList.add('active');
+    }
+
+    function goToBlog() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('blog').classList.add('active');
+    }
+
+    function goToContact() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('contacto').classList.add('active');
+    }
+
+    function backToStart() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('start-screen').classList.add('active');
+    }
+
+    function confirmExit() {
+      if (confirm('¿Estás seguro de que quieres salir?')) {
+        window.close();
+      }
+    }
 
     // Funciones del reproductor para los botones
     function togglePlay() {
