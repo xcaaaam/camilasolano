@@ -49,20 +49,20 @@
     
     h1 {
       font-size: clamp(2rem, 10vw, 80px);
-      animation: colorCycle 2s infinite;
       margin-bottom: 20px;
-      text-shadow: var(--neon-glow);
+      color: var(--white);
     }
     
     h2 {
       font-size: clamp(1.5rem, 5vw, 2.5rem);
       margin-bottom: 30px;
-      text-shadow: 0 0 5px var(--neon-yellow);
+      color: var(--primary-color);
     }
     
     h3 {
       font-size: clamp(1rem, 3vw, 1.5rem);
       margin: 20px 0;
+      color: var(--primary-color);
     }
     
     .subtitle {
@@ -74,9 +74,8 @@
     
     .animated-name {
       font-size: 24px;
-      animation: colorCycle 2s infinite;
       margin: 20px 0;
-      text-shadow: var(--neon-glow);
+      color: var(--white);
     }
     
     .animated-handle {
@@ -97,6 +96,7 @@
     p, a, button, ul, li {
       margin: 15px;
       font-size: clamp(0.6rem, 2vw, 0.9rem);
+      color: var(--white);
     }
     
     a, button {
@@ -109,13 +109,11 @@
       text-decoration: none;
       padding: 10px;
       transition: all 0.3s ease;
-      text-shadow: 0 0 5px var(--neon-yellow);
     }
     
     a:hover, button:hover {
       color: var(--yellow);
       transform: scale(1.05);
-      text-shadow: var(--neon-glow);
     }
     
     .options {
@@ -130,18 +128,14 @@
       text-align: left;
       max-width: 800px;
       margin: 0 auto;
+      padding: 0;
+      list-style-type: none;
     }
     
     li {
       margin-bottom: 10px;
-    }
-    
-    @keyframes colorCycle {
-      0% { color: #ff0000; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
-      25% { color: #ffff00; text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00; }
-      50% { color: #00ff00; text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
-      75% { color: #00ffff; text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-      100% { color: #ff00ff; text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+      color: var(--white);
+      font-size: 12px;
     }
     
     .fade-out {
@@ -185,106 +179,128 @@
       transition: all 0.3s;
     }
     
-    .player-controls button:hover {
-      background-color: #333;
-      transform: scale(1.1);
+    /* Estilos para la sección About Me */
+    .about-section {
+      width: 90%;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
     }
     
-    .player-controls button:active {
-      transform: scale(0.9);
+    .about-category {
+      margin-bottom: 30px;
     }
     
-    .playlist {
-      list-style: none;
-      padding: 0;
-      max-height: 200px;
-      overflow-y: auto;
+    .about-category h3 {
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 5px;
+      margin-bottom: 15px;
     }
     
-    .playlist li {
-      padding: 10px;
-      margin: 5px 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      border-left: 3px solid var(--neon-yellow);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    .playlist li:hover {
-      background-color: rgba(255, 255, 0, 0.1);
-      border-left: 3px solid var(--primary-color);
-    }
-    
-    .playlist li.playing {
-      background-color: rgba(255, 255, 0, 0.2);
-      border-left: 3px solid var(--primary-color);
-      color: var(--primary-color);
-    }
-    
-    .progress-container {
-      width: 100%;
-      height: 10px;
-      background-color: #333;
-      margin: 15px 0;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    
-    .progress-bar {
-      height: 100%;
-      background-color: var(--neon-yellow);
-      width: 0%;
-      transition: width 0.1s;
-    }
-    
-    .time-display {
-      display: flex;
-      justify-content: space-between;
+    .about-category p, .about-category li {
       font-size: 12px;
+      line-height: 1.8;
       color: var(--white);
     }
     
-    .volume-container {
+    /* Estilos para las barras de habilidades */
+    .skills-container {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .skill-category {
+      margin-bottom: 20px;
+    }
+    
+    .skill-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin: 15px 0;
+      margin-bottom: 10px;
     }
     
-    .volume-container input[type="range"] {
-      -webkit-appearance: none;
-      width: 100px;
+    .skill-name {
+      width: 120px;
+      font-size: 10px;
+      color: var(--white);
+      text-align: left;
+    }
+    
+    .skill-bar {
+      flex-grow: 1;
+      height: 16px;
+      background-color: #333;
+      position: relative;
+      border: 2px solid #444;
+    }
+    
+    .skill-level {
+      height: 100%;
+      background-color: var(--primary-color);
+      position: relative;
+      animation: fillBar 1s ease-out forwards;
+    }
+    
+    @keyframes fillBar {
+      from { width: 0; }
+      to { width: var(--skill-level); }
+    }
+    
+    .skill-value {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 8px;
+      color: var(--white);
+    }
+    
+    /* Animaciones de pixel art */
+    .pixel-character {
+      width: 80px;
+      height: 80px;
+      margin: 20px auto;
+      background-color: var(--primary-color);
+      position: relative;
+      animation: bounce 2s infinite;
+      image-rendering: pixelated;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .pixel-character::before,
+    .pixel-character::after {
+      content: '';
+      position: absolute;
+      background-color: #333;
+    }
+    
+    .pixel-character::before {
+      /* Ojos */
+      width: 10px;
+      height: 10px;
+      top: 25px;
+      left: 20px;
+      box-shadow: 30px 0 0 #333;
+    }
+    
+    .pixel-character::after {
+      /* Boca */
+      width: 20px;
       height: 5px;
-      background: #333;
-      outline: none;
+      bottom: 20px;
+      left: 30px;
+      animation: mouth 3s infinite;
     }
     
-    .volume-container input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 15px;
-      height: 15px;
-      background: var(--neon-yellow);
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    
-    /* Efecto de máquina de escribir para el título */
-    .typewriter {
-      overflow: hidden;
-      border-right: 2px solid var(--primary-color);
-      white-space: nowrap;
-      margin: 0 auto;
-      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-    }
-    
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-    
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: var(--primary-color); }
+    @keyframes mouth {
+      0%, 70%, 100% { height: 5px; }
+      80% { height: 10px; }
     }
     
     /* Responsive */
@@ -304,13 +320,17 @@
       .arcade-player {
         width: 90%;
       }
+      
+      .skills-container {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
 
   <div id="start-screen" class="screen active" role="main" aria-label="Pantalla de inicio">
-    <h1 class="typewriter">BIENVENIDOS</h1>
+    <h1>BIENVENIDOS</h1>
     <p class="subtitle">WELCOME</p>
     <p class="animated-name">CAMILA SOLANO CÓRDOVA</p>
     <p class="animated-handle"><a href="https://www.instagram.com/xcaaaam/" target="_blank" aria-label="Instagram de Camila">@xcaaaam</a></p>
@@ -404,51 +424,137 @@
   </div>
 
   <section id="sobre-mi" class="screen" role="region" aria-label="Sobre mí">
-    <h2>ABOUT ME</h2>
-    <h3>PROFILE</h3>
-    <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
-
-    <h3>WORK EXPERIENCE</h3>
-    <p><strong>Mar 2023 – Aug 2024</strong> | Cuenca, Ecuador | SiatiGroup – Commercial Support</p>
-    <ul>
-      <li>Quotations, negotiation with agents all over the world.</li>
-      <li>Customer service and cargo tracking.</li>
-      <li>Imports and exports worldwide.</li>
-      <li>Administration and handling of certain office tasks.</li>
-      <li>Knowledge in documentation for trade and customs processes.</li>
-      <li>Maintain a portfolio of import customers nationwide.</li>
-    </ul>
-    <p><strong>Jul 2021 – Aug 2021</strong> | Cuenca, Ecuador | TRAMSUR Customs Agency – Intern</p>
-    <ul>
-      <li>Use the ECUAPASS system.</li>
-      <li>Perform customs declarations, pre-settlements and documentation processes.</li>
-    </ul>
-    <p><strong>Jan 2021 – May 2021</strong> | Cuenca, Ecuador | Turi y Chiquintad GADs – Intern</p>
-    <ul>
-      <li>Develop projects for international cooperation and environmental management.</li>
-      <li>Apply for international cooperation for COVID-19 education support project.</li>
-    </ul>
-    <p><strong>Jun 2020 – Dec 2020</strong> | Cuenca, Ecuador | Chordeleg GAD – Intern</p>
-    <ul>
-      <li>Teach English classes to people in the Chordeleg Canton.</li>
-    </ul>
-
-    <h3>EDUCATION</h3>
-    <ul>
-      <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
-      <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
-      <li><strong>2005 – 2018</strong> | Unidad Educativa Salesiana María Auxilidora, Ecuador – Bachelor of Science</li>
-    </ul>
-
-    <h3>INTERESTS</h3>
-    <ul>
-      <li>Crypto, Web 3 technologies and investment</li>
-      <li>International business, foreign trade and finance</li>
-      <li>Technology in business: finance, sustainability, AI</li>
-      <li>Music, entertainment and design</li>
-    </ul>
-
-    <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+    <div class="about-section">
+      <h2>ABOUT ME</h2>
+      
+      <div class="about-category">
+        <h3>PROFILE</h3>
+        <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
+      </div>
+      
+      <div class="about-category">
+        <h3>WORK EXPERIENCE</h3>
+        <p><strong>Mar 2023 – Aug 2024</strong> | Cuenca, Ecuador | SiatiGroup – Commercial Support</p>
+        <ul>
+          <li>Quotations, negotiation with agents all over the world.</li>
+          <li>Customer service and cargo tracking.</li>
+          <li>Imports and exports worldwide.</li>
+          <li>Administration and handling of certain office tasks.</li>
+          <li>Knowledge in documentation for trade and customs processes.</li>
+          <li>Maintain a portfolio of import customers nationwide.</li>
+        </ul>
+        <p><strong>Jul 2021 – Aug 2021</strong> | Cuenca, Ecuador | TRAMSUR Customs Agency – Intern</p>
+        <ul>
+          <li>Use the ECUAPASS system.</li>
+          <li>Perform customs declarations, pre-settlements and documentation processes.</li>
+        </ul>
+        <p><strong>Jan 2021 – May 2021</strong> | Cuenca, Ecuador | Turi y Chiquintad GADs – Intern</p>
+        <ul>
+          <li>Develop projects for international cooperation and environmental management.</li>
+          <li>Apply for international cooperation for COVID-19 education support project.</li>
+        </ul>
+        <p><strong>Jun 2020 – Dec 2020</strong> | Cuenca, Ecuador | Chordeleg GAD – Intern</p>
+        <ul>
+          <li>Teach English classes to people in the Chordeleg Canton.</li>
+        </ul>
+      </div>
+      
+      <div class="about-category">
+        <h3>EDUCATION</h3>
+        <ul>
+          <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
+          <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
+          <li><strong>2005 – 2018</strong> | Unidad Educativa Salesiana María Auxilidora, Ecuador – Bachelor of Science</li>
+        </ul>
+      </div>
+      
+      <div class="about-category">
+        <h3>INTERESTS</h3>
+        <ul>
+          <li>Crypto, Web 3 technologies and investment</li>
+          <li>International business, foreign trade and finance</li>
+          <li>Technology in business: finance, sustainability, AI</li>
+          <li>Music, entertainment and design</li>
+        </ul>
+      </div>
+      
+      <div class="skills-container">
+        <div class="skill-category">
+          <h3>TECHNICAL SKILLS</h3>
+          <div class="skill-item">
+            <span class="skill-name">Lightroom</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 80%"></div>
+              <span class="skill-value">4/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Sony Vegas Pro</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 60%"></div>
+              <span class="skill-value">3/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Photoshop</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 40%"></div>
+              <span class="skill-value">2/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Microsoft Office</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 60%"></div>
+              <span class="skill-value">3/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Python</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 40%"></div>
+              <span class="skill-value">2/5</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>LANGUAGES</h3>
+          <div class="skill-item">
+            <span class="skill-name">Spanish</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 100%"></div>
+              <span class="skill-value">5/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">English</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 80%"></div>
+              <span class="skill-value">4/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Portuguese</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 60%"></div>
+              <span class="skill-value">3/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Italian</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 40%"></div>
+              <span class="skill-value">2/5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pixel-character"></div>
+      
+      <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+    </div>
   </section>
 
   <section id="blog" class="screen" role="region" aria-label="Blog">
@@ -675,8 +781,6 @@
       document.getElementById('language-selector').addEventListener('change', function() {
         changeLanguage(this.value);
       });
-      
-      typeWriterEffect();
     });
 
     // Funciones de navegación
@@ -753,15 +857,6 @@
     
     function toggleRepeat() {
       musicPlayer.toggleRepeat();
-    }
-    
-    function typeWriterEffect() {
-      const h1Elements = document.querySelectorAll('h1');
-      h1Elements.forEach(h1 => {
-        if (!h1.classList.contains('typewriter')) {
-          h1.classList.add('typewriter');
-        }
-      });
     }
   </script>
 </body>
