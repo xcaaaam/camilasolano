@@ -25,13 +25,25 @@
     .active {
       display: flex;
     }
-    h1, h2, p, a, button {
+    h1 {
+      font-size: 32px;
+      animation: colorCycle 2s infinite;
+    }
+    .subtitle {
+      font-size: 12px;
+      color: white;
+      margin-top: -10px;
+    }
+    h2, p, a, button {
       margin: 15px;
+    }
+    .animated-name {
+      animation: colorCycle 2s infinite;
     }
     a, button {
       background: none;
       border: none;
-      color: #00ff00;
+      color: #ccff00;
       font-family: 'Press Start 2P', cursive;
       font-size: 14px;
       cursor: pointer;
@@ -41,20 +53,36 @@
       color: yellow;
     }
     .options { display: flex; flex-direction: column; }
+
+    @keyframes colorCycle {
+      0% { color: #ff0000; }
+      25% { color: #ffff00; }
+      50% { color: #00ff00; }
+      75% { color: #00ffff; }
+      100% { color: #ff00ff; }
+    }
+
+    .fade-out {
+      animation: fadeOut 1s forwards;
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; visibility: hidden; }
+    }
   </style>
 </head>
 <body>
 
   <div id="start-screen" class="screen active">
     <h1>BIENVENIDOS</h1>
-    <p>ABOUT</p>
-    <p>CAMILA SOLANO</p>
-    <p>@xcaaaam in IG</p>
+    <p class="subtitle">WELCOME</p>
+    <p class="animated-name">CAMILA SOLANO</p>
+    <p style="font-size: 12px;">@xcaaaam in IG</p>
     <div class="options">
-      <button onclick="goToMenu()">CONTINUE</button>
-      <button onclick="window.open('https://github.com/tu-usuario', '_blank')">NEW GAME</button>
-      <button onclick="goToSettings()">SETTINGS</button>
-      <button onclick="window.close()">QUIT</button>
+      <button onclick="transition(goToMenu)">CONTINUE</button>
+      <button onclick="transition(() => window.open('https://github.com/tu-usuario', '_blank'))">NEW GAME</button>
+      <button onclick="transition(goToSettings)">SETTINGS</button>
+      <button onclick="transition(() => window.close())">QUIT</button>
     </div>
   </div>
 
@@ -107,14 +135,22 @@
   </section>
 
   <script>
+    function transition(callback) {
+      const startScreen = document.getElementById('start-screen');
+      startScreen.classList.add('fade-out');
+      setTimeout(callback, 1000);
+    }
+
     function goToMenu() {
       document.getElementById('start-screen').classList.remove('active');
       document.getElementById('main-menu').classList.add('active');
     }
+
     function goToSettings() {
       document.getElementById('start-screen').classList.remove('active');
       document.getElementById('settings').classList.add('active');
     }
+
     function backToStart() {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('start-screen').classList.add('active');
@@ -123,4 +159,3 @@
 
 </body>
 </html>
-
