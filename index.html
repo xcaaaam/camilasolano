@@ -90,8 +90,48 @@
       font-size: 12px;
       margin: 5px;
     }
-  </style>
+  <style>
+  .about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+.about-box {
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 20px #fff;
+  background-color: #111;
+}
+
+.neon-pink {
+  border: 2px solid #ff00ff;
+  box-shadow: 0 0 15px #ff00ff;
+}
+
+.neon-blue {
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 15px #00ffff;
+}
+
+.neon-green {
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 15px #00ff00;
+}
+
+.neon-yellow {
+  border: 2px solid #ffff00;
+  box-shadow: 0 0 15px #ffff00;
+}
+
 </head>
+  
+  
 <body>
 
   <div id="start-screen" class="screen active">
@@ -170,52 +210,95 @@
   </div>
 
   <section id="sobre-mi" class="screen">
-    <h2>ABOUT ME</h2>
-    <h3>PROFILE</h3>
-    <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
+  <h2>ABOUT ME</h2>
+  <div class="about-grid">
+    <div class="about-box neon-pink">
+      <h3>PROFILE</h3>
+      <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
+    </div>
+    <div class="about-box neon-blue">
+      <h3>WORK EXPERIENCE</h3>
+      <ul>
+        <li><strong>Mar 2023 – Aug 2024</strong> | SiatiGroup – Commercial Support (Cuenca, Ecuador)
+          <ul>
+            <li>Quotations, negotiation with agents all over the world.</li>
+            <li>Customer service and cargo tracking.</li>
+            <li>Imports and exports worldwide.</li>
+            <li>Administration and handling of certain office tasks.</li>
+            <li>Knowledge in documentation for trade and customs processes.</li>
+            <li>Maintain a portfolio of import customers nationwide.</li>
+          </ul>
+        </li>
+        <li><strong>Jul – Aug 2021</strong> | TRAMSUR Customs Agency – Intern
+          <ul>
+            <li>Use the ECUAPASS system.</li>
+            <li>Perform customs declarations, pre-settlements and documentation processes.</li>
+          </ul>
+        </li>
+        <li><strong>Jan – May 2021</strong> | Turi y Chiquintad GADs – Intern
+          <ul>
+            <li>Develop cooperation projects and apply for COVID-19 educational support.</li>
+          </ul>
+        </li>
+        <li><strong>Jun – Dec 2020</strong> | Chordeleg GAD – Intern
+          <ul>
+            <li>Teach English classes to people in the Chordeleg Canton.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="about-box neon-green">
+      <h3>EDUCATION</h3>
+      <ul>
+        <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
+        <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
+        <li><strong>2005 – 2018</strong> | Unidad Educativa Salesiana María Auxilidora, Ecuador – Bachelor of Science</li>
+      </ul>
+    </div>
+    <div class="about-box neon-yellow">
+      <h3>INTERESTS</h3>
+      <ul>
+        <li>Crypto, Web 3 technologies and investment</li>
+        <li>International business, foreign trade and finance</li>
+        <li>Technology in business: finance, sustainability, AI</li>
+        <li>Music, entertainment and design</li>
+      </ul>
+    </div>
+  </div>
 
-    <h3>WORK EXPERIENCE</h3>
-    <p><strong>Mar 2023 – Aug 2024</strong> | Cuenca, Ecuador | SiatiGroup – Commercial Support</p>
-    <ul>
-      <li>Quotations, negotiation with agents all over the world.</li>
-      <li>Customer service and cargo tracking.</li>
-      <li>Imports and exports worldwide.</li>
-      <li>Administration and handling of certain office tasks.</li>
-      <li>Knowledge in documentation for trade and customs processes.</li>
-      <li>Maintain a portfolio of import customers nationwide.</li>
-    </ul>
-    <p><strong>Jul 2021 – Aug 2021</strong> | Cuenca, Ecuador | TRAMSUR Customs Agency – Intern</p>
-    <ul>
-      <li>Use the ECUAPASS system.</li>
-      <li>Perform customs declarations, pre-settlements and documentation processes.</li>
-    </ul>
-    <p><strong>Jan 2021 – May 2021</strong> | Cuenca, Ecuador | Turi y Chiquintad GADs – Intern</p>
-    <ul>
-      <li>Develop projects for international cooperation and environmental management.</li>
-      <li>Apply for international cooperation for COVID-19 education support project.</li>
-    </ul>
-    <p><strong>Jun 2020 – Dec 2020</strong> | Cuenca, Ecuador | Chordeleg GAD – Intern</p>
-    <ul>
-      <li>Teach English classes to people in the Chordeleg Canton.</li>
-    </ul>
+  <div class="skills-section">
+  <h2>SKILLS</h2>
+  <div class="skill-box">
+    <h3>Lightroom</h3>
+    <div class="skill-bar"><div class="skill-fill fill-4"></div></div>
+  </div>
+  <div class="skill-box">
+    <h3>Sony Vegas Pro</h3>
+    <div class="skill-bar"><div class="skill-fill fill-3"></div></div>
+  </div>
+  <div class="skill-box">
+    <h3>Photoshop</h3>
+    <div class="skill-bar"><div class="skill-fill fill-2"></div></div>
+  </div>
+  <div class="skill-box">
+    <h3>Microsoft Office</h3>
+    <div class="skill-bar"><div class="skill-fill fill-3"></div></div>
+  </div>
+  <div class="skill-box">
+    <h3>Python</h3>
+    <div class="skill-bar"><div class="skill-fill fill-2"></div></div>
+  </div>
 
-    <h3>EDUCATION</h3>
-    <ul>
-      <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
-      <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
-      <li><strong>2005 – 2018</strong> | Unidad Educativa Salesiana María Auxilidora, Ecuador – Bachelor of Science</li>
-    </ul>
+  <div class="language-box">
+    <h3>Languages</h3>
+    <p>Spanish – English – Portuguese – Italian</p>
+  </div>
+</div>
 
-    <h3>INTERESTS</h3>
-    <ul>
-      <li>Crypto, Web 3 technologies and investment</li>
-      <li>International business, foreign trade and finance</li>
-      <li>Technology in business: finance, sustainability, AI</li>
-      <li>Music, entertainment and design</li>
-    </ul>
 
-    <button onclick="backToStart()">BACK</button>
-  </section>
+  <button onclick="backToStart()">BACK</button>
+</section>
+
 
   <section id="blog" class="screen">
     <h2>Blog</h2>
