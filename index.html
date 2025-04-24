@@ -1,232 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+  <title>Camila Solano Córdova</title>
   <style>
-    /* General Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     body {
-      font-family: 'Arial', sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #222;
-      color: #fff;
-    }
-
-    section {
-      padding: 40px;
+      font-family: 'Press Start 2P', cursive;
+      background-color: black;
+      color: #00ff00;
       text-align: center;
+      overflow: hidden;
     }
-
-    h2 {
-      font-size: 2em;
-      color: #00ff00;
-      margin-bottom: 20px;
+    .screen {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow-y: auto;
     }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin-bottom: 40px;
+    .active {
+      display: flex;
     }
-
-    .about-box {
-      background-color: #333;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    h1 {
+      font-size: 80px;
+      animation: colorCycle 2s infinite;
     }
-
-    .neon-pink {
-      border: 2px solid #ff007f;
+    .subtitle {
+      font-size: 12px;
+      color: white;
+      margin-top: -10px;
     }
-
-    .neon-blue {
-      border: 2px solid #007bff;
+    .animated-name {
+      font-size: 24px;
+      animation: colorCycle 2s infinite;
     }
-
-    .neon-green {
-      border: 2px solid #00ff00;
+    .animated-handle {
+      font-size: 12px;
+      color: white;
     }
-
-    .neon-yellow {
-      border: 2px solid #ffcc00;
+    .animated-handle a {
+      color: white;
+      text-decoration: none;
     }
-
-    .about-box h3 {
-      font-size: 1.5em;
-      margin-bottom: 15px;
+    .animated-handle a::before {
+      content: "🌐 ";
     }
-
-    .about-box ul {
-      text-align: left;
+    h2, h3, p, a, button, ul, li {
+      margin: 15px;
     }
-
-    .about-box ul li {
-      margin: 5px 0;
-    }
-
-    .skills-section {
-      margin-top: 40px;
-      text-align: left;
-    }
-
-    .skill-box {
-      margin: 20px 0;
-    }
-
-    .skill-bar {
-      width: 100%;
-      background-color: #444;
-      border-radius: 20px;
-      margin: 10px 0;
-    }
-
-    .skill-fill {
-      height: 20px;
-      border-radius: 20px;
-      transition: width 1s ease-in-out;
-    }
-
-    .fill-4 {
-      width: 80%;
-      background-color: #00ff00;
-    }
-
-    .fill-3 {
-      width: 60%;
-      background-color: #ffff00;
-    }
-
-    .fill-2 {
-      width: 40%;
-      background-color: #ff0000;
-    }
-
-    .language-box {
-      margin-top: 30px;
-    }
-
-    .language-box h3 {
-      font-size: 1.5em;
-      color: #ffcc00;
-    }
-
-    .language-box p {
-      font-size: 1.2em;
-    }
-
-    button {
-      background-color: #333;
-      color: #00ff00;
-      border: 2px solid #00ff00;
-      padding: 10px 20px;
-      font-size: 1em;
+    a, button {
+      background: none;
+      border: none;
+      color: #ccff00;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
       cursor: pointer;
-      border-radius: 10px;
-      margin-top: 20px;
-      transition: background-color 0.3s;
+      text-decoration: none;
+    }
+    a:hover, button:hover {
+      color: yellow;
+    }
+    .options { display: flex; flex-direction: column; }
+
+    @keyframes colorCycle {
+      0% { color: #ff0000; }
+      25% { color: #ffff00; }
+      50% { color: #00ff00; }
+      75% { color: #00ffff; }
+      100% { color: #ff00ff; }
     }
 
-    button:hover {
-      background-color: #00ff00;
-      color: #333;
+    .fade-out {
+      animation: fadeOut 1s forwards;
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; visibility: hidden; }
+    }
+    #music-controls {
+      margin-top: 20px;
+    }
+    #music-controls button {
+      color: white;
+      font-size: 12px;
+      margin: 5px;
     }
   </style>
 </head>
 <body>
 
+  <div id="start-screen" class="screen active">
+    <h1>BIENVENIDOS</h1>
+    <p class="subtitle">WELCOME</p>
+    <p class="animated-name">CAMILA SOLANO CÓRDOVA</p>
+    <p class="animated-handle"><a href="https://www.instagram.com/xcaaaam/" target="_blank">@xcaaaam</a></p>
+    <div class="options">
+      <button onclick="transition(goToMenu)">CONTINUE</button>
+      <button onclick="transition(goToProjectsIdeas)">NEW GAME</button>
+      <button onclick="transition(goToSettings)">SETTINGS</button>
+      <button onclick="transition(() => window.close())">QUIT</button>
+    </div>
+  </div>
+
+  <div id="main-menu" class="screen">
+    <h2>MENU</h2>
+    <div class="options">
+      <button onclick="goToAboutMe()">ABOUT ME</button>
+      <a href="#blog">BLOG</a>
+      <a href="#contacto">CONTACT</a>
+      <button onclick="backToStart()">BACK</button>
+    </div>
+  </div>
+
+  <div id="projects-ideas" class="screen">
+    <h2>MY NEW GAME - PROJECTS & IDEAS</h2>
+    <div class="options" style="display: flex; justify-content: space-around; width: 80vw; flex-wrap: wrap;">
+      <div>
+        <h3>PROJECTS</h3>
+        <ul>
+          <li><strong>The Agave</strong>: Marca de licor de agave con dos presentaciones.</li>
+          <li><strong>Top of Talent</strong>: Proyecto en desarrollo enfocado en talento humano.</li>
+          <li><strong>Producción musical</strong>: Creaciones propias, colaboraciones y lanzamientos.</li>
+          <li><strong>Portfolio Digital</strong>: Sitio creado con GitHub Pages para compartir mi trabajo.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>IDEAS</h3>
+        <ul>
+          <li><strong>Diseño y gestión de marca</strong>: Conceptualización de marcas con propósito.</li>
+          <li><strong>Proyectos sociales con música</strong>: Iniciativas de impacto con identidad sonora.</li>
+          <li><strong>Negocios internacionales sostenibles</strong>: Comercio exterior con enfoque ético.</li>
+        </ul>
+      </div>
+    </div>
+    <button onclick="backToStart()">BACK</button>
+  </div>
+
+  <div id="settings" class="screen">
+    <h2>SETTINGS</h2>
+    <audio id="bg-music" src="https://cdn.pixabay.com/audio/2023/03/27/audio_2cc8ac44d6.mp3" preload="auto"></audio>
+    <div id="music-controls">
+      <button onclick="document.getElementById('bg-music').play()">▶️ PLAY</button>
+      <button onclick="document.getElementById('bg-music').pause()">⏸️ PAUSE</button>
+    </div>
+    <p>
+      🔊 VOLUME:
+      <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="document.getElementById('bg-music').volume = this.value">
+    </p>
+    <p>
+      🎨 COLOR:
+      <input type="color" onchange="document.body.style.backgroundColor = this.value">
+    </p>
+    <p>
+      🌐 LANGUAGE:
+      <select>
+        <option>ESPAÑOL</option>
+        <option>ENGLISH</option>
+        <option>PORTUGUESE</option>
+        <option>ITALIANO</option>
+      </select>
+    </p>
+    <p>📍 LOCATION: MILAN, ITALY</p>
+    <button onclick="backToStart()">BACK</button>
+  </div>
+
   <section id="sobre-mi" class="screen">
     <h2>ABOUT ME</h2>
-    <div class="about-grid">
-      <div class="about-box neon-pink">
-        <h3>PROFILE</h3>
-        <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
-      </div>
-      <div class="about-box neon-blue">
-        <h3>WORK EXPERIENCE</h3>
-        <ul>
-          <li><strong>Mar 2023 – Aug 2024</strong> | SiatiGroup – Commercial Support (Cuenca, Ecuador)
-            <ul>
-              <li>Quotations, negotiation with agents all over the world.</li>
-              <li>Customer service and cargo tracking.</li>
-              <li>Imports and exports worldwide.</li>
-              <li>Administration and handling of certain office tasks.</li>
-              <li>Knowledge in documentation for trade and customs processes.</li>
-              <li>Maintain a portfolio of import customers nationwide.</li>
-            </ul>
-          </li>
-          <li><strong>Jul 2021 – Aug 2021</strong> | TRAMSUR Customs Agency – Intern
-            <ul>
-              <li>Use the ECUAPASS system.</li>
-              <li>Perform customs declarations, pre-settlements and documentation processes.</li>
-            </ul>
-          </li>
-          <li><strong>Jan 2021 – May 2021</strong> | Turi y Chiquintad GADs – Intern
-            <ul>
-              <li>Develop projects for international cooperation and environmental management for the Autonomous Decentralized Governments of Turi and Chiquintad.</li>
-              <li>Apply for international cooperation for the project “Support for education in the parish of Turi in times of the Covid-19 pandemic”</li>
-            </ul>
-          </li>
-          <li><strong>Jun 2020 – Dec 2020</strong> | Chordeleg GAD – Intern
-            <ul>
-              <li>Teach English classes to people in the Chordeleg Canton.</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="about-box neon-green">
-        <h3>EDUCATION</h3>
-        <ul>
-          <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
-          <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
-          <li><strong>2005 – 2018</strong> | Unidad Educativa Salesiana María Auxilidora, Ecuador – Bachelor of Science</li>
-        </ul>
-      </div>
-      <div class="about-box neon-yellow">
-        <h3>INTERESTS</h3>
-        <ul>
-          <li>Crypto, Web 3 technologies and investment</li>
-          <li>International business, foreign trade and finance</li>
-          <li>Technology in business: New technologies for businesses related to finance, sustainability and artificial intelligence</li>
-          <li>Music, entertainment and design</li>
-        </ul>
-      </div>
-    </div>
+    <h3>PROFILE</h3>
+    <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
 
-    <h2>SKILLS</h2>
-    <div class="skills-section">
-      <div class="skill-box">
-        <h3>Lightroom</h3>
-        <div class="skill-bar"><div class="skill-fill fill-4"></div></div>
-      </div>
-      <div class="skill-box">
-        <h3>Sony Vegas Pro</h3>
-        <div class="skill-bar"><div class="skill-fill fill-3"></div></div>
-      </div>
-      <div class="skill-box">
-        <h3>Photoshop</h3>
-        <div class="skill-bar"><div class="skill-fill fill-2"></div></div>
-      </div>
-      <div class="skill-box">
-        <h3>Microsoft Office</h3>
-        <div class="skill-bar"><div class="skill-fill fill-3"></div></div>
-      </div>
-      <div class="skill-box">
-        <h3>Python</h3>
-        <div class="skill-bar"><div class="skill-fill fill-2"></div></div>
-      </div>
-    </div>
+    <h3>WORK EXPERIENCE</h3>
+    <p><strong>Mar 2023 – Aug 2024</strong> | Cuenca, Ecuador | SiatiGroup – Commercial Support</p>
+    <ul>
+      <li>Quotations, negotiation with agents all over the world.</li>
+      <li>Customer service and cargo tracking.</li>
+      <li>Imports and exports worldwide.</li>
+      <li>Administration and handling of certain office tasks.</li>
+      <li>Knowledge in documentation for trade and customs processes.</li>
+      <li>Maintain a portfolio of import customers nationwide.</li>
+    </ul>
+    <p><strong>Jul 2021 – Aug 2021</strong> | Cuenca, Ecuador | TRAMSUR Customs Agency – Intern</p>
+    <ul>
+      <li>Use the ECUAPASS system.</li>
+      <li>Perform customs declarations, pre-settlements and documentation processes.</li>
+    </ul>
+    <p><strong>Jan 2021 – May 2021</strong> | Cuenca, Ecuador | Turi y Chiquintad GADs – Intern</p>
+    <ul>
+      <li>Develop projects for international cooperation and environmental management.</li>
+      <li>Apply for international cooperation for COVID-19 education support project.</li>
+    </ul>
+    <p><strong>Jun 2020 – Dec 2020</strong> | Cuenca, Ecuador | Chordeleg GAD – Intern</p>
+    <ul>
+      <li>Teach English classes to people in the Chordeleg Canton.</li>
+    </ul>
 
-    <div class="language-box">
-      <h3>Languages</h3>
-      <p>Spanish – English – Portuguese – Italian</p>
-    </div>
+    <h3>EDUCATION</h3>
+    <ul>
+      <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
+      <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
+      <li><strong>2005 – 2018</strong> | Unidad Educativa Salesiana María Auxilidora, Ecuador – Bachelor of Science</li>
+    </ul>
+
+    <h3>INTERESTS</h3>
+    <ul>
+      <li>Crypto, Web 3 technologies and investment</li>
+      <li>International business, foreign trade and finance</li>
+      <li>Technology in business: finance, sustainability, AI</li>
+      <li>Music, entertainment and design</li>
+    </ul>
 
     <button onclick="backToStart()">BACK</button>
   </section>
+
+  <section id="blog" class="screen">
+    <h2>Blog</h2>
+    <p>HERE IS MY PAGE ON MEDIUM, IN CASE YOU WANT TO READ SOME OF MY THOUGHTS AND MOTIVATIONS.</p>
+    <a href="https://medium.com/@xcaaaam" target="_blank">Ver en Medium</a>
+    <button onclick="backToStart()">BACK</button>
+  </section>
+
+  <section id="contacto" class="screen">
+    <h2>Contacto</h2>
+    <p>IN CASE YOU WOULD LIKE TO GET IN TOUCH WITH ME:</p>
+    <p>
+      <a href="https://www.instagram.com/xcaaaam/" target="_blank">📲 IN CASE YOU WANT TO KNOW ABOUT ME</a><br>
+      <a href="https://www.linkedin.com/in/camila-solano-c%C3%B3rdova-5810431a6/" target="_blank">💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE</a><br>
+      <a href="https://vsco.co/xcaaaam" target="_blank">📷 SO YOU CAN JUDGE MY CREATIVITY</a>
+    </p>
+    <button onclick="backToStart()">BACK</button>
+  </section>
+
+  <script>
+    function transition(callback) {
+      const startScreen = document.getElementById('start-screen');
+      startScreen.classList.add('fade-out');
+      setTimeout(() => {
+        startScreen.classList.remove('fade-out');
+        callback();
+      }, 1000);
+    }
+
+    function goToMenu() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('main-menu').classList.add('active');
+    }
+
+    function goToProjectsIdeas() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('projects-ideas').classList.add('active');
+    }
+
+    function goToSettings() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('settings').classList.add('active');
+    }
+
+    function goToAboutMe() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('sobre-mi').classList.add('active');
+    }
+
+    function backToStart() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('start-screen').classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
