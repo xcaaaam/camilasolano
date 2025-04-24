@@ -21,6 +21,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      overflow-y: auto;
     }
     .active {
       display: flex;
@@ -49,7 +50,7 @@
     .animated-handle a::before {
       content: "🌐 ";
     }
-    h2, p, a, button {
+    h2, h3, p, a, button, ul, li {
       margin: 15px;
     }
     a, button {
@@ -109,7 +110,7 @@
   <div id="main-menu" class="screen">
     <h2>MENU</h2>
     <div class="options">
-      <a href="#sobre-mi">ABOUT ME</a>
+      <button onclick="goToAboutMe()">ABOUT ME</button>
       <a href="#blog">BLOG</a>
       <a href="#contacto">CONTACT</a>
       <button onclick="backToStart()">BACK</button>
@@ -169,8 +170,50 @@
   </div>
 
   <section id="sobre-mi" class="screen">
-    <h2>Sobre mí</h2>
-    <p>Aquí incluiré mi resumen profesional, trayectoria y experiencia. (CV)</p>
+    <h2>ABOUT ME</h2>
+    <h3>PROFILE</h3>
+    <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
+
+    <h3>WORK EXPERIENCE</h3>
+    <p><strong>Mar 2023 – Aug 2024</strong> | Cuenca, Ecuador | SiatiGroup – Commercial Support</p>
+    <ul>
+      <li>Quotations, negotiation with agents all over the world.</li>
+      <li>Customer service and cargo tracking.</li>
+      <li>Imports and exports worldwide.</li>
+      <li>Administration and handling of certain office tasks.</li>
+      <li>Knowledge in documentation for trade and customs processes.</li>
+      <li>Maintain a portfolio of import customers nationwide.</li>
+    </ul>
+    <p><strong>Jul 2021 – Aug 2021</strong> | Cuenca, Ecuador | TRAMSUR Customs Agency – Intern</p>
+    <ul>
+      <li>Use the ECUAPASS system.</li>
+      <li>Perform customs declarations, pre-settlements and documentation processes.</li>
+    </ul>
+    <p><strong>Jan 2021 – May 2021</strong> | Cuenca, Ecuador | Turi y Chiquintad GADs – Intern</p>
+    <ul>
+      <li>Develop projects for international cooperation and environmental management.</li>
+      <li>Apply for international cooperation for COVID-19 education support project.</li>
+    </ul>
+    <p><strong>Jun 2020 – Dec 2020</strong> | Cuenca, Ecuador | Chordeleg GAD – Intern</p>
+    <ul>
+      <li>Teach English classes to people in the Chordeleg Canton.</li>
+    </ul>
+
+    <h3>EDUCATION</h3>
+    <ul>
+      <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
+      <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
+      <li><strong>2005 – 2018</strong> | Unidad Educativa Salesiana María Auxilidora, Ecuador – Bachelor of Science</li>
+    </ul>
+
+    <h3>INTERESTS</h3>
+    <ul>
+      <li>Crypto, Web 3 technologies and investment</li>
+      <li>International business, foreign trade and finance</li>
+      <li>Technology in business: finance, sustainability, AI</li>
+      <li>Music, entertainment and design</li>
+    </ul>
+
     <button onclick="backToStart()">BACK</button>
   </section>
 
@@ -185,7 +228,7 @@
     <h2>Contacto</h2>
     <p>IN CASE YOU WOULD LIKE TO GET IN TOUCH WITH ME:</p>
     <p>
-      <a href="https://www.instagram.com/xcaaaam/" target="_blank">🌐 IN CASE YOU WANT TO KNOW ABOUT ME</a><br>
+      <a href="https://www.instagram.com/xcaaaam/" target="_blank">📲 IN CASE YOU WANT TO KNOW ABOUT ME</a><br>
       <a href="https://www.linkedin.com/in/camila-solano-c%C3%B3rdova-5810431a6/" target="_blank">💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE</a><br>
       <a href="https://vsco.co/xcaaaam" target="_blank">📷 SO YOU CAN JUDGE MY CREATIVITY</a>
     </p>
@@ -215,6 +258,11 @@
     function goToSettings() {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('settings').classList.add('active');
+    }
+
+    function goToAboutMe() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('sobre-mi').classList.add('active');
     }
 
     function backToStart() {
