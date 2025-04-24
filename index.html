@@ -90,48 +90,97 @@
       font-size: 12px;
       margin: 5px;
     }
-  <style>
-  .about-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  justify-items: center;
-}
 
-.about-box {
-  padding: 20px;
-  border-radius: 20px;
-  font-size: 12px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 0 20px #fff;
-  background-color: #111;
-}
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      justify-items: center;
+    }
 
-.neon-pink {
-  border: 2px solid #ff00ff;
-  box-shadow: 0 0 15px #ff00ff;
-}
+    .about-box {
+      padding: 20px;
+      border-radius: 20px;
+      font-size: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 20px #fff;
+      background-color: #111;
+    }
 
-.neon-blue {
-  border: 2px solid #00ffff;
-  box-shadow: 0 0 15px #00ffff;
-}
+    .neon-pink {
+      border: 2px solid #ff00ff;
+      box-shadow: 0 0 15px #ff00ff;
+    }
 
-.neon-green {
-  border: 2px solid #00ff00;
-  box-shadow: 0 0 15px #00ff00;
-}
+    .neon-blue {
+      border: 2px solid #00ffff;
+      box-shadow: 0 0 15px #00ffff;
+    }
 
-.neon-yellow {
-  border: 2px solid #ffff00;
-  box-shadow: 0 0 15px #ffff00;
-}
+    .neon-green {
+      border: 2px solid #00ff00;
+      box-shadow: 0 0 15px #00ff00;
+    }
 
+    .neon-yellow {
+      border: 2px solid #ffff00;
+      box-shadow: 0 0 15px #ffff00;
+    }
+
+    .skills-section {
+      padding: 40px 20px;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .skill-box {
+      margin-bottom: 20px;
+    }
+
+    .skill-bar {
+      background-color: #222;
+      border: 2px solid #00ffff;
+      border-radius: 10px;
+      height: 20px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 0 8px #00ffff;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00ffff, #0077ff);
+      width: 0%;
+      animation: fillBar 2s forwards;
+    }
+
+    .fill-1 { width: 20%; }
+    .fill-2 { width: 40%; }
+    .fill-3 { width: 60%; }
+    .fill-4 { width: 80%; }
+    .fill-5 { width: 100%; }
+
+    @keyframes fillBar {
+      from { width: 0%; }
+      to { width: inherit; }
+    }
+
+    .language-box {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #fff;
+      border: 2px solid #ff00ff;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px #ff00ff;
+    }
+  </style>
 </head>
-  
-  
+
 <body>
 
   <div id="start-screen" class="screen active">
@@ -210,147 +259,89 @@
   </div>
 
   <section id="sobre-mi" class="screen">
-  <h2>ABOUT ME</h2>
-  <div class="about-grid">
-    <div class="about-box neon-pink">
-      <h3>PROFILE</h3>
-      <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
+    <h2>ABOUT ME</h2>
+    <div class="about-grid">
+      <div class="about-box neon-pink">
+        <h3>PROFILE</h3>
+        <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
+      </div>
+      <div class="about-box neon-blue">
+        <h3>WORK EXPERIENCE</h3>
+        <ul>
+          <li><strong>Mar 2023 – Aug 2024</strong> | SiatiGroup – Commercial Support (Cuenca, Ecuador)
+            <ul>
+              <li>Quotations, negotiation with agents all over the world.</li>
+              <li>Customer service and cargo tracking.</li>
+              <li>Imports and exports worldwide.</li>
+              <li>Administration and handling of certain office tasks.</li>
+              <li>Knowledge in documentation for trade and customs processes.</li>
+              <li>Maintain a portfolio of import customers nationwide.</li>
+            </ul>
+          </li>
+          <li><strong>Jul – Aug 2021</strong> | TRAMSUR Customs Agency – Intern
+            <ul>
+              <li>Use the ECUAPASS system.</li>
+              <li>Perform customs declarations, pre-settlements and documentation processes.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="about-box neon-blue">
-      <h3>WORK EXPERIENCE</h3>
-      <ul>
-        <li><strong>Mar 2023 – Aug 2024</strong> | SiatiGroup – Commercial Support (Cuenca, Ecuador)
-          <ul>
-            <li>Quotations, negotiation with agents all over the world.</li>
-            <li>Customer service and cargo tracking.</li>
-            <li>Imports and exports worldwide.</li>
-            <li>Administration and handling of certain office tasks.</li>
-            <li>Knowledge in documentation for trade and customs processes.</li>
-            <li>Maintain a portfolio of import customers nationwide.</li>
-          </ul>
-        </li>
-        <li><strong>Jul – Aug 2021</strong> | TRAMSUR Customs Agency – Intern
-          <ul>
-            <li>Use the ECUAPASS system.</li>
-            <li>Perform customs declarations, pre-settlements and documentation processes.</li>
-          </ul>
-        </li>
-        <li><strong>Jan – May 2021</strong> | Turi y Chiquintad GADs – Intern
-          <ul>
-            <li>Develop cooperation projects and apply for COVID-19 educational support.</li>
-          </ul>
-        </li>
-        <li><strong>Jun – Dec 2020</strong> | Chordeleg GAD – Intern
-          <ul>
-            <li>Teach English classes to people in the Chordeleg Canton.</li>
-          </ul>
-        </li>
-      </ul>
+    <div class="skills-section">
+      <h3>SKILLS</h3>
+      <div class="skill-box">
+        <p>Negotiation</p>
+        <div class="skill-bar">
+          <div class="skill-fill fill-4"></div>
+        </div>
+      </div>
+      <div class="skill-box">
+        <p>English Fluency</p>
+        <div class="skill-bar">
+          <div class="skill-fill fill-5"></div>
+        </div>
+      </div>
+      <div class="skill-box">
+        <p>Leadership</p>
+        <div class="skill-bar">
+          <div class="skill-fill fill-4"></div>
+        </div>
+      </div>
+      <div class="skill-box">
+        <p>Business Strategy</p>
+        <div class="skill-bar">
+          <div class="skill-fill fill-3"></div>
+        </div>
+      </div>
     </div>
-    <div class="about-box neon-green">
-      <h3>EDUCATION</h3>
-      <ul>
-        <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
-        <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
-        <li><strong>2005 – 2018</strong> | Unidad Educativa Salesiana María Auxilidora, Ecuador – Bachelor of Science</li>
-      </ul>
-    </div>
-    <div class="about-box neon-yellow">
-      <h3>INTERESTS</h3>
-      <ul>
-        <li>Crypto, Web 3 technologies and investment</li>
-        <li>International business, foreign trade and finance</li>
-        <li>Technology in business: finance, sustainability, AI</li>
-        <li>Music, entertainment and design</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="skills-section">
-  <h2>SKILLS</h2>
-  <div class="skill-box">
-    <h3>Lightroom</h3>
-    <div class="skill-bar"><div class="skill-fill fill-4"></div></div>
-  </div>
-  <div class="skill-box">
-    <h3>Sony Vegas Pro</h3>
-    <div class="skill-bar"><div class="skill-fill fill-3"></div></div>
-  </div>
-  <div class="skill-box">
-    <h3>Photoshop</h3>
-    <div class="skill-bar"><div class="skill-fill fill-2"></div></div>
-  </div>
-  <div class="skill-box">
-    <h3>Microsoft Office</h3>
-    <div class="skill-bar"><div class="skill-fill fill-3"></div></div>
-  </div>
-  <div class="skill-box">
-    <h3>Python</h3>
-    <div class="skill-bar"><div class="skill-fill fill-2"></div></div>
-  </div>
-
-  <div class="language-box">
-    <h3>Languages</h3>
-    <p>Spanish – English – Portuguese – Italian</p>
-  </div>
-</div>
-
-
-  <button onclick="backToStart()">BACK</button>
-</section>
-
-
-  <section id="blog" class="screen">
-    <h2>Blog</h2>
-    <p>HERE IS MY PAGE ON MEDIUM, IN CASE YOU WANT TO READ SOME OF MY THOUGHTS AND MOTIVATIONS.</p>
-    <a href="https://medium.com/@xcaaaam" target="_blank">Ver en Medium</a>
-    <button onclick="backToStart()">BACK</button>
-  </section>
-
-  <section id="contacto" class="screen">
-    <h2>Contacto</h2>
-    <p>IN CASE YOU WOULD LIKE TO GET IN TOUCH WITH ME:</p>
-    <p>
-      <a href="https://www.instagram.com/xcaaaam/" target="_blank">📲 IN CASE YOU WANT TO KNOW ABOUT ME</a><br>
-      <a href="https://www.linkedin.com/in/camila-solano-c%C3%B3rdova-5810431a6/" target="_blank">💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE</a><br>
-      <a href="https://vsco.co/xcaaaam" target="_blank">📷 SO YOU CAN JUDGE MY CREATIVITY</a>
-    </p>
     <button onclick="backToStart()">BACK</button>
   </section>
 
   <script>
     function transition(callback) {
-      const startScreen = document.getElementById('start-screen');
-      startScreen.classList.add('fade-out');
-      setTimeout(() => {
-        startScreen.classList.remove('fade-out');
-        callback();
-      }, 1000);
+      const activeScreen = document.querySelector('.screen.active');
+      activeScreen.classList.remove('active');
+      callback();
     }
 
     function goToMenu() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('main-menu').classList.add('active');
     }
 
     function goToProjectsIdeas() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('projects-ideas').classList.add('active');
     }
 
     function goToSettings() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('settings').classList.add('active');
     }
 
-    function goToAboutMe() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('sobre-mi').classList.add('active');
+    function backToStart() {
+      document.getElementById('start-screen').classList.add('active');
     }
 
-    function backToStart() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('start-screen').classList.add('active');
+    function goToAboutMe() {
+      document.getElementById('sobre-mi').classList.add('active');
     }
   </script>
 
