@@ -8,7 +8,7 @@
   <!-- Favicon neon amarillo -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFFF00' filter='url(%23neon)'/><filter id='neon'><feGaussianBlur stdDeviation='5' result='blur'/><feComposite in='SourceGraphic' in2='blur' operator='over'/><feDropShadow dx='0' dy='0' stdDeviation='10' flood-color='%23FFFF00' flood-opacity='1'/></filter></svg>">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Arial&display=swap');
     
     :root {
       --primary-color: #00ff00;
@@ -18,7 +18,6 @@
       --white: white;
       --yellow: yellow;
       --neon-yellow: #ffff00;
-      --neon-glow: 0 0 10px var(--neon-yellow), 0 0 20px var(--neon-yellow), 0 0 30px var(--neon-yellow);
     }
     
     body {
@@ -93,12 +92,6 @@
       content: "🌐 ";
     }
     
-    p, a, button, ul, li {
-      margin: 15px;
-      font-size: clamp(0.6rem, 2vw, 0.9rem);
-      color: var(--white);
-    }
-    
     a, button {
       background: none;
       border: none;
@@ -124,62 +117,7 @@
       max-width: 500px;
     }
     
-    ul {
-      text-align: left;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0;
-      list-style-type: none;
-    }
-    
-    li {
-      margin-bottom: 10px;
-      color: var(--white);
-      font-size: 12px;
-    }
-    
-    .fade-out {
-      animation: fadeOut 1s forwards;
-    }
-    
-    @keyframes fadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; visibility: hidden; }
-    }
-    
-    /* Estilos del reproductor arcade */
-    .arcade-player {
-      background-color: rgba(0, 0, 0, 0.7);
-      border: 3px solid var(--neon-yellow);
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 500px;
-      box-shadow: var(--neon-glow);
-    }
-    
-    .player-controls {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: 15px 0;
-      flex-wrap: wrap;
-    }
-    
-    .player-controls button {
-      background-color: #111;
-      border: 2px solid var(--neon-yellow);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 10px var(--neon-yellow);
-      transition: all 0.3s;
-    }
-    
-    /* Estilos para la sección About Me */
+    /* Estilos mejorados para About Me */
     .about-container {
       width: 90%;
       max-width: 800px;
@@ -191,19 +129,63 @@
     }
     
     .about-category {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
     }
     
     .about-category h3 {
       border-bottom: 2px solid var(--primary-color);
-      padding-bottom: 5px;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      font-family: 'Press Start 2P', cursive;
+    }
+    
+    .about-category p {
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--white);
       margin-bottom: 15px;
     }
     
-    .about-category p, .about-category li {
-      font-size: 12px;
+    .about-category ul {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+    
+    .about-category li {
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
       line-height: 1.8;
       color: var(--white);
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 15px;
+    }
+    
+    .about-category li:before {
+      content: "•";
+      color: var(--primary-color);
+      position: absolute;
+      left: 0;
+    }
+    
+    .job-title {
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 5px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+    }
+    
+    .job-date {
+      color: #ccc;
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      margin-bottom: 10px;
     }
     
     /* Estilos para las barras de habilidades */
@@ -226,9 +208,10 @@
     
     .skill-name {
       width: 120px;
-      font-size: 10px;
+      font-size: 12px;
       color: var(--white);
       text-align: left;
+      font-family: 'Arial', sans-serif;
     }
     
     .skill-bar {
@@ -256,8 +239,9 @@
       right: 5px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 8px;
+      font-size: 10px;
       color: var(--white);
+      font-family: 'Arial', sans-serif;
     }
     
     /* Animaciones de pixel art */
@@ -320,12 +304,12 @@
         width: 90%;
       }
       
-      .arcade-player {
-        width: 90%;
-      }
-      
       .skills-container {
         grid-template-columns: 1fr;
+      }
+      
+      .about-category {
+        padding: 15px;
       }
     }
   </style>
@@ -381,34 +365,6 @@
 
   <div id="settings" class="screen" role="region" aria-label="Ajustes">
     <h2>SETTINGS</h2>
-    
-    <!-- Reproductor de música arcade mejorado -->
-    <div class="arcade-player">
-      <h3>ARCADE MUSIC PLAYER</h3>
-      <div class="time-display">
-        <span id="current-time">0:00</span>
-        <span id="total-time">0:00</span>
-      </div>
-      <div class="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
-      </div>
-      <div class="player-controls">
-        <button onclick="playPrevious()" aria-label="Canción anterior">⏮</button>
-        <button onclick="togglePlay()" aria-label="Reproducir/Pausar" id="play-btn">▶️</button>
-        <button onclick="playNext()" aria-label="Siguiente canción">⏭</button>
-        <button onclick="toggleShuffle()" aria-label="Modo aleatorio" id="shuffle-btn">🔀</button>
-        <button onclick="toggleRepeat()" aria-label="Modo repetición" id="repeat-btn">🔁</button>
-      </div>
-      <div class="volume-container">
-        <span>🔊</span>
-        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.5" aria-label="Control de volumen">
-      </div>
-      <h4>PLAYLIST</h4>
-      <ul class="playlist" id="playlist">
-        <!-- Las canciones se añaden dinámicamente con JavaScript -->
-      </ul>
-    </div>
-    
     <p>
       🎨 COLOR:
       <input type="color" id="bg-color-picker" value="#000000" aria-label="Selector de color de fondo">
@@ -437,29 +393,45 @@
       
       <div class="about-category">
         <h3>WORK EXPERIENCE</h3>
-        <p><strong>Mar 2023 – Aug 2024</strong> | Cuenca, Ecuador | SiatiGroup – Commercial Support</p>
-        <ul>
-          <li>Quotations, negotiation with agents all over the world.</li>
-          <li>Customer service and cargo tracking.</li>
-          <li>Imports and exports worldwide.</li>
-          <li>Administration and handling of certain office tasks.</li>
-          <li>Knowledge in documentation for trade and customs processes.</li>
-          <li>Maintain a portfolio of import customers nationwide.</li>
-        </ul>
-        <p><strong>Jul 2021 – Aug 2021</strong> | Cuenca, Ecuador | TRAMSUR Customs Agency – Intern</p>
-        <ul>
-          <li>Use the ECUAPASS system.</li>
-          <li>Perform customs declarations, pre-settlements and documentation processes.</li>
-        </ul>
-        <p><strong>Jan 2021 – May 2021</strong> | Cuenca, Ecuador | Turi y Chiquintad GADs – Intern</p>
-        <ul>
-          <li>Develop projects for international cooperation and environmental management.</li>
-          <li>Apply for international cooperation for COVID-19 education support project.</li>
-        </ul>
-        <p><strong>Jun 2020 – Dec 2020</strong> | Cuenca, Ecuador | Chordeleg GAD – Intern</p>
-        <ul>
-          <li>Teach English classes to people in the Chordeleg Canton.</li>
-        </ul>
+        
+        <div class="job-experience">
+          <div class="job-date">Mar 2023 – Aug 2024 | Cuenca, Ecuador</div>
+          <div class="job-title">SiatiGroup – Commercial Support</div>
+          <ul>
+            <li><strong>Quotations</strong>, negotiation with agents all over the world.</li>
+            <li>Customer service and cargo tracking.</li>
+            <li><strong>Imports and exports worldwide.</strong></li>
+            <li>Administration and handling of certain office tasks.</li>
+            <li>Knowledge in documentation for trade and customs processes.</li>
+            <li>Maintain a portfolio of import customers nationwide.</li>
+          </ul>
+        </div>
+        
+        <div class="job-experience">
+          <div class="job-date">Jul 2021 – Aug 2021 | Cuenca, Ecuador</div>
+          <div class="job-title">TRAMSUR Customs Agency – Intern</div>
+          <ul>
+            <li>Use the ECUAPASS system.</li>
+            <li>Perform customs declarations, pre-settlements and documentation processes.</li>
+          </ul>
+        </div>
+        
+        <div class="job-experience">
+          <div class="job-date">Jan 2021 – May 2021 | Cuenca, Ecuador</div>
+          <div class="job-title">Turi y Chiquintad GADs – Intern</div>
+          <ul>
+            <li>Develop projects for international cooperation and environmental management.</li>
+            <li>Apply for international cooperation for COVID-19 education support project.</li>
+          </ul>
+        </div>
+        
+        <div class="job-experience">
+          <div class="job-date">Jun 2020 – Dec 2020 | Cuenca, Ecuador</div>
+          <div class="job-title">Chordeleg GAD – Intern</div>
+          <ul>
+            <li>Teach English classes to people in the Chordeleg Canton.</li>
+          </ul>
+        </div>
       </div>
       
       <div class="about-category">
@@ -579,173 +551,6 @@
   </section>
 
   <script>
-    // Variables globales - VERSIÓN FINAL FUNCIONAL
-    const musicPlayer = {
-      audio: new Audio(),
-      currentTrackIndex: 0,
-      isPlaying: false,
-      isShuffle: false,
-      isRepeat: false,
-      playlist: [
-        {
-          title: "Arcade Game Theme",
-          url: "https://assets.mixkit.co/music/preview/mixkit-game-show-suspense-waiting-668.mp3",
-          duration: "0:15"
-        },
-        {
-          title: "Retro Game Sound",
-          url: "https://assets.mixkit.co/music/preview/mixkit-arcade-game-explosion-1699.mp3",
-          duration: "0:08"
-        },
-        {
-          title: "8-bit Adventure",
-          url: "https://assets.mixkit.co/music/preview/mixkit-arcade-mechanical-bling-210.mp3",
-          duration: "0:10"
-        }
-      ],
-      
-      init: function() {
-        // Esperar interacción del usuario para inicializar el audio
-        document.addEventListener('click', this.initializeAudio.bind(this), { once: true });
-        this.renderPlaylist();
-      },
-      
-      initializeAudio: function() {
-        console.log("Inicializando audio...");
-        this.audio.volume = 0.5;
-        this.setupEventListeners();
-        this.loadTrack(this.currentTrackIndex);
-      },
-      
-      renderPlaylist: function() {
-        const playlistElement = document.getElementById('playlist');
-        playlistElement.innerHTML = '';
-        
-        this.playlist.forEach((track, index) => {
-          const li = document.createElement('li');
-          li.textContent = `${index + 1}. ${track.title} (${track.duration})`;
-          li.onclick = () => {
-            this.currentTrackIndex = index;
-            this.loadTrack(index);
-            this.play();
-          };
-          playlistElement.appendChild(li);
-        });
-      },
-      
-      setupEventListeners: function() {
-        this.audio.addEventListener('timeupdate', this.updateProgressBar.bind(this));
-        this.audio.addEventListener('ended', this.handleTrackEnd.bind(this));
-        this.audio.addEventListener('loadedmetadata', this.updateTrackTime.bind(this));
-        this.audio.addEventListener('error', (e) => {
-          console.error('Error de audio:', e);
-        });
-        
-        document.getElementById('volume-control').addEventListener('input', (e) => {
-          this.audio.volume = e.target.value;
-        });
-      },
-      
-      loadTrack: function(index) {
-        this.currentTrackIndex = index;
-        this.audio.src = this.playlist[index].url;
-        this.updatePlaylistUI();
-      },
-      
-      play: function() {
-        this.audio.play()
-          .then(() => {
-            this.isPlaying = true;
-            document.getElementById('play-btn').textContent = '⏸️';
-          })
-          .catch(e => {
-            console.error('Error al reproducir:', e);
-            alert('Por favor haz clic primero en cualquier parte de la página para activar el audio');
-          });
-      },
-      
-      pause: function() {
-        this.audio.pause();
-        this.isPlaying = false;
-        document.getElementById('play-btn').textContent = '▶️';
-      },
-      
-      togglePlay: function() {
-        if (this.isPlaying) {
-          this.pause();
-        } else {
-          this.play();
-        }
-      },
-      
-      playNext: function() {
-        if (this.isShuffle) {
-          this.currentTrackIndex = Math.floor(Math.random() * this.playlist.length);
-        } else {
-          this.currentTrackIndex = (this.currentTrackIndex + 1) % this.playlist.length;
-        }
-        this.loadTrack(this.currentTrackIndex);
-        this.play();
-      },
-      
-      playPrevious: function() {
-        if (this.audio.currentTime > 3) {
-          this.audio.currentTime = 0;
-        } else {
-          this.currentTrackIndex = (this.currentTrackIndex - 1 + this.playlist.length) % this.playlist.length;
-          this.loadTrack(this.currentTrackIndex);
-          this.play();
-        }
-      },
-      
-      handleTrackEnd: function() {
-        if (this.isRepeat) {
-          this.audio.currentTime = 0;
-          this.play();
-        } else {
-          this.playNext();
-        }
-      },
-      
-      toggleShuffle: function() {
-        this.isShuffle = !this.isShuffle;
-        const btn = document.getElementById('shuffle-btn');
-        btn.style.color = this.isShuffle ? 'var(--neon-yellow)' : '';
-        btn.style.textShadow = this.isShuffle ? 'var(--neon-glow)' : '';
-      },
-      
-      toggleRepeat: function() {
-        this.isRepeat = !this.isRepeat;
-        const btn = document.getElementById('repeat-btn');
-        btn.style.color = this.isRepeat ? 'var(--neon-yellow)' : '';
-        btn.style.textShadow = this.isRepeat ? 'var(--neon-glow)' : '';
-      },
-      
-      updateProgressBar: function() {
-        const progressPercent = (this.audio.currentTime / this.audio.duration) * 100;
-        document.getElementById('progress-bar').style.width = `${progressPercent}%`;
-        document.getElementById('current-time').textContent = this.formatTime(this.audio.currentTime);
-      },
-      
-      updateTrackTime: function() {
-        document.getElementById('total-time').textContent = this.formatTime(this.audio.duration);
-      },
-      
-      formatTime: function(seconds) {
-        if (isNaN(seconds)) return "0:00";
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-      },
-      
-      updatePlaylistUI: function() {
-        const items = document.querySelectorAll('#playlist li');
-        items.forEach((item, index) => {
-          item.classList.toggle('playing', index === this.currentTrackIndex);
-        });
-      }
-    };
-
     // Sistema de traducción
     const translations = {
       es: {
@@ -775,8 +580,6 @@
 
     // Inicialización
     document.addEventListener('DOMContentLoaded', function() {
-      musicPlayer.init();
-      
       document.getElementById('bg-color-picker').addEventListener('input', function() {
         document.body.style.backgroundColor = this.value;
       });
@@ -839,27 +642,6 @@
       if (confirm('¿Estás seguro de que quieres salir?')) {
         window.close();
       }
-    }
-
-    // Funciones del reproductor para los botones
-    function togglePlay() {
-      musicPlayer.togglePlay();
-    }
-    
-    function playNext() {
-      musicPlayer.playNext();
-    }
-    
-    function playPrevious() {
-      musicPlayer.playPrevious();
-    }
-    
-    function toggleShuffle() {
-      musicPlayer.toggleShuffle();
-    }
-    
-    function toggleRepeat() {
-      musicPlayer.toggleRepeat();
     }
   </script>
 </body>
