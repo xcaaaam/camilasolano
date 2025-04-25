@@ -8,7 +8,7 @@
   <!-- Favicon neon amarillo -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFFF00' filter='url(%23neon)'/><filter id='neon'><feGaussianBlur stdDeviation='5' result='blur'/><feComposite in='SourceGraphic' in2='blur' operator='over'/><feDropShadow dx='0' dy='0' stdDeviation='10' flood-color='%23FFFF00' flood-opacity='1'/></filter></svg>">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Arial&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Arial&family=Glacial+Indifference&display=swap');
     
     :root {
       --primary-color: #00ff00;
@@ -154,7 +154,7 @@
     }
     
     .about-category p {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Glacial Indifference', sans-serif;
       font-size: 14px;
       line-height: 1.8;
       color: var(--white);
@@ -164,10 +164,11 @@
     .about-category ul {
       margin: 15px 0;
       padding-left: 20px;
+      list-style: none;
     }
     
     .about-category li {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Glacial Indifference', sans-serif;
       font-size: 13px;
       line-height: 1.8;
       color: var(--white);
@@ -187,13 +188,13 @@
       font-weight: bold;
       color: var(--primary-color);
       margin-bottom: 5px;
-      font-family: 'Press Start 2P', cursive;
+      font-family: 'Glacial Indifference', sans-serif;
       font-size: 12px;
     }
     
     .job-date {
       color: #ccc;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Glacial Indifference', sans-serif;
       font-size: 12px;
       margin-bottom: 10px;
     }
@@ -221,7 +222,7 @@
       font-size: 12px;
       color: var(--white);
       text-align: left;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Press Start 2P', cursive;
     }
     
     .skill-bar {
@@ -251,53 +252,67 @@
       transform: translateY(-50%);
       font-size: 10px;
       color: var(--white);
-      font-family: 'Arial', sans-serif;
+      font-family: 'Press Start 2P', cursive;
     }
     
-    /* Animaciones de pixel art */
-    .pixel-character {
-      width: 80px;
-      height: 80px;
-      margin: 20px auto;
-      background-color: var(--primary-color);
-      position: relative;
-      animation: bounce 2s infinite;
-      image-rendering: pixelated;
+    /* Estilos para el video del personaje */
+    .character-video-container {
+      margin: 30px auto;
+      max-width: 300px;
+      border: 3px solid var(--primary-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 15px var(--primary-color);
     }
     
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    .character-video {
+      width: 100%;
+      display: block;
     }
     
-    .pixel-character::before,
-    .pixel-character::after {
-      content: '';
-      position: absolute;
-      background-color: #333;
+    /* Estilos para la sección de proyectos */
+    .projects-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin: 30px 0;
     }
     
-    .pixel-character::before {
-      /* Ojos */
-      width: 10px;
-      height: 10px;
-      top: 25px;
-      left: 20px;
-      box-shadow: 30px 0 0 #333;
+    .projects-column {
+      flex: 1;
+      min-width: 300px;
+      max-width: 500px;
     }
     
-    .pixel-character::after {
-      /* Boca */
-      width: 20px;
-      height: 5px;
-      bottom: 20px;
-      left: 30px;
-      animation: mouth 3s infinite;
+    .project-card {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
     }
     
-    @keyframes mouth {
-      0%, 70%, 100% { height: 5px; }
-      80% { height: 10px; }
+    .project-logo {
+      max-width: 200px;
+      max-height: 100px;
+      margin: 0 auto 15px;
+      display: block;
+      filter: drop-shadow(0 0 5px var(--primary-color));
+    }
+    
+    .project-title {
+      color: var(--primary-color);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+    .project-description {
+      font-family: 'Glacial Indifference', sans-serif;
+      color: var(--white);
+      font-size: 14px;
+      line-height: 1.6;
     }
     
     /* Responsive */
@@ -320,6 +335,18 @@
       
       .about-category {
         padding: 15px;
+      }
+      
+      .character-video-container {
+        max-width: 200px;
+      }
+      
+      .projects-column {
+        min-width: 100%;
+      }
+      
+      .project-logo {
+        max-width: 150px;
       }
     }
   </style>
@@ -354,20 +381,66 @@
     <div class="projects-container">
       <div class="projects-column">
         <h3 data-translate="projects-title">PROJECTS</h3>
-        <ul>
-          <li><strong>The Agave</strong>: Marca de licor de agave con dos presentaciones.</li>
-          <li><strong>Top of Talent</strong>: Proyecto en desarrollo enfocado en talento humano.</li>
-          <li><strong>Producción musical</strong>: Creaciones propias, colaboraciones y lanzamientos.</li>
-          <li><strong>Portfolio Digital</strong>: Sitio creado con GitHub Pages para compartir mi trabajo.</li>
-        </ul>
+        
+        <!-- Proyecto Top of Talent -->
+        <div class="project-card">
+          <img src="top-of-talent-logo.png" alt="Top of Talent Logo" class="project-logo">
+          <h4 class="project-title">TOP OF TALENT</h4>
+          <p class="project-description">
+            Plataforma innovadora para gestión de talento humano que conecta empresas con profesionales calificados.
+            Enfocado en matching inteligente y desarrollo continuo de habilidades.
+          </p>
+        </div>
+        
+        <!-- Proyecto The Agave Drink -->
+        <div class="project-card">
+          <img src="agave-drink-logo.png" alt="The Agave Drink Logo" class="project-logo">
+          <h4 class="project-title">THE AGAVE DRINK</h4>
+          <p class="project-description">
+            Marca premium de licor de agave con dos presentaciones exclusivas. 
+            Enfoque en producción sostenible y diseño de marca de lujo.
+          </p>
+        </div>
       </div>
+      
       <div class="projects-column">
         <h3 data-translate="ideas-title">IDEAS</h3>
-        <ul>
-          <li><strong>Diseño y gestión de marca</strong>: Conceptualización de marcas con propósito.</li>
-          <li><strong>Proyectos sociales con música</strong>: Iniciativas de impacto con identidad sonora.</li>
-          <li><strong>Negocios internacionales sostenibles</strong>: Comercio exterior con enfoque ético.</li>
-        </ul>
+        
+        <!-- Idea CISOC GROUP -->
+        <div class="project-card">
+          <h4 class="project-title">CISOC GROUP</h4>
+          <p class="project-description">
+            Consultoría especializada en ciberseguridad y transformación digital para pequeñas y medianas empresas.
+            Soluciones personalizadas con enfoque preventivo.
+          </p>
+        </div>
+        
+        <!-- Idea X MEDIA -->
+        <div class="project-card">
+          <h4 class="project-title">X MEDIA</h4>
+          <p class="project-description">
+            Agencia de marketing digital con enfoque en contenido transmedia.
+            Integración de redes sociales, producción audiovisual y estrategias 360°.
+          </p>
+        </div>
+        
+        <!-- Idea SEVEN SIDES -->
+        <div class="project-card">
+          <h4 class="project-title">SEVEN SIDES</h4>
+          <p class="project-description">
+            Plataforma educativa innovadora que aborda 7 dimensiones del desarrollo personal.
+            Combinación de psicología, neurociencia y tecnología para el crecimiento integral.
+          </p>
+        </div>
+        
+        <!-- Idea CARING APP -->
+        <div class="project-card">
+          <h4 class="project-title">CARING APP</h4>
+          <p class="project-description">
+            Aplicación móvil para conectar cuidadores profesionales con familias que necesitan apoyo.
+            Enfoque en personas mayores y pacientes con necesidades especiales.
+          </p>
+        </div>
       </div>
     </div>
     <button onclick="transition(backToStart)" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
@@ -395,6 +468,14 @@
   <section id="sobre-mi" class="screen" role="region" aria-label="Sobre mí">
     <div class="about-container">
       <h2 data-translate="about">ABOUT ME</h2>
+      
+      <!-- Video del personaje -->
+      <div class="character-video-container">
+        <video class="character-video" autoplay loop muted playsinline>
+          <source src="character.mp4" type="video/mp4">
+          Tu navegador no soporta el elemento de video.
+        </video>
+      </div>
       
       <div class="about-category">
         <h3 data-translate="profile">PROFILE</h3>
@@ -536,8 +617,6 @@
         </div>
       </div>
       
-      <div class="pixel-character"></div>
-      
       <button onclick="transition(backToStart)" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
     </div>
   </section>
@@ -668,7 +747,7 @@
         experience: "ESPERIENZA LAVORATIVA",
         education: "ISTRUZIONE",
         interests: "INTERESSI",
-        "tech-skills": "COMPETENZE TECNICHE",
+        "tech-skills": "COMPETENZE TÉCNICHE",
         languages: "LINGUE",
         projects: "IL MIO NUOVO GIOCO - PROGETTI & IDEE",
         "projects-title": "PROGETTI",
@@ -680,7 +759,7 @@
         "view-medium": "Vedi su Medium",
         "contact-description": "NEL CASO VOLESSI METTERTI IN CONTATTO CON ME:",
         "instagram-link": "📲 NEL CASO VOLESSI SAPERE DI ME",
-        "linkedin-link": "💼 SE VUOI VEDERE IL MIO LATO PROFESSIONALE",
+        "linkedin-link": "💼 SE VUOI VEDERE IL MIO LADO PROFESSIONALE",
         "vsco-link": "📷 PERCHÉ TU POSSA GIUDICARE LA MIA CREATIVITÀ"
       }
     };
