@@ -40,10 +40,20 @@
       overflow-y: auto;
       padding: 20px;
       box-sizing: border-box;
+      opacity: 1;
     }
     
     .active {
       display: flex;
+    }
+    
+    .fade-out {
+      animation: fadeOut 0.5s ease-out forwards;
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
     }
     
     h1 {
@@ -317,33 +327,33 @@
 <body>
 
   <div id="start-screen" class="screen active" role="main" aria-label="Pantalla de inicio">
-    <h1>BIENVENIDOS</h1>
+    <h1 data-translate="welcome">BIENVENIDOS</h1>
     <p class="subtitle">WELCOME</p>
     <p class="animated-name">CAMILA SOLANO CÓRDOVA</p>
     <p class="animated-handle"><a href="https://www.instagram.com/xcaaaam/" target="_blank" aria-label="Instagram de Camila">@xcaaaam</a></p>
     <div class="options">
-      <button onclick="transition(goToMenu)" aria-label="Continuar al menú">CONTINUE</button>
-      <button onclick="transition(goToProjectsIdeas)" aria-label="Ver proyectos e ideas">NEW GAME</button>
-      <button onclick="transition(goToSettings)" aria-label="Ajustes">SETTINGS</button>
-      <button onclick="confirmExit()" aria-label="Salir">QUIT</button>
+      <button onclick="transition(goToMenu)" aria-label="Continuar al menú" data-translate="continue">CONTINUAR</button>
+      <button onclick="transition(goToProjectsIdeas)" aria-label="Ver proyectos e ideas" data-translate="new-game">NUEVO JUEGO</button>
+      <button onclick="transition(goToSettings)" aria-label="Ajustes" data-translate="settings">AJUSTES</button>
+      <button onclick="confirmExit()" aria-label="Salir" data-translate="quit">SALIR</button>
     </div>
   </div>
 
   <div id="main-menu" class="screen" role="navigation" aria-label="Menú principal">
-    <h2>MENU</h2>
+    <h2 data-translate="menu">MENU</h2>
     <div class="options">
-      <button onclick="transition(goToAboutMe)" aria-label="Sobre mí">ABOUT ME</button>
-      <button onclick="transition(goToBlog)" aria-label="Blog">BLOG</button>
-      <button onclick="transition(goToContact)" aria-label="Contacto">CONTACT</button>
-      <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+      <button onclick="transition(goToAboutMe)" aria-label="Sobre mí" data-translate="about">SOBRE MÍ</button>
+      <button onclick="transition(goToBlog)" aria-label="Blog" data-translate="blog">BLOG</button>
+      <button onclick="transition(goToContact)" aria-label="Contacto" data-translate="contact">CONTACTO</button>
+      <button onclick="transition(backToStart)" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
     </div>
   </div>
 
   <div id="projects-ideas" class="screen" role="region" aria-label="Proyectos e ideas">
-    <h2>MY NEW GAME - PROJECTS & IDEAS</h2>
+    <h2 data-translate="projects">MY NEW GAME - PROJECTS & IDEAS</h2>
     <div class="projects-container">
       <div class="projects-column">
-        <h3>PROJECTS</h3>
+        <h3 data-translate="projects-title">PROJECTS</h3>
         <ul>
           <li><strong>The Agave</strong>: Marca de licor de agave con dos presentaciones.</li>
           <li><strong>Top of Talent</strong>: Proyecto en desarrollo enfocado en talento humano.</li>
@@ -352,7 +362,7 @@
         </ul>
       </div>
       <div class="projects-column">
-        <h3>IDEAS</h3>
+        <h3 data-translate="ideas-title">IDEAS</h3>
         <ul>
           <li><strong>Diseño y gestión de marca</strong>: Conceptualización de marcas con propósito.</li>
           <li><strong>Proyectos sociales con música</strong>: Iniciativas de impacto con identidad sonora.</li>
@@ -360,17 +370,17 @@
         </ul>
       </div>
     </div>
-    <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+    <button onclick="transition(backToStart)" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
   </div>
 
   <div id="settings" class="screen" role="region" aria-label="Ajustes">
-    <h2>SETTINGS</h2>
+    <h2 data-translate="settings">SETTINGS</h2>
     <p>
-      🎨 COLOR:
+      🎨 <span data-translate="color">COLOR</span>:
       <input type="color" id="bg-color-picker" value="#000000" aria-label="Selector de color de fondo">
     </p>
     <p>
-      🌐 LANGUAGE:
+      🌐 <span data-translate="language">LANGUAGE</span>:
       <select id="language-selector" aria-label="Selector de idioma">
         <option value="es">ESPAÑOL</option>
         <option value="en">ENGLISH</option>
@@ -378,21 +388,21 @@
         <option value="it">ITALIANO</option>
       </select>
     </p>
-    <p>📍 LOCATION: MILAN, ITALY</p>
-    <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+    <p>📍 <span data-translate="location">LOCATION</span>: MILAN, ITALY</p>
+    <button onclick="transition(backToStart)" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
   </div>
 
   <section id="sobre-mi" class="screen" role="region" aria-label="Sobre mí">
     <div class="about-container">
-      <h2>ABOUT ME</h2>
+      <h2 data-translate="about">ABOUT ME</h2>
       
       <div class="about-category">
-        <h3>PROFILE</h3>
+        <h3 data-translate="profile">PROFILE</h3>
         <p>I take the initiative of things by relying on creativity. I like to create and get involved in issues related to trade, international business, finance, technology and entrepreneurship. I know how to make decisions and work under pressure. I am dynamic, productive and have an entrepreneurial attitude. I like to learn about new topics all the time and get involved with projects for today and the future.</p>
       </div>
       
       <div class="about-category">
-        <h3>WORK EXPERIENCE</h3>
+        <h3 data-translate="experience">WORK EXPERIENCE</h3>
         
         <div class="job-experience">
           <div class="job-date">Mar 2023 – Aug 2024 | Cuenca, Ecuador</div>
@@ -435,7 +445,7 @@
       </div>
       
       <div class="about-category">
-        <h3>EDUCATION</h3>
+        <h3 data-translate="education">EDUCATION</h3>
         <ul>
           <li><strong>2024 – Present</strong> | Università Cattolica del Sacro Cuore, Italy – Master in Innovation and Technology Management</li>
           <li><strong>2019 – 2022</strong> | Universidad del Azuay, Ecuador – Bachelor's Degree in International Studies</li>
@@ -444,7 +454,7 @@
       </div>
       
       <div class="about-category">
-        <h3>INTERESTS</h3>
+        <h3 data-translate="interests">INTERESTS</h3>
         <ul>
           <li>Crypto, Web 3 technologies and investment</li>
           <li>International business, foreign trade and finance</li>
@@ -455,7 +465,7 @@
       
       <div class="skills-container">
         <div class="skill-category">
-          <h3>TECHNICAL SKILLS</h3>
+          <h3 data-translate="tech-skills">TECHNICAL SKILLS</h3>
           <div class="skill-item">
             <span class="skill-name">Lightroom</span>
             <div class="skill-bar">
@@ -494,7 +504,7 @@
         </div>
         
         <div class="skill-category">
-          <h3>LANGUAGES</h3>
+          <h3 data-translate="languages">LANGUAGES</h3>
           <div class="skill-item">
             <span class="skill-name">Spanish</span>
             <div class="skill-bar">
@@ -528,42 +538,150 @@
       
       <div class="pixel-character"></div>
       
-      <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+      <button onclick="transition(backToStart)" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
     </div>
   </section>
 
   <section id="blog" class="screen" role="region" aria-label="Blog">
-    <h2>Blog</h2>
-    <p>HERE IS MY PAGE ON MEDIUM, IN CASE YOU WANT TO READ SOME OF MY THOUGHTS AND MOTIVATIONS.</p>
-    <a href="https://medium.com/@xcaaaam" target="_blank" aria-label="Medium de Camila">Ver en Medium</a>
-    <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+    <h2 data-translate="blog">Blog</h2>
+    <p data-translate="blog-description">HERE IS MY PAGE ON MEDIUM, IN CASE YOU WANT TO READ SOME OF MY THOUGHTS AND MOTIVATIONS.</p>
+    <a href="https://medium.com/@xcaaaam" target="_blank" aria-label="Medium de Camila" data-translate="view-medium">Ver en Medium</a>
+    <button onclick="transition(backToStart)" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
   </section>
 
   <section id="contacto" class="screen" role="region" aria-label="Contacto">
-    <h2>Contacto</h2>
-    <p>IN CASE YOU WOULD LIKE TO GET IN TOUCH WITH ME:</p>
+    <h2 data-translate="contact">Contacto</h2>
+    <p data-translate="contact-description">IN CASE YOU WOULD LIKE TO GET IN TOUCH WITH ME:</p>
     <div class="options">
-      <a href="https://www.instagram.com/xcaaaam/" target="_blank" aria-label="Instagram de Camila">📲 IN CASE YOU WANT TO KNOW ABOUT ME</a>
-      <a href="https://www.linkedin.com/in/camila-solano-c%C3%B3rdova-5810431a6/" target="_blank" aria-label="LinkedIn de Camila">💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE</a>
-      <a href="https://vsco.co/xcaaaam" target="_blank" aria-label="VSCO de Camila">📷 SO YOU CAN JUDGE MY CREATIVITY</a>
-      <button onclick="transition(backToStart)" aria-label="Volver al inicio">BACK</button>
+      <a href="https://www.instagram.com/xcaaaam/" target="_blank" aria-label="Instagram de Camila" data-translate="instagram-link">📲 IN CASE YOU WANT TO KNOW ABOUT ME</a>
+      <a href="https://www.linkedin.com/in/camila-solano-c%C3%B3rdova-5810431a6/" target="_blank" aria-label="LinkedIn de Camila" data-translate="linkedin-link">💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE</a>
+      <a href="https://vsco.co/xcaaaam" target="_blank" aria-label="VSCO de Camila" data-translate="vsco-link">📷 SO YOU CAN JUDGE MY CREATIVITY</a>
+      <button onclick="transition(backToStart)" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
     </div>
   </section>
 
   <script>
-    // Sistema de traducción
+    // Sistema de traducción mejorado
     const translations = {
       es: {
         welcome: "BIENVENIDOS",
         menu: "MENU",
         about: "SOBRE MÍ",
         contact: "CONTACTO",
+        continue: "CONTINUAR",
+        "new-game": "NUEVO JUEGO",
+        settings: "AJUSTES",
+        quit: "SALIR",
+        back: "VOLVER",
+        blog: "BLOG",
+        profile: "PERFIL",
+        experience: "EXPERIENCIA LABORAL",
+        education: "EDUCACIÓN",
+        interests: "INTERESES",
+        "tech-skills": "HABILIDADES TÉCNICAS",
+        languages: "IDIOMAS",
+        projects: "MI NUEVO JUEGO - PROYECTOS & IDEAS",
+        "projects-title": "PROYECTOS",
+        "ideas-title": "IDEAS",
+        color: "COLOR",
+        language: "IDIOMA",
+        location: "UBICACIÓN",
+        "blog-description": "AQUÍ ESTÁ MI PÁGINA EN MEDIUM, POR SI QUIERES LEER ALGUNOS DE MIS PENSAMIENTOS Y MOTIVACIONES.",
+        "view-medium": "Ver en Medium",
+        "contact-description": "EN CASO DE QUE QUIERAS PONERTE EN CONTACTO CONMIGO:",
+        "instagram-link": "📲 POR SI QUIERES CONOCER SOBRE MÍ",
+        "linkedin-link": "💼 SI QUIERES VER MI LADO PROFESIONAL",
+        "vsco-link": "📷 PARA QUE PUEDAS JUZGAR MI CREATIVIDAD"
       },
       en: {
         welcome: "WELCOME",
         menu: "MENU",
         about: "ABOUT ME",
         contact: "CONTACT",
+        continue: "CONTINUE",
+        "new-game": "NEW GAME",
+        settings: "SETTINGS",
+        quit: "QUIT",
+        back: "BACK",
+        blog: "BLOG",
+        profile: "PROFILE",
+        experience: "WORK EXPERIENCE",
+        education: "EDUCATION",
+        interests: "INTERESTS",
+        "tech-skills": "TECHNICAL SKILLS",
+        languages: "LANGUAGES",
+        projects: "MY NEW GAME - PROJECTS & IDEAS",
+        "projects-title": "PROJECTS",
+        "ideas-title": "IDEAS",
+        color: "COLOR",
+        language: "LANGUAGE",
+        location: "LOCATION",
+        "blog-description": "HERE IS MY PAGE ON MEDIUM, IN CASE YOU WANT TO READ SOME OF MY THOUGHTS AND MOTIVATIONS.",
+        "view-medium": "View on Medium",
+        "contact-description": "IN CASE YOU WOULD LIKE TO GET IN TOUCH WITH ME:",
+        "instagram-link": "📲 IN CASE YOU WANT TO KNOW ABOUT ME",
+        "linkedin-link": "💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE",
+        "vsco-link": "📷 SO YOU CAN JUDGE MY CREATIVITY"
+      },
+      pt: {
+        welcome: "BEM-VINDO",
+        menu: "MENU",
+        about: "SOBRE MIM",
+        contact: "CONTATO",
+        continue: "CONTINUAR",
+        "new-game": "NOVO JOGO",
+        settings: "CONFIGURAÇÕES",
+        quit: "SAIR",
+        back: "VOLTAR",
+        blog: "BLOG",
+        profile: "PERFIL",
+        experience: "EXPERIÊNCIA DE TRABALHO",
+        education: "EDUCAÇÃO",
+        interests: "INTERESSES",
+        "tech-skills": "HABILIDADES TÉCNICAS",
+        languages: "IDIOMAS",
+        projects: "MEU NOVO JOGO - PROJETOS & IDEIAS",
+        "projects-title": "PROJETOS",
+        "ideas-title": "IDEIAS",
+        color: "COR",
+        language: "IDIOMA",
+        location: "LOCALIZAÇÃO",
+        "blog-description": "AQUI ESTÁ MINHA PÁGINA NO MEDIUM, CASO VOCÊ QUEIRA LER ALGUNS DOS MEUS PENSAMENTOS E MOTIVAÇÕES.",
+        "view-medium": "Ver no Medium",
+        "contact-description": "CASO VOCÊ QUEIRA ENTRAR EM CONTATO COMIGO:",
+        "instagram-link": "📲 CASO VOCÊ QUEIRA SABER SOBRE MIM",
+        "linkedin-link": "💼 SE VOCÊ QUISER VER MEU LADO PROFISSIONAL",
+        "vsco-link": "📷 PARA QUE VOCÊ POSSA JULGAR MINHA CRIATIVIDADE"
+      },
+      it: {
+        welcome: "BENVENUTO",
+        menu: "MENU",
+        about: "SU DI ME",
+        contact: "CONTATTO",
+        continue: "CONTINUA",
+        "new-game": "NUOVO GIOCO",
+        settings: "IMPOSTAZIONI",
+        quit: "ESCI",
+        back: "INDIETRO",
+        blog: "BLOG",
+        profile: "PROFILO",
+        experience: "ESPERIENZA LAVORATIVA",
+        education: "ISTRUZIONE",
+        interests: "INTERESSI",
+        "tech-skills": "COMPETENZE TECNICHE",
+        languages: "LINGUE",
+        projects: "IL MIO NUOVO GIOCO - PROGETTI & IDEE",
+        "projects-title": "PROGETTI",
+        "ideas-title": "IDEE",
+        color: "COLORE",
+        language: "LINGUA",
+        location: "POSIZIONE",
+        "blog-description": "ECCO LA MIA PAGINA SU MEDIUM, NEL CASO VOLESSI LEGGERE ALCUNI DEI MIEI PENSIERI E MOTIVAZIONI.",
+        "view-medium": "Vedi su Medium",
+        "contact-description": "NEL CASO VOLESSI METTERTI IN CONTATTO CON ME:",
+        "instagram-link": "📲 NEL CASO VOLESSI SAPERE DI ME",
+        "linkedin-link": "💼 SE VUOI VEDERE IL MIO LATO PROFESSIONALE",
+        "vsco-link": "📷 PERCHÉ TU POSSA GIUDICARE LA MIA CREATIVITÀ"
       }
     };
 
@@ -589,7 +707,7 @@
       });
     });
 
-    // Funciones de navegación
+    // Funciones de navegación con transiciones
     function transition(callback) {
       const activeScreen = document.querySelector('.screen.active');
       if (activeScreen) {
