@@ -470,10 +470,20 @@
       <h2 data-translate="about">ABOUT ME</h2>
       
       <!-- Video del personaje -->
-      <div class="character-video-container">
-        <video autoplay loop muted playsinline width="640" height="360">
-          <source src="Timeline2.mp4" type="video/mp4">
-          Tu navegador no soporta el elemento de video.
+  <div class="character-video-container" style="
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      ">
+        <video autoplay loop muted playsinline style="
+            width: 200%; /* Esto crea el efecto de zoom al 50% (200% del tamaño original) */
+            height: auto;
+            transform: translateX(-25%); /* Centra el video después del zoom */
+        ">
+            <source src="Timeline2.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
         </video>
 
       </div>
