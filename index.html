@@ -880,13 +880,11 @@
       document.getElementById('contacto').classList.add('active');
     }
 
-    function backToStart() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('start-screen').classList.add('active');
+    function backOneStep() {
+      window.history.back(); // vuelve a la página anterior
     }
 
     function confirmExit() {
-      if (confirm('¿Estás seguro de que quieres salir?')) {
         window.close();
       }
     }
