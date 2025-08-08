@@ -356,9 +356,95 @@
       .project-logo {
         max-width: 150px;
       }
+      .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 3px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 0 15px var(--primary-color), 0 0 30px rgba(0, 255, 0, 0.5);
+    font-family: 'Press Start 2P', cursive;
+    color: var(--primary-color);
+    z-index: 1000;
+    transform: translateX(150%);
+    transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    display: none;
     }
+    
+    .notification.active {
+        transform: translateX(0);
+        display: block;
+    }
+    
+    .notification-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: var(--neon-yellow);
+    }
+    
+    .notification-title {
+        margin: 0;
+        text-shadow: 0 0 5px var(--primary-color);
+    }
+    
+    .close-notification {
+        background: none;
+        border: none;
+        color: var(--neon-yellow);
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .close-notification:hover {
+        color: var(--white);
+        transform: scale(1.2);
+    }
+    
+    .notification-content {
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--white);
+        margin-bottom: 10px;
+    }
+    
+    .notification-footer {
+        font-size: 10px;
+        text-align: right;
+        color: var(--primary-color);
+    }
+    
+    /* Efecto parpadeante para notificaciones importantes */
+    @keyframes blink {
+        0%, 100% { border-color: var(--primary-color); box-shadow: 0 0 15px var(--primary-color); }
+        50% { border-color: var(--secondary-color); box-shadow: 0 0 20px var(--secondary-color); }
+    }
+    
+    .notification.important {
+        animation: blink 1.5s infinite;
+    }
+     }
   </style>
-</head>
+  </head>
+    <!-- Notificación de novedades -->
+  <div id="news-notification" class="notification" role="alert" aria-live="assertive">
+      <div class="notification-header">
+          <h3 class="notification-title" data-translate="notification-title">¡NUEVO CONTENIDO!</h3>
+          <button class="close-notification" onclick="hideNotification()" aria-label="Cerrar notificación">✕</button>
+      </div>
+      <div class="notification-content" data-translate="notification-content">
+          • Nuevo curso completado: Gestión de Proyectos Digitales<br>
+          • Proyecto actualizado: The Agave Drink (ver en Projects)<br>
+          • Nueva sección: Mis artículos en Medium
+      </div>
+      <div class="notification-footer" data-translate="notification-footer">ACTUALIZACIÓN: 15/07/2024</div>
+  </div>
 <body>
 
   <div id="start-screen" class="screen active" role="main" aria-label="Pantalla de inicio">
@@ -684,7 +770,7 @@
       <button onclick="goBack()" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
     </div>
   </section>
-
+  
   <script>
     // Sistema de traducción mejorado
     const translations = {
@@ -890,6 +976,33 @@
         window.close();
       }
     }
+  // Sistema de notificaciones
+    function showNotification() {
+    const notification = document.getElementById('news-notification');
+    notification.classList.add('active');
+    
+    // Mostrar solo una vez al día (opcional)
+    localStorage.setItem('lastNotificationShown', new Date().toDateString());
+  }
+
+function hideNotification() {
+    document.getElementById('news-notification').classList.remove('active');
+  }
+
+// Mostrar notificación al cargar la página de inicio
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar si estamos en la página de inicio
+    if (document.getElementById('start-screen').classList.contains('active')) {
+        // Opcional: Mostrar solo una vez al día
+        const lastShown = localStorage.getItem('lastNotificationShown');
+        const today = new Date().toDateString();
+        
+        if (!lastShown || lastShown !== today) {
+            setTimeout(showNotification, 3000); // Mostrar después de 3 segundos
+      }
+    }
+   });
+  
   </script>
 </body>
 </html>
