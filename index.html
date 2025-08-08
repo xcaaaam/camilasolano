@@ -466,7 +466,7 @@
       <button onclick="transition(goToAboutMe)" aria-label="Sobre mí" data-translate="about">SOBRE MÍ</button>
       <button onclick="transition(goToBlog)" aria-label="Blog" data-translate="blog">BLOG</button>
       <button onclick="transition(goToContact)" aria-label="Contacto" data-translate="contact">CONTACTO</button>
-      <button onclick="goBack()" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
+      <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
     </div>
   </div>
 
@@ -543,7 +543,7 @@
         </div>
       </div>
     </div>
-    <button onclick="goBack()" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
+    <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
   </div>
 
   <div id="settings" class="screen" role="region" aria-label="Ajustes">
@@ -562,7 +562,7 @@
       </select>
     </p>
     <p>📍 <span data-translate="location">LOCACIÓN</span>: MILAN, ITALY</p>
-    <button onclick="goBack()" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
+    <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
   </div>
 
   <section id="sobre-mi" class="screen" role="region" aria-label="Sobre mí">
@@ -748,7 +748,7 @@
         </div>
       </div>
       
-      <button onclick="goBack()" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
+      <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
     </div>
   </section>
 
@@ -756,7 +756,7 @@
     <h2 data-translate="blog">Blog</h2>
     <p data-translate="blog-description">IN CASE YOU WANT TO READ MY BLOG.</p>
     <a href="https://medium.com/@xcaaaam" target="_blank" aria-label="Medium de Camila" data-translate="view-medium">Click to Medium</a>
-    <button onclick="goBack()" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
+    <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
   </section>
 
   <section id="contacto" class="screen" role="region" aria-label="Contacto">
@@ -767,7 +767,7 @@
       <a href="https://www.linkedin.com/in/camila-solano-c%C3%B3rdova-5810431a6/" target="_blank" aria-label="LinkedIn de Camila" data-translate="linkedin-link">💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE</a>
       <a href="https://vsco.co/xcaaaam" target="_blank" aria-label="VSCO de Camila" data-translate="vsco-link">📷 HERE YOU CAN JUDGE MY CREATIVITY</a>
       <a data-translate="email-part">📩 HAVE AN EXCITING PROJECT OR OPPORTUNITY? DROP ME A MESSAGE!! My mail: camisolano71000@gmail.com</a>
-      <button onclick="goBack()" aria-label="Volver al inicio" data-translate="back">VOLVER</button>
+      <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
     </div>
   </section>
   
@@ -923,6 +923,15 @@
     });
 
     // Funciones de navegación con transiciones
+     const screensOrder = [
+    'start-screen', 
+    'main-menu', 
+    'projects-ideas', 
+    'settings', 
+    'sobre-mi', 
+    'blog', 
+    'contacto'
+    ];
     function transition(callback) {
       const activeScreen = document.querySelector('.screen.active');
       if (activeScreen) {
@@ -999,6 +1008,23 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!lastShown || lastShown !== today) {
             setTimeout(showNotification, 3000); // Mostrar después de 3 segundos
+      }
+  // Función mejorada para VOLVER (usa el orden definido)
+function goBack() {
+    const currentScreen = document.querySelector('.screen.active').id;
+    const currentIndex = screensOrder.indexOf(currentScreen);
+    
+    if (currentIndex > 0) {
+        const previousScreenId = screensOrder[currentIndex - 1];
+        
+        // Usa tu función transition() existente
+        transition(() => {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(previousScreenId).classList.add('active');
+        });
+    } else {
+        // Opcional: Si está en la primera pantalla, no hace nada
+        console.log("Ya estás en la primera pantalla");
       }
     }
    });
