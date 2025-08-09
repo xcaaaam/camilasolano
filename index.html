@@ -431,19 +431,60 @@
     }
      }
   </style>
-  </head>
-    <!-- Notificación de novedades -->
-  <div id="news-notification" class="notification" role="alert" aria-live="assertive">
-      <div class="notification-header">
-          <h3 class="notification-title" data-translate="notification-title">¡NUEVO CONTENIDO!</h3>
-          <button class="close-notification" onclick="hideNotification()" aria-label="Cerrar notificación">✕</button>
-      </div>
-      <div class="notification-content" data-translate="notification-content">
-          • Nuevo curso completado: Gestión de Proyectos Digitales<br>
-          • Proyecto actualizado: The Agave Drink (ver en Projects)<br>
-          • Nueva sección: Mis artículos en Medium
-      </div>
-      <div class="notification-footer" data-translate="notification-footer">ACTUALIZACIÓN: 15/07/2024</div>
+   .notification {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        width: 300px;
+        background-color: rgba(0, 0, 0, 0.9);
+        border: 3px solid var(--primary-color);
+        border-radius: 0;
+        box-shadow: 0 0 20px var(--primary-color), 
+                    0 0 40px rgba(0, 255, 0, 0.3);
+        font-family: 'Press Start 2P', cursive;
+        z-index: 1000;
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        display: none;
+    }
+    
+    .notification.active {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        display: block;
+    }
+    
+    .notification-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding: 15px;
+    }
+    
+    .close-notification:hover {
+        color: var(--neon-yellow);
+        transform: scale(1.2);
+    }
+    
+    /* Efecto de parpadeo para la notificación */
+    @keyframes neon-blink {
+        0%, 100% { 
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px var(--primary-color), 
+                        0 0 40px rgba(0, 255, 0, 0.3);
+        }
+        50% { 
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 25px var(--neon-yellow), 
+                        0 0 50px rgba(255, 255, 0, 0.4);
+        }
+    }
+    
+    .notification {
+        animation: neon-blink 2s infinite;
+    }
   </div>
 <body>
 
@@ -985,6 +1026,31 @@
         window.close();
       }
     }
+
+    // Función para mostrar la notificación
+    function showNotification() {
+        const notification = document.getElementById('news-notification');
+        notification.classList.add('active');
+        
+        // Opcional: Mostrar solo una vez al día
+        const lastShown = localStorage.getItem('lastNotificationShown');
+        const today = new Date().toDateString();
+        
+        if (!lastShown || lastShown !== today) {
+            localStorage.setItem('lastNotificationShown', today);
+        }
+    }
+    
+    // Función para ocultar la notificación
+    function hideNotification() {
+        document.getElementById('news-notification').classList.remove('active');
+    }
+    
+    // Mostrar notificación al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(showNotification, 2000); // Mostrar después de 2 segundos
+    });
+    
   // Sistema de notificaciones
     function showNotification() {
     const notification = document.getElementById('news-notification');
