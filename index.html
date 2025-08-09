@@ -10,7 +10,93 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Arial&family=Glacial+Indifference&display=swap');
     
-    :root {
+    :root 
+        @keyframes bootUp {
+      0% { 
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+        filter: blur(5px);
+      }
+      50% {
+        opacity: 0.5;
+        filter: blur(2px);
+      }
+      100% { 
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+      }
+    }
+    
+    @keyframes scanlines {
+      from { background-position: 0 0; }
+      to { background-position: 0 10px; }
+    }
+    
+    .boot-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+      background-size: 10px 10px;
+      background-color: var(--bg-color);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: scanlines 0.5s linear infinite;
+    }
+    
+    .boot-text {
+      color: var(--primary-color);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      margin: 10px 0;
+      text-shadow: 0 0 5px var(--primary-color);
+      opacity: 0;
+      animation: textFadeIn 0.5s forwards;
+      animation-delay: var(--delay);
+    }
+    
+    @keyframes textFadeIn {
+      to { opacity: 1; }
+    }
+    
+    .boot-progress {
+      width: 80%;
+      max-width: 300px;
+      height: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--primary-color);
+      margin-top: 20px;
+      overflow: hidden;
+    }
+    
+    .boot-progress-bar {
+      height: 100%;
+      width: 0;
+      background-color: var(--primary-color);
+      animation: progressFill 2.5s forwards;
+    }
+    
+    @keyframes progressFill {
+      to { width: 100%; }
+    }
+    
+    /* Aplicar animación al body cuando carga */
+    body.loading {
+      overflow: hidden;
+    }
+    
+    body.loading .screen {
+      display: none !important;
+    }
+    {
       --primary-color: #00ff00;
       --secondary-color: #ccff00;
       --text-color: #00ff00;
@@ -466,19 +552,29 @@
   </style>
 </head>
 <body>
-
+    <div id="boot-screen" class="boot-animation">
+    <div class="boot-text" style="--delay: 0.5s">SYSTEM BOOTING...</div>
+    <div class="boot-text" style="--delay: 1s">CHECKING HARDWARE...</div>
+    <div class="boot-text" style="--delay: 1.5s">LOADING ASSETS...</div>
+    <div class="boot-text" style="--delay: 2s">INITIALIZING INTERFACE...</div>
+    <div class="boot-progress">
+      <div class="boot-progress-bar"></div>
+    </div>
+    <div class="boot-text" style="--delay: 2.5s">PRESS ANY KEY TO CONTINUE</div>
+  </div>
+  
  <!-- Notificación estilo POST-MODERN -->
   <div id="news-notification" class="notification" role="alert" aria-live="assertive">
       <div class="notification-header">
-          <h3 class="notification-title">POST-MODERN</h3>
+          <h3 class="notification-title">AUGUST UPDATES</h3>
           <button class="close-notification" onclick="hideNotification()" aria-label="Cerrar notificación">✕</button>
       </div>
       <div class="notification-content">
-          TUITION SUPPORT FOR BLACK STUDENTS<br><br>
-          FASHION SCHOLARSHIP FUND CALLED<br><br>
-          POST-MODERN
+          EDX COURSE IN: Beginners Guide to Cybersecurity <br><br>
+          NEW DESIGNS FOR X MEDIA <br><br>
+          NEW UPDATES IN MEDIUM BLOG
       </div>
-      <div class="notification-footer">PRESS ✕ TO CLOSE</div>
+      <div class="notification-footer">PRESS X TO CLOSE</div>
   </div>
 
   
@@ -1076,6 +1172,50 @@ function hideNotification() {
         console.log("Ya estás en la primera pantalla");
       }
     }
+    // Animación de inicio estilo videojuego
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mostrar pantalla de carga
+    document.body.classList.add('loading');
+    
+    // Ocultar pantalla de carga después de 3 segundos
+    setTimeout(function() {
+      const bootScreen = document.getElementById('boot-screen');
+      bootScreen.style.opacity = '0';
+      bootScreen.style.transition = 'opacity 0.5s ease-out';
+      
+      setTimeout(function() {
+        bootScreen.remove();
+        document.body.classList.remove('loading');
+        document.getElementById('start-screen').classList.add('active');
+        
+        // Mostrar notificación después de 2 segundos más
+        setTimeout(showNotification, 2000);
+      }, 500);
+    }, 3000);
+    
+    // Permitir saltar la animación con cualquier tecla
+    document.addEventListener('keydown', skipBootAnimation);
+    document.addEventListener('click', skipBootAnimation);
+  });
+  
+  function skipBootAnimation() {
+    const bootScreen = document.getElementById('boot-screen');
+    if (bootScreen) {
+      bootScreen.style.transition = 'opacity 0.2s ease-out';
+      bootScreen.style.opacity = '0';
+      
+      setTimeout(function() {
+        bootScreen.remove();
+        document.body.classList.remove('loading');
+        document.getElementById('start-screen').classList.add('active');
+        showNotification();
+      }, 200);
+    }
+    
+    // Remover los event listeners después de usarlos
+    document.removeEventListener('keydown', skipBootAnimation);
+    document.removeEventListener('click', skipBootAnimation);
+  }
   </script>
 </body>
 </html>
