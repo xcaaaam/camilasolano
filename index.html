@@ -11,7 +11,17 @@
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Arial&family=Glacial+Indifference&display=swap');
     
     :root 
-        @keyframes bootUp {
+       
+    {
+      --primary-color: #00ff00;
+      --secondary-color: #ccff00;
+      --text-color: #00ff00;
+      --bg-color: black;
+      --white: white;
+      --yellow: yellow;
+      --neon-yellow: #ffff00;
+    }
+     @keyframes bootUp {
       0% { 
         opacity: 0;
         transform: scale(0.8) translateY(20px);
@@ -96,15 +106,7 @@
     body.loading .screen {
       display: none !important;
     }
-    {
-      --primary-color: #00ff00;
-      --secondary-color: #ccff00;
-      --text-color: #00ff00;
-      --bg-color: black;
-      --white: white;
-      --yellow: yellow;
-      --neon-yellow: #ffff00;
-    }
+
     
     body {
       margin: 0;
@@ -1154,50 +1156,6 @@ function hideNotification() {
     document.getElementById('news-notification').classList.remove('active');
   }
 
-// Función mejorada para VOLVER (usa el orden definido)
-    function goBack() {
-      const currentScreen = document.querySelector('.screen.active').id;
-      const currentIndex = screensOrder.indexOf(currentScreen);
-      
-      if (currentIndex > 0) {
-        const previousScreenId = screensOrder[currentIndex - 1];
-        
-        // Usa tu función transition() existente
-        transition(() => {
-          document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-          document.getElementById(previousScreenId).classList.add('active');
-        });
-      } else {
-        // Opcional: Si está en la primera pantalla, no hace nada
-        console.log("Ya estás en la primera pantalla");
-      }
-    }
-    // Animación de inicio estilo videojuego
-  document.addEventListener('DOMContentLoaded', function() {
-    // Mostrar pantalla de carga
-    document.body.classList.add('loading');
-    
-    // Ocultar pantalla de carga después de 3 segundos
-    setTimeout(function() {
-      const bootScreen = document.getElementById('boot-screen');
-      bootScreen.style.opacity = '0';
-      bootScreen.style.transition = 'opacity 0.5s ease-out';
-      
-      setTimeout(function() {
-        bootScreen.remove();
-        document.body.classList.remove('loading');
-        document.getElementById('start-screen').classList.add('active');
-        
-        // Mostrar notificación después de 2 segundos más
-        setTimeout(showNotification, 2000);
-      }, 500);
-    }, 3000);
-    
-    // Permitir saltar la animación con cualquier tecla
-    document.addEventListener('keydown', skipBootAnimation);
-    document.addEventListener('click', skipBootAnimation);
-  });
-  
   function skipBootAnimation() {
     const bootScreen = document.getElementById('boot-screen');
     if (bootScreen) {
@@ -1216,6 +1174,43 @@ function hideNotification() {
     document.removeEventListener('keydown', skipBootAnimation);
     document.removeEventListener('click', skipBootAnimation);
   }
+
+// Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mostrar pantalla de carga
+      document.body.classList.add('loading');
+      
+      // Configuración de eventos
+      document.getElementById('bg-color-picker').addEventListener('input', function() {
+        document.body.style.backgroundColor = this.value;
+      });
+      
+      document.getElementById('language-selector').addEventListener('change', function() {
+        changeLanguage(this.value);
+      });
+      
+      // Permitir saltar la animación
+      document.addEventListener('keydown', skipBootAnimation);
+      document.addEventListener('click', skipBootAnimation);
+      
+      // Ocultar pantalla de carga después de 3 segundos
+      setTimeout(function() {
+        const bootScreen = document.getElementById('boot-screen');
+        if (bootScreen) {
+          bootScreen.style.opacity = '0';
+          bootScreen.style.transition = 'opacity 0.5s ease-out';
+          
+          setTimeout(function() {
+            bootScreen.remove();
+            document.body.classList.remove('loading');
+            document.getElementById('start-screen').classList.add('active');
+            
+            // Mostrar notificación después de 2 segundos más
+            setTimeout(showNotification, 2000);
+          }, 500);
+        }
+      }, 3000);
+    });
   </script>
 </body>
 </html>
