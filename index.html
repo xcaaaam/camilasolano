@@ -1066,21 +1066,22 @@
     'contacto'
     ];
     
-    let lastScreen = 'start-screen';
+    let screenHistory = ['start-screen'];
     
-      function transition(callback) {
-    const activeScreen = document.querySelector('.screen.active');
-    if (activeScreen) {
-      lastScreen = activeScreen.id; // Guardamos la pantalla actual antes de cambiar
-      activeScreen.classList.add('fade-out');
-      setTimeout(() => {
-        activeScreen.classList.remove('fade-out', 'active');
-        callback();
-      }, 500);
-    } else {
-      callback();
+    function transition(callback) {
+        const activeScreen = document.querySelector('.screen.active');
+        if (activeScreen) {
+            // Guardamos la pantalla actual en el historial antes de cambiar
+            screenHistory.push(activeScreen.id);
+            activeScreen.classList.add('fade-out');
+            setTimeout(() => {
+                activeScreen.classList.remove('fade-out', 'active');
+                callback();
+            }, 500);
+        } else {
+            callback();
+        }
     }
-  }
 
     function goToMenu() {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1180,10 +1181,23 @@ function hideNotification() {
   }
 
   function goBack() {
-  const currentScreen = document.querySelector('.screen.active');
-  currentScreen.classList.remove('active');
-  document.getElementById(lastScreen).classList.add('active');
-  }
+        // Solo podemos retroceder si hay más de una pantalla en el historial
+        if (screenHistory.length > 1) {
+            const currentScreen = document.querySelector('.screen.active');
+            
+            // Quitamos la pantalla actual del historial
+            screenHistory.pop();
+            
+            // Obtenemos la pantalla anterior
+            const previousScreenId = screenHistory[screenHistory.length - 1];
+            
+            // Transición a la pantalla anterior
+            if (currentScreen) {
+                currentScreen.classList.remove('active');
+            }
+            document.getElementById(previousScreenId).classList.add('active');
+        }
+    }
     
 // Inicialización
     document.addEventListener('DOMContentLoaded', function() {
