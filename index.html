@@ -1065,18 +1065,22 @@
     'blog', 
     'contacto'
     ];
-    function transition(callback) {
-      const activeScreen = document.querySelector('.screen.active');
-      if (activeScreen) {
-        activeScreen.classList.add('fade-out');
-        setTimeout(() => {
-          activeScreen.classList.remove('fade-out', 'active');
-          callback();
-        }, 500);
-      } else {
+    
+    let lastScreen = 'start-screen';
+    
+      function transition(callback) {
+    const activeScreen = document.querySelector('.screen.active');
+    if (activeScreen) {
+      lastScreen = activeScreen.id; // Guardamos la pantalla actual antes de cambiar
+      activeScreen.classList.add('fade-out');
+      setTimeout(() => {
+        activeScreen.classList.remove('fade-out', 'active');
         callback();
-      }
+      }, 500);
+    } else {
+      callback();
     }
+  }
 
     function goToMenu() {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1175,6 +1179,12 @@ function hideNotification() {
     document.removeEventListener('click', skipBootAnimation);
   }
 
+  function goBack() {
+  const currentScreen = document.querySelector('.screen.active');
+  currentScreen.classList.remove('active');
+  document.getElementById(lastScreen).classList.add('active');
+  }
+    
 // Inicialización
     document.addEventListener('DOMContentLoaded', function() {
       // Mostrar pantalla de carga
