@@ -1079,47 +1079,44 @@
     }
 
     function goToMenu() {
-        previousScreen = document.querySelector('.screen.active').id;
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('main-menu').classList.add('active');
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('main-menu').classList.add('active');
     }
 
     function goToProjectsIdeas() {
-        previousScreen = document.querySelector('.screen.active').id;
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('projects-ideas').classList.add('active');
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('projects-ideas').classList.add('active');
     }
 
     function goToSettings() {
-        previousScreen = document.querySelector('.screen.active').id;
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('settings').classList.add('active');
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('settings').classList.add('active');
     }
 
     function goToAboutMe() {
-        previousScreen = document.querySelector('.screen.active').id;
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('sobre-mi').classList.add('active');
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('sobre-mi').classList.add('active');
     }
 
     function goToBlog() {
-        previousScreen = document.querySelector('.screen.active').id;
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('blog').classList.add('active');
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('blog').classList.add('active');
     }
 
     function goToContact() {
-        previousScreen = document.querySelector('.screen.active').id;
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('contacto').classList.add('active');
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('contacto').classList.add('active');
     }
 
-    // Reemplaza la función goBack() existente con esta:
-    function goBack() {
-        transition(() => {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(previousScreen).classList.add('active');
-        });
+    function backToStart() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('start-screen').classList.add('active');
+    }
+
+    function confirmExit() {
+      if (confirm("¿Estás seguro de que quieres salir?")) {
+        window.close();
+      }
     }
 
     // Función para mostrar la notificación
