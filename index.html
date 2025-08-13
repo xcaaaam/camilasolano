@@ -1069,24 +1069,25 @@
     let screenHistory = ['start-screen'];
     
     function transition(callback) {
-        const activeScreen = document.querySelector('.screen.active');
-        if (activeScreen) {
-            // Guardamos la pantalla actual en el historial antes de cambiar
-            screenHistory.push(activeScreen.id);
-            activeScreen.classList.add('fade-out');
-            setTimeout(() => {
-                activeScreen.classList.remove('fade-out', 'active');
-                callback();
-            }, 500);
-        } else {
+    const activeScreen = document.querySelector('.screen.active');
+    if (activeScreen) {
+        activeScreen.classList.add('fade-out');
+        setTimeout(() => {
+            activeScreen.classList.remove('fade-out', 'active');
             callback();
-        }
+        }, 500);
+    } else {
+        callback();
     }
+}
 
     function goToMenu() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('main-menu').classList.add('active');
-    }
+    screenHistory.push('main-menu'); // Añade al historial antes de transición
+    transition(() => {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('main-menu').classList.add('active');
+    });
+}
 
     function goToProjectsIdeas() {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1099,9 +1100,12 @@
     }
 
     function goToAboutMe() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('sobre-mi').classList.add('active');
-    }
+    screenHistory.push('sobre-mi'); // Añade al historial antes de transición
+    transition(() => {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('sobre-mi').classList.add('active');
+    });
+}
 
     function goToBlog() {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1113,10 +1117,19 @@
       document.getElementById('contacto').classList.add('active');
     }
 
-    function backToStart() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('start-screen').classList.add('active');
+    function goBack() {
+    if (screenHistory.length > 1) {
+        // Elimina la pantalla actual del historial
+        screenHistory.pop();
+        
+        // Obtiene la pantalla anterior
+        const previousScreen = screenHistory[screenHistory.length - 1];
+        
+        // Transición sin animación de fade-out para el retroceso
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(previousScreen).classList.add('active');
     }
+}
 
     function confirmExit() {
       if (confirm("¿Estás seguro de que quieres salir?")) {
