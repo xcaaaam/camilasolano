@@ -1080,205 +1080,105 @@
       document.documentElement.lang = lang;
     }
 
-    // Inicialización
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('bg-color-picker').addEventListener('input', function() {
-        document.body.style.backgroundColor = this.value;
-      });
-      
-      document.getElementById('language-selector').addEventListener('change', function() {
-        changeLanguage(this.value);
-      });
-    });
+// ===============================
+    // SISTEMA DE NAVEGACIÓN MEJORADO
+    // ===============================
+    let screenHistory = ['start-screen']; // Pantalla inicial
 
-    // Funciones de navegación con transiciones
-     const screensOrder = [
-    'start-screen', 
-    'main-menu', 
-    'projects-ideas', 
-    'settings', 
-    'sobre-mi', 
-    'blog', 
-    'contacto'
-    ];
-    
-    let screenHistory = ['start-screen'];
-    
-    function transition(callback) {
-    const activeScreen = document.querySelector('.screen.active');
-    if (activeScreen) {
-        activeScreen.classList.add('fade-out');
-        setTimeout(() => {
-            activeScreen.classList.remove('fade-out', 'active');
-            callback();
-        }, 500);
-    } else {
-        callback();
-    }
-}
-
-    function goToMenu() {
-    screenHistory.push('main-menu'); // Añade al historial antes de transición
-    transition(() => {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('main-menu').classList.add('active');
-    });
-}
-
-    function goToProjectsIdeas() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('projects-ideas').classList.add('active');
+    function transitionTo(screenId) {
+        const activeScreen = document.querySelector('.screen.active');
+        if (activeScreen) {
+            screenHistory.push(screenId); // Guardar historial
+            activeScreen.classList.add('fade-out');
+            setTimeout(() => {
+                activeScreen.classList.remove('fade-out', 'active');
+                document.getElementById(screenId).classList.add('active');
+            }, 500);
+        } else {
+            screenHistory.push(screenId);
+            document.getElementById(screenId).classList.add('active');
+        }
     }
 
-    function goToSettings() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('settings').classList.add('active');
-    }
+    // Funciones de navegación
+    function goToMenu() { transitionTo('main-menu'); }
+    function goToProjectsIdeas() { transitionTo('projects-ideas'); }
+    function goToSettings() { transitionTo('settings'); }
+    function goToAboutMe() { transitionTo('sobre-mi'); }
+    function goToBlog() { transitionTo('blog'); }
+    function goToContact() { transitionTo('contacto'); }
 
-    function goToAboutMe() {
-    screenHistory.push('sobre-mi'); // Añade al historial antes de transición
-    transition(() => {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('sobre-mi').classList.add('active');
-    });
-}
-
-    function goToBlog() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('blog').classList.add('active');
-    }
-
-    function goToContact() {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('contacto').classList.add('active');
-    }
-
+    // Función de retroceso
     function goBack() {
-    if (screenHistory.length > 1) {
-        // Elimina la pantalla actual del historial
-        screenHistory.pop();
-        
-        // Obtiene la pantalla anterior
-        const previousScreen = screenHistory[screenHistory.length - 1];
-        
-        // Transición sin animación de fade-out para el retroceso
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(previousScreen).classList.add('active');
+        if (screenHistory.length > 1) {
+            screenHistory.pop(); // Elimina pantalla actual
+            const previousScreen = screenHistory.pop(); // Saca la anterior real
+            transitionTo(previousScreen);
+        }
     }
-}
 
+    // ===============================
+    // FUNCIONES EXISTENTES
+    // ===============================
     function confirmExit() {
       if (confirm("¿Estás seguro de que quieres salir?")) {
         window.close();
       }
     }
 
-    // Función para mostrar la notificación
     function showNotification() {
         const notification = document.getElementById('news-notification');
         notification.classList.add('active');
-        
-        // Opcional: Mostrar solo una vez al día
-        const lastShown = localStorage.getItem('lastNotificationShown');
-        const today = new Date().toDateString();
-        
-        if (!lastShown || lastShown !== today) {
-            localStorage.setItem('lastNotificationShown', today);
-        }
+        localStorage.setItem('lastNotificationShown', new Date().toDateString());
     }
     
-    // Función para ocultar la notificación
     function hideNotification() {
         document.getElementById('news-notification').classList.remove('active');
     }
-    
-    // Mostrar notificación al cargar la página
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(showNotification, 2000); // Mostrar después de 2 segundos
-    });
-    
-  // Sistema de notificaciones
-    function showNotification() {
-    const notification = document.getElementById('news-notification');
-    notification.classList.add('active');
-    
-    // Mostrar solo una vez al día (opcional)
-    localStorage.setItem('lastNotificationShown', new Date().toDateString());
-  }
 
-function hideNotification() {
-    document.getElementById('news-notification').classList.remove('active');
-  }
-
-  function skipBootAnimation() {
-    const bootScreen = document.getElementById('boot-screen');
-    if (bootScreen) {
-      bootScreen.style.transition = 'opacity 0.2s ease-out';
-      bootScreen.style.opacity = '0';
-      
-      setTimeout(function() {
-        bootScreen.remove();
-        document.body.classList.remove('loading');
-        document.getElementById('start-screen').classList.add('active');
-        showNotification();
-      }, 200);
-    }
-    
-    // Remover los event listeners después de usarlos
-    document.removeEventListener('keydown', skipBootAnimation);
-    document.removeEventListener('click', skipBootAnimation);
-  }
-
-  function goBack() {
-        // Solo podemos retroceder si hay más de una pantalla en el historial
-        if (screenHistory.length > 2) {
-            const currentScreen = document.querySelector('.screen.active');
+    function skipBootAnimation() {
+        const bootScreen = document.getElementById('boot-screen');
+        if (bootScreen) {
+            bootScreen.style.transition = 'opacity 0.2s ease-out';
+            bootScreen.style.opacity = '0';
             
-            // Quitamos la pantalla actual del historial
-            screenHistory.pop();
-            
-            // Obtenemos la pantalla anterior
-            const previousScreenId = screenHistory[screenHistory.length - 1];
-            
-            // Transición a la pantalla anterior
-            if (currentScreen) {
-                currentScreen.classList.remove('active');
-            }
-            document.getElementById(previousScreenId).classList.add('active');
+            setTimeout(function() {
+                bootScreen.remove();
+                document.body.classList.remove('loading');
+                document.getElementById('start-screen').classList.add('active');
+                showNotification();
+            }, 200);
         }
+        document.removeEventListener('keydown', skipBootAnimation);
+        document.removeEventListener('click', skipBootAnimation);
     }
-    
-// Inicialización
+
+    // ===============================
+    // INICIALIZACIÓN GENERAL
+    // ===============================
     document.addEventListener('DOMContentLoaded', function() {
-      // Mostrar pantalla de carga
       document.body.classList.add('loading');
-      
-      // Configuración de eventos
+
       document.getElementById('bg-color-picker').addEventListener('input', function() {
         document.body.style.backgroundColor = this.value;
       });
-      
+
       document.getElementById('language-selector').addEventListener('change', function() {
         changeLanguage(this.value);
       });
-      
-      // Permitir saltar la animación
+
       document.addEventListener('keydown', skipBootAnimation);
       document.addEventListener('click', skipBootAnimation);
-      
-      // Ocultar pantalla de carga después de 3 segundos
+
       setTimeout(function() {
         const bootScreen = document.getElementById('boot-screen');
         if (bootScreen) {
           bootScreen.style.opacity = '0';
           bootScreen.style.transition = 'opacity 0.5s ease-out';
-          
           setTimeout(function() {
             bootScreen.remove();
             document.body.classList.remove('loading');
             document.getElementById('start-screen').classList.add('active');
-            
-            // Mostrar notificación después de 2 segundos más
             setTimeout(showNotification, 2000);
           }, 500);
         }
