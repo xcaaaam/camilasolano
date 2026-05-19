@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio digital de Camila Solano Córdova">
+  <title>Camila Solano Córdova - Portfolio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFFF00'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #00ff00;
+      --secondary-color: #ccff00;
+      --text-color: #00ff00;
+      --bg-color: black;
+      --white: white;
+      --yellow: yellow;
+      --neon-yellow: #ffff00;
+    }
+
+    @keyframes bootUp {
+      0%   { opacity: 0; transform: scale(0.8) translateY(20px); filter: blur(5px); }
+      50%  { opacity: 0.5; filter: blur(2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+    }
+
+    @keyframes scanlines {
+      from { background-position: 0 0; }
+      to   { background-position: 0 10px; }
+    }
+
+    .boot-animation {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background:
+        linear-gradient(rgba(0,255,0,0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,0,0.1) 1px, transparent 1px);
+      background-size: 10px 10px;
+      background-color: var(--bg-color);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: scanlines 0.5s linear infinite;
+    }
+
+    .boot-text {
+      color: var(--primary-color);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      margin: 10px 0;
+      text-shadow: 0 0 5px var(--primary-color);
+      opacity: 0;
+      animation: textFadeIn 0.5s forwards;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes textFadeIn { to { opacity: 1; } }
+
+    .boot-progress {
+      width: 80%;
+      max-width: 375px;
+      height: 10px;
+      background-color: rgba(0,0,0,0.5);
+      border: 1px solid var(--primary-color);
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    .boot-progress-bar {
+      height: 100%;
+      width: 0;
+      background-color: var(--primary-color);
+      animation: progressFill 2.5s forwards;
+    }
+
+    @keyframes progressFill { to { width: 100%; } }
+
+    body.loading { overflow: hidden; }
+    body.loading .screen { display: none !important; }
+
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', cursive;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      text-align: center;
+      overflow: hidden;
+      line-height: 1.6;
+    }
+
+    .screen {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .active { display: flex; }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+
+    .fade-out { animation: fadeOut 0.4s ease-out forwards; }
+
+    /* ── Floating back arrow ── */
+    #nav-back-arrow {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 500;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,0,0,0.85);
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+      padding: 8px 12px;
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--primary-color);
+      transition: all 0.3s;
+    }
+    #nav-back-arrow:hover {
+      color: var(--yellow);
+      border-color: var(--yellow);
+      box-shadow: 0 0 10px var(--yellow);
+      transform: scale(1.05);
+    }
+
+    h1 { font-size: clamp(2rem, 10vw, 80px); margin-bottom: 20px; color: var(--white); }
+    h2 { font-size: clamp(1.2rem, 4vw, 2rem); margin-bottom: 30px; color: var(--primary-color); }
+    h3 { font-size: clamp(0.8rem, 2.5vw, 1.2rem); margin: 20px 0; color: var(--primary-color); }
+
+    .subtitle      { font-size: 12px; color: var(--white); margin-top: -10px; margin-bottom: 20px; }
+    .animated-name { font-size: 20px; margin: 20px 0; color: var(--white); }
+    .animated-handle { font-size: 12px; color: var(--white); margin: 20px 0; }
+    .animated-handle a { color: var(--white); text-decoration: none; }
+    .animated-handle a::before { content: "🌐 "; }
+
+    a, button {
+      background: none;
+      border: none;
+      color: var(--secondary-color);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 10px;
+      transition: all 0.3s ease;
+    }
+    a:hover, button:hover { color: var(--yellow); transform: scale(1.05); }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* ── About Me ── */
+    .about-container {
+      width: 90%;
+      max-width: 800px;
+      margin: 20px auto;
+      text-align: left;
+      overflow-y: auto;
+      max-height: 80vh;
+      padding: 20px;
+    }
+
+    .about-category {
+      margin-bottom: 40px;
+      background-color: rgba(0,0,0,0.3);
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .about-category h3 {
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .about-category p {
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--white);
+      margin-bottom: 15px;
+    }
+
+    .about-category ul {
+      margin: 15px 0;
+      padding-left: 20px;
+      list-style: none;
+    }
+
+    .about-category li {
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--white);
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .about-category li::before {
+      content: "•";
+      color: var(--primary-color);
+      position: absolute;
+      left: 0;
+    }
+
+    .job-title {
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 5px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+    }
+
+    .job-date {
+      color: #ccc;
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .job-experience { margin-bottom: 30px; }
+
+    /* ── Skills ── */
+    .skills-container {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-category { margin-bottom: 20px; }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .skill-name {
+      width: 120px;
+      font-size: 10px;
+      color: var(--white);
+      text-align: left;
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .skill-bar {
+      flex-grow: 1;
+      height: 16px;
+      background-color: #333;
+      position: relative;
+      border: 2px solid #444;
+    }
+
+    .skill-level {
+      height: 100%;
+      background-color: var(--primary-color);
+      animation: fillBar 1s ease-out forwards;
+    }
+
+    @keyframes fillBar {
+      from { width: 0; }
+      to   { width: var(--skill-level); }
+    }
+
+    .skill-value {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 10px;
+      color: var(--white);
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    /* ── Skill tags (professional skills) ── */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .skill-tag {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 7px;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      padding: 6px 10px;
+      background: rgba(0,255,0,0.05);
+      line-height: 1.6;
+    }
+
+    /* ── Character video ── */
+    .character-video-container {
+      margin: 8px auto;
+      width: 220px;
+      height: 280px;
+      border: 3px solid var(--primary-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 15px var(--primary-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .character-video {
+      width: 200%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── Projects ── */
+    .projects-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin: 30px 0;
+    }
+
+    .projects-column {
+      flex: 1;
+      min-width: 300px;
+      max-width: 500px;
+    }
+
+    .project-card {
+      background-color: rgba(0,0,0,0.3);
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+
+    .project-logo {
+      max-width: 200px;
+      max-height: 150px;
+      margin: 0 auto 15px;
+      display: block;
+      filter: drop-shadow(0 0 5px var(--primary-color));
+    }
+
+    .project-title {
+      color: var(--primary-color);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .project-description {
+      font-family: 'Nunito', sans-serif;
+      color: var(--white);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .project-level {
+      font-family: 'Press Start 2P', cursive;
+      color: #FFEA00;
+      text-shadow: 0 0 5px #FFEA00, 0 0 10px #FFEA00;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    /* ── Notification ── */
+    .notification {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 320px;
+      background-color: rgba(0,0,0,0.95);
+      border: 3px solid var(--primary-color);
+      box-shadow: 0 0 20px var(--primary-color), 0 0 40px rgba(0,255,0,0.3);
+      font-family: 'Press Start 2P', cursive;
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      display: none;
+    }
+
+    .notification.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      display: block;
+    }
+
+    .notification-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 15px;
+    }
+
+    .notification-title {
+      font-family: 'Press Start 2P', cursive;
+      color: var(--primary-color);
+      text-shadow: 0 0 5px var(--primary-color);
+      font-size: 13px;
+      margin: 0;
+      padding: 5px 0;
+      border-bottom: 2px solid var(--primary-color);
+      width: 100%;
+      text-align: center;
+    }
+
+    .close-notification {
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
+
+    .close-notification:hover { color: var(--neon-yellow); transform: scale(1.2); }
+
+    .notification-content {
+      font-family: 'Press Start 2P', cursive;
+      color: var(--white);
+      font-size: 10px;
+      line-height: 1.8;
+      padding: 15px;
+      text-align: center;
+      border-bottom: 2px solid var(--primary-color);
+    }
+
+    .notification-lang-flags {
+      color: var(--primary-color);
+      font-size: 11px;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+
+    .notification-footer {
+      font-family: 'Press Start 2P', cursive;
+      color: var(--primary-color);
+      font-size: 9px;
+      text-align: center;
+      padding: 8px 15px;
+      text-shadow: 0 0 3px var(--primary-color);
+    }
+
+    @keyframes neon-blink {
+      0%, 100% {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 20px var(--primary-color), 0 0 40px rgba(0,255,0,0.3);
+      }
+      50% {
+        border-color: var(--neon-yellow);
+        box-shadow: 0 0 25px var(--neon-yellow), 0 0 50px rgba(255,255,0,0.4);
+      }
+    }
+
+    .notification { animation: neon-blink 2s infinite; }
+
+    /* ── CV button ── */
+    .cv-button {
+      background-color: #000;
+      color: var(--white);
+      padding: 10px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      display: inline-block;
+      transition: background-color 0.3s;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 11px;
+      border: 2px solid var(--primary-color);
+    }
+    .cv-button:hover { background-color: #d8f002; color: #000; }
+
+    /* ── Game Over ── */
+    #gameover-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: transparent;
+      z-index: 8000;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+    #gameover-overlay.active {
+      display: flex;
+      pointer-events: all;
+    }
+    #matrix-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+    #gameover-text {
+      position: relative;
+      z-index: 1;
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(2rem, 8vw, 5rem);
+      color: #ff0000;
+      text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+      opacity: 0;
+      transition: opacity 0.8s ease-in;
+    }
+    #gameover-text.visible { opacity: 1; }
+    #gameover-restart {
+      position: relative;
+      z-index: 1;
+      display: none;
+      margin-top: 50px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 16px;
+      color: var(--primary-color);
+      background: none;
+      border: 2px solid var(--primary-color);
+      padding: 14px 28px;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--primary-color);
+      animation: neon-blink 1.5s infinite;
+    }
+    #gameover-restart:hover {
+      color: var(--yellow);
+      border-color: var(--yellow);
+    }
+    @keyframes fadeToBlack {
+      from { background: transparent; }
+      to   { background: black; }
+    }
+    #gameover-overlay.blackout {
+      animation: fadeToBlack 1s forwards;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .projects-container { flex-direction: column; }
+      h1 { font-size: 2rem; }
+      .options { width: 90%; }
+      .skills-container { grid-template-columns: 1fr; }
+      .about-category { padding: 15px; }
+      .character-video-container { max-width: 200px; }
+      .projects-column { min-width: 100%; }
+      .project-logo { max-width: 150px; }
+      .notification { width: 90%; max-width: 300px; }
+      #nav-back-arrow { font-size: 8px; padding: 6px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Game Over overlay -->
+  <div id="gameover-overlay">
+    <canvas id="matrix-canvas"></canvas>
+    <div id="gameover-text">GAME OVER</div>
+    <button id="gameover-restart" onclick="window.location.reload()">▶ RESTART</button>
+  </div>
+
+  <!-- Boot screen -->
+  <div id="boot-screen" class="boot-animation">
+    <div class="boot-text" style="--delay: 0.5s">SYSTEM BOOTING...</div>
+    <div class="boot-text" style="--delay: 1s">CHECKING HARDWARE...</div>
+    <div class="boot-text" style="--delay: 1.5s">LOADING ASSETS...</div>
+    <div class="boot-text" style="--delay: 2s">INITIALIZING INTERFACE...</div>
+    <div class="boot-progress"><div class="boot-progress-bar"></div></div>
+    <div class="boot-text" style="--delay: 2.5s">PRESS ANY KEY TO CONTINUE</div>
+  </div>
+
+  <!-- Language notification -->
+  <div id="news-notification" class="notification" role="alert" aria-live="assertive">
+    <div class="notification-header">
+      <h3 class="notification-title">🌐 LANGUAGE SETTINGS</h3>
+      <button class="close-notification" onclick="hideNotification()" aria-label="Close notification">✕</button>
+    </div>
+    <div class="notification-content">
+      THIS PORTFOLIO IS AVAILABLE IN 4 LANGUAGES
+      <div class="notification-lang-flags">
+        ES · EN · PT · IT
+      </div>
+      <br>
+      GO TO <strong>SETTINGS</strong> TO CHANGE THE LANGUAGE.
+    </div>
+    <div class="notification-footer">PRESS ✕ TO CLOSE</div>
+  </div>
+
+  <!-- Floating back arrow (shown on all screens except start) -->
+  <button id="nav-back-arrow" onclick="goBack()" aria-label="Volver">◀ <span data-translate="back">VOLVER</span></button>
+
+  <!-- Start screen -->
+  <div id="start-screen" class="screen active" role="main" aria-label="Pantalla de inicio">
+    <h1 data-translate="welcome">BIENVENIDOS</h1>
+    <p class="subtitle">WELCOME</p>
+    <p class="animated-name">CAMILA SOLANO CÓRDOVA</p>
+    <p class="animated-handle">
+      <a href="https://www.instagram.com/xcaaaam/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Camila">@xcaaaam</a>
+    </p>
+    <div class="options">
+      <button onclick="showScreen('main-menu')" aria-label="Continuar al menú" data-translate="continue">CONTINUAR</button>
+      <button onclick="showScreen('projects-ideas')" aria-label="Ver proyectos e ideas" data-translate="new-game">NUEVO JUEGO</button>
+      <button onclick="showScreen('settings')" aria-label="Ajustes" data-translate="settings">AJUSTES</button>
+      <button onclick="confirmExit()" aria-label="Salir" data-translate="quit">SALIR</button>
+    </div>
+  </div>
+
+  <!-- Main menu -->
+  <div id="main-menu" class="screen" role="navigation" aria-label="Menú principal">
+    <h2 data-translate="menu">MENU</h2>
+    <div class="options">
+      <button onclick="showScreen('sobre-mi')" aria-label="Sobre mí" data-translate="about">SOBRE MÍ</button>
+      <button onclick="showScreen('blog')" aria-label="Blog" data-translate="blog">BLOG</button>
+      <button onclick="showScreen('contacto')" aria-label="Contacto" data-translate="contact">CONTACTO</button>
+      <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
+    </div>
+  </div>
+
+  <!-- Projects & Ideas -->
+  <div id="projects-ideas" class="screen" role="region" aria-label="Proyectos e ideas">
+    <h2 data-translate="projects">MY NEW GAME - PROJECTS &amp; IDEAS</h2>
+    <div class="projects-container">
+      <div class="projects-column">
+        <h3 data-translate="projects-title">PROJECTS</h3>
+
+        <div class="project-card">
+          <div class="project-level">LEVEL 1 🔓</div>
+          <img src="top-of-talent.png" alt="Top of Talent logo" class="project-logo">
+          <h4 class="project-title">TOP OF TALENT</h4>
+          <p class="project-description" data-translate="tot-desc">
+            Platform concept to help emerging artists grow their audience without relying on large marketing budgets. Exploring growth strategies, user engagement, and platform scalability.
+          </p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-level">LEVEL 2 🔓</div>
+          <img src="theagave.png" alt="The Agave Drink logo" class="project-logo">
+          <h4 class="project-title">THE AGAVE DRINK</h4>
+          <p class="project-description" data-translate="agave-desc">
+            Premium agave liquor brand with two exclusive presentations. Focus on sustainable production and luxury brand design.
+          </p>
+        </div>
+      </div>
+
+      <div class="projects-column">
+        <h3 data-translate="ideas-title">IDEAS</h3>
+
+        <div class="project-card">
+          <div class="project-level">LEVEL 3 - LOCKED 🔒</div>
+          <img src="cisoc.png" alt="CISOC Group logo" class="project-logo">
+          <h4 class="project-title">CISOC GROUP</h4>
+          <p class="project-description" data-translate="coming-soon">Próximamente</p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-level">LEVEL 4 - LOCKED 🔒</div>
+          <img src="xmedia.png" alt="X Media logo" class="project-logo">
+          <h4 class="project-title">X MEDIA</h4>
+          <p class="project-description" data-translate="coming-soon">Próximamente</p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-level">LEVEL 5 - LOCKED 🔒</div>
+          <img src="sevensides.png" alt="Seven Sides logo" class="project-logo">
+          <h4 class="project-title">SEVEN SIDES</h4>
+          <p class="project-description" data-translate="coming-soon">Próximamente</p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-level">LEVEL 6 - LOCKED 🔒</div>
+          <img src="caring.png" alt="Caring App logo" class="project-logo">
+          <h4 class="project-title">CARING APP</h4>
+          <p class="project-description" data-translate="coming-soon">Próximamente</p>
+        </div>
+      </div>
+    </div>
+    <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
+  </div>
+
+  <!-- Settings -->
+  <div id="settings" class="screen" role="region" aria-label="Ajustes">
+    <h2 data-translate="settings">CONFIGURACIÓN</h2>
+    <p>
+      🎨 <span data-translate="color">COLOR</span>:
+      <input type="color" id="bg-color-picker" value="#000000" aria-label="Selector de color de fondo">
+    </p>
+    <p>
+      🌐 <span data-translate="language">IDIOMA</span>:
+      <select id="language-selector" aria-label="Selector de idioma">
+        <option value="es">ESPAÑOL</option>
+        <option value="en" selected>ENGLISH</option>
+        <option value="pt">PORTUGUÊS</option>
+        <option value="it">ITALIANO</option>
+      </select>
+    </p>
+    <p>📍 <span data-translate="location">LOCACIÓN</span>: MILANO, ITALY</p>
+    <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
+  </div>
+
+  <!-- About Me -->
+  <section id="sobre-mi" class="screen" role="region" aria-label="Sobre mí" style="padding-top: 4px;">
+    <div class="about-container" style="margin-top: 4px;">
+      <h2 data-translate="about" style="margin-bottom: 8px;">ABOUT ME</h2>
+
+      <!-- Character video -->
+      <div class="character-video-container">
+        <video autoplay loop muted playsinline class="character-video">
+          <source src="Timeline2.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- CV download -->
+      <div style="margin: 20px 0; text-align: center;">
+        <a href="CamilaSolanoC%C3%B3rdova_Resume.pdf"
+           target="_blank" rel="noopener noreferrer"
+           class="cv-button">
+          ⬇ CURRICULUM
+        </a>
+      </div>
+
+      <!-- Profile -->
+      <div class="about-category">
+        <h3 data-translate="profile">PROFILE</h3>
+        <p data-translate="profile-text">
+          Master's candidate in Innovation and Technology Management with experience in data analysis and cross-functional environments. Proactive and self-driven learner, with a strong interest in sustainability, business innovation, and product development. Experience developing independent projects focused on market validation and value creation. Interested in product and project management roles within technology-driven organizations.
+        </p>
+      </div>
+
+      <!-- Work Experience -->
+      <div class="about-category">
+        <h3 data-translate="experience">WORK EXPERIENCE</h3>
+
+        <div class="job-experience">
+          <div class="job-date">🗓️ Mar 2023 – Aug 2024 &nbsp;|&nbsp; 📍 Cuenca, Ecuador</div>
+          <div class="job-title">💼 SiatiGroup – Commercial &amp; Data Support</div>
+          <ul>
+            <li>Analyzed market and client data to support commercial strategy, contributing to the highest-performing branch nationwide in sales volume.</li>
+            <li>Tracked KPIs and sales performance, supporting data-driven decision-making in a target-driven environment.</li>
+            <li>Coordinated cross-functional communication between suppliers, clients, and logistics partners across international operations.</li>
+            <li>Maintained and validated structured datasets to ensure accuracy for reporting and operational decision-making.</li>
+            <li>Supported Power BI dashboard validation and KPI tracking, identifying improvement opportunities in performance monitoring.</li>
+          </ul>
+        </div>
+
+        <div class="job-experience">
+          <div class="job-date">🗓️ Jul 2021 – Aug 2021 &nbsp;|&nbsp; 📍 Cuenca, Ecuador</div>
+          <div class="job-title">💼 TRAMSUR Customs Agency – Intern</div>
+          <ul>
+            <li>Supported import/export operations by managing documentation and process flows.</li>
+            <li>Gained exposure to international logistics processes and regulatory frameworks.</li>
+          </ul>
+        </div>
+
+        <div class="job-experience">
+          <div class="job-date">🗓️ Jan 2021 – May 2021 &nbsp;|&nbsp; 📍 Cuenca, Ecuador</div>
+          <div class="job-title">💼 Local Government (GAD Cuenca) – Intern</div>
+          <ul>
+            <li>Contributed to international cooperation and sustainability-related projects.</li>
+            <li>Supported project proposal development for international funding initiatives.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="about-category">
+        <h3 data-translate="education">EDUCATION</h3>
+        <ul>
+          <li>
+            <strong>2024 – Present</strong> 📚 | Università Cattolica del Sacro Cuore, Italy<br>
+            <span style="color: var(--primary-color);">Master in Innovation and Technology Management</span><br>
+            <span style="font-size: 12px; color: #ccc;">Product &amp; Innovation · Data &amp; Tech · Project &amp; People Management · Economics of Innovation · Circular Economy</span>
+          </li>
+          <li>
+            <strong>2018 – 2022</strong> 📚 | Universidad del Azuay, Ecuador<br>
+            <span style="color: var(--primary-color);">Bachelor's Degree in International Studies</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Interests -->
+      <div class="about-category">
+        <h3 data-translate="interests">INTERESTS</h3>
+        <ul>
+          <li>International Business, Global Trade, and Financial Markets</li>
+          <li>Sustainability, Circular Economy, and Technology-Driven Innovation</li>
+          <li>Product Development, MVP Design, and Growth Strategy</li>
+          <li>Creative Industries: Music, Entertainment, and Design</li>
+        </ul>
+      </div>
+
+      <!-- Certificates -->
+      <div class="about-category">
+        <h3 data-translate="certificates">CERTIFICATES &amp; AWARDS</h3>
+        <ul>
+          <li>🏆 Winner — "Public Leadership and Innovation Program for Young People" PLIP 2022, Ideas por Cuenca</li>
+          <li>📜 Collaborative International Online Learning (COIL) — Baldwin Wallace University, USA: <em>Managing Competition, Conflict, and Cooperation in Pandemic World</em></li>
+          <li>📜 Digital Marketing and Commercialization Symposium</li>
+          <li>📜 International Conference South America and Human Rights: Reasons for Hope</li>
+        </ul>
+      </div>
+
+      <!-- Skills -->
+      <div class="skills-container">
+
+        <!-- Tools & Software -->
+        <div class="skill-category">
+          <h3 data-translate="tools-software">TOOLS &amp; SOFTWARE</h3>
+          <div class="skill-item">
+            <span class="skill-name">Power BI</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 40%"></div>
+              <span class="skill-value">2/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">MS Office</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 60%"></div>
+              <span class="skill-value">3/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Python</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 20%"></div>
+              <span class="skill-value">1/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">IBM Cloud</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 20%"></div>
+              <span class="skill-value">1/5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Professional Skills -->
+        <div class="skill-category">
+          <h3 data-translate="professional-skills">PROFESSIONAL SKILLS</h3>
+          <div class="skill-tags">
+            <span class="skill-tag" data-translate="skill-product">PRODUCT THINKING &amp; MVP</span>
+            <span class="skill-tag" data-translate="skill-data">DATA ANALYSIS &amp; REPORTING</span>
+            <span class="skill-tag" data-translate="skill-decision">DATA-DRIVEN DECISIONS</span>
+            <span class="skill-tag" data-translate="skill-growth">GROWTH STRATEGY &amp; SALES</span>
+            <span class="skill-tag" data-translate="skill-roadmap">ROADMAPPING</span>
+            <span class="skill-tag" data-translate="skill-coord">PROJECT COORDINATION</span>
+            <span class="skill-tag" data-translate="skill-problem">PROBLEM SOLVING</span>
+            <span class="skill-tag" data-translate="skill-ux">UX BASICS / USER RESEARCH</span>
+            <span class="skill-tag" data-translate="skill-intl">INTERNATIONAL OPERATIONS</span>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="skill-category">
+          <h3 data-translate="languages">LANGUAGES</h3>
+          <div class="skill-item">
+            <span class="skill-name">Spanish</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 100%"></div>
+              <span class="skill-value">5/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">English</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 80%"></div>
+              <span class="skill-value">4/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Portuguese</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 40%"></div>
+              <span class="skill-value">2/5</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Italian</span>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 20%"></div>
+              <span class="skill-value">1/5</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /skills-container -->
+
+      <br>
+      <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog" class="screen" role="region" aria-label="Blog">
+    <h2 data-translate="blog">BLOG</h2>
+    <p data-translate="blog-description">IN CASE YOU WANT TO READ MY BLOG.</p>
+    <a href="https://medium.com/@xcaaaam" target="_blank" rel="noopener noreferrer"
+       aria-label="Medium de Camila" data-translate="view-medium">
+      Click to Medium
+    </a>
+    <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
+  </section>
+
+  <!-- Contact -->
+  <section id="contacto" class="screen" role="region" aria-label="Contacto">
+    <h2 data-translate="contact">CONTACTO</h2>
+    <p data-translate="contact-description">IN CASE YOU WOULD LIKE TO GET MORE ABOUT ME:</p>
+    <div class="options">
+      <a href="https://www.instagram.com/xcaaaam/" target="_blank" rel="noopener noreferrer"
+         aria-label="Instagram de Camila" data-translate="instagram-link">
+        📲 IN CASE YOU WANT TO FOLLOW ME
+      </a>
+      <a href="https://www.linkedin.com/in/camila-solano-c%C3%B3rdova-5810431a6/"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="LinkedIn de Camila" data-translate="linkedin-link">
+        💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE
+      </a>
+      <a href="https://vsco.co/xcaaaam" target="_blank" rel="noopener noreferrer"
+         aria-label="VSCO de Camila" data-translate="vsco-link">
+        📷 HERE YOU CAN JUDGE MY CREATIVITY
+      </a>
+      <a href="mailto:camisolano71000@gmail.com" data-translate="email-part">
+        📩 HAVE AN EXCITING PROJECT? DROP ME A MESSAGE!
+      </a>
+      <button onclick="goBack()" aria-label="Volver" data-translate="back">VOLVER</button>
+    </div>
+  </section>
+
+  <script>
+    // ─── Translations ───────────────────────────────────────────────────────────
+    const translations = {
+      es: {
+        welcome: "BIENVENIDOS",
+        menu: "MENU",
+        about: "SOBRE MÍ",
+        contact: "CONTACTO",
+        continue: "CONTINUAR",
+        "new-game": "NUEVO JUEGO",
+        settings: "AJUSTES",
+        quit: "SALIR",
+        back: "VOLVER",
+        blog: "BLOG",
+        profile: "PERFIL",
+        "profile-text": "Candidata a máster en Gestión de la Innovación y Tecnología con experiencia en análisis de datos y entornos multifuncionales. Proactiva y autodidacta, con fuerte interés en sostenibilidad, innovación empresarial y desarrollo de productos. Experiencia desarrollando proyectos independientes enfocados en validación de mercado y creación de valor. Interesada en roles de gestión de productos y proyectos en organizaciones orientadas a la tecnología.",
+        experience: "EXPERIENCIA LABORAL",
+        education: "EDUCACIÓN",
+        interests: "INTERESES",
+        certificates: "CERTIFICADOS Y PREMIOS",
+        "tools-software": "HERRAMIENTAS Y SOFTWARE",
+        "professional-skills": "HABILIDADES PROFESIONALES",
+        "skill-product": "PRODUCT THINKING & MVP",
+        "skill-data": "ANÁLISIS DE DATOS",
+        "skill-decision": "DECISIONES BASADAS EN DATOS",
+        "skill-growth": "ESTRATEGIA DE CRECIMIENTO",
+        "skill-roadmap": "ROADMAPPING",
+        "skill-coord": "COORDINACIÓN DE PROYECTOS",
+        "skill-problem": "RESOLUCIÓN DE PROBLEMAS",
+        "skill-ux": "UX / INVESTIGACIÓN DE USUARIO",
+        "skill-intl": "OPERACIONES INTERNACIONALES",
+        languages: "IDIOMAS",
+        projects: "MI NUEVO JUEGO - PROYECTOS & IDEAS",
+        "projects-title": "PROYECTOS",
+        "ideas-title": "IDEAS",
+        "tot-desc": "Concepto de plataforma para ayudar a artistas emergentes a crecer sin depender de grandes presupuestos de marketing. Explora estrategias de crecimiento, engagement y escalabilidad.",
+        "agave-desc": "Marca premium de licor de agave con dos presentaciones exclusivas. Enfoque en producción sostenible y diseño de marca de lujo.",
+        "sevensides-desc": "Proyecto orientado a reducir la desigualdad tecnológica a través de la innovación y la cooperación internacional. Enfocado en identificación de problemas, diseño de impacto y estructuración de soluciones.",
+        "coming-soon": "Próximamente",
+        color: "COLOR",
+        language: "IDIOMA",
+        location: "UBICACIÓN",
+        "blog-description": "AQUÍ ESTÁ MI PÁGINA EN MEDIUM, POR SI QUIERES LEER MI BLOG.",
+        "view-medium": "Ver en Medium",
+        "contact-description": "EN CASO DE QUE QUIERAS PONERTE EN CONTACTO CONMIGO:",
+        "instagram-link": "📲 POR SI QUIERES CONOCER SOBRE MÍ",
+        "linkedin-link": "💼 SI QUIERES VER MI LADO PROFESIONAL",
+        "vsco-link": "📷 PARA QUE PUEDAS JUZGAR MI CREATIVIDAD",
+        "email-part": "📩 ¿TIENES UN PROYECTO INTERESANTE? ¡ENVÍAME UN MENSAJE!"
+      },
+      en: {
+        welcome: "WELCOME",
+        menu: "MENU",
+        about: "ABOUT ME",
+        contact: "CONTACT",
+        continue: "CONTINUE",
+        "new-game": "NEW GAME",
+        settings: "SETTINGS",
+        quit: "QUIT",
+        back: "BACK",
+        blog: "BLOG",
+        profile: "PROFILE",
+        "profile-text": "Master's candidate in Innovation and Technology Management with experience in data analysis and cross-functional environments. Proactive and self-driven learner, with a strong interest in sustainability, business innovation, and product development. Experience developing independent projects focused on market validation and value creation. Interested in product and project management roles within technology-driven organizations.",
+        experience: "WORK EXPERIENCE",
+        education: "EDUCATION",
+        interests: "INTERESTS",
+        certificates: "CERTIFICATES & AWARDS",
+        "tools-software": "TOOLS & SOFTWARE",
+        "professional-skills": "PROFESSIONAL SKILLS",
+        "skill-product": "PRODUCT THINKING & MVP",
+        "skill-data": "DATA ANALYSIS & REPORTING",
+        "skill-decision": "DATA-DRIVEN DECISIONS",
+        "skill-growth": "GROWTH STRATEGY & SALES",
+        "skill-roadmap": "ROADMAPPING",
+        "skill-coord": "PROJECT COORDINATION",
+        "skill-problem": "PROBLEM SOLVING",
+        "skill-ux": "UX BASICS / USER RESEARCH",
+        "skill-intl": "INTERNATIONAL OPERATIONS",
+        languages: "LANGUAGES",
+        projects: "MY NEW GAME - PROJECTS & IDEAS",
+        "projects-title": "PROJECTS",
+        "ideas-title": "IDEAS",
+        "tot-desc": "Platform concept to help emerging artists grow their audience without relying on large marketing budgets. Exploring growth strategies, user engagement, and platform scalability.",
+        "agave-desc": "Premium agave liquor brand with two exclusive presentations. Focus on sustainable production and luxury brand design.",
+        "sevensides-desc": "Project aimed at reducing technological inequality through innovation and international cooperation. Focused on problem identification, impact design, and solution structuring.",
+        "coming-soon": "Coming soon",
+        color: "COLOR",
+        language: "LANGUAGE",
+        location: "LOCATION",
+        "blog-description": "IN CASE YOU WANT TO READ MY BLOG.",
+        "view-medium": "View on Medium",
+        "contact-description": "IN CASE YOU WOULD LIKE TO GET IN TOUCH WITH ME:",
+        "instagram-link": "📲 IN CASE YOU WANT TO FOLLOW ME",
+        "linkedin-link": "💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE",
+        "vsco-link": "📷 HERE YOU CAN JUDGE MY CREATIVITY",
+        "email-part": "📩 HAVE AN EXCITING PROJECT? DROP ME A MESSAGE!"
+      },
+      pt: {
+        welcome: "BEM-VINDO",
+        menu: "MENU",
+        about: "SOBRE MIM",
+        contact: "CONTATO",
+        continue: "CONTINUAR",
+        "new-game": "NOVO JOGO",
+        settings: "CONFIGURAÇÕES",
+        quit: "SAIR",
+        back: "VOLTAR",
+        blog: "BLOG",
+        profile: "PERFIL",
+        "profile-text": "Candidata ao mestrado em Gestão de Inovação e Tecnologia com experiência em análise de dados e ambientes multifuncionais. Proativa e autodidata, com forte interesse em sustentabilidade, inovação empresarial e desenvolvimento de produtos. Experiência desenvolvendo projetos independentes focados em validação de mercado e criação de valor. Interessada em funções de gestão de produtos e projetos em organizações orientadas à tecnologia.",
+        experience: "EXPERIÊNCIA PROFISSIONAL",
+        education: "EDUCAÇÃO",
+        interests: "INTERESSES",
+        certificates: "CERTIFICADOS E PRÊMIOS",
+        "tools-software": "FERRAMENTAS E SOFTWARE",
+        "professional-skills": "HABILIDADES PROFISSIONAIS",
+        "skill-product": "PRODUCT THINKING & MVP",
+        "skill-data": "ANÁLISE DE DADOS",
+        "skill-decision": "DECISÕES BASEADAS EM DADOS",
+        "skill-growth": "ESTRATÉGIA DE CRESCIMENTO",
+        "skill-roadmap": "ROADMAPPING",
+        "skill-coord": "COORDENAÇÃO DE PROJETOS",
+        "skill-problem": "RESOLUÇÃO DE PROBLEMAS",
+        "skill-ux": "UX / PESQUISA DE USUÁRIO",
+        "skill-intl": "OPERAÇÕES INTERNACIONAIS",
+        languages: "IDIOMAS",
+        projects: "MEU NOVO JOGO - PROJETOS & IDEIAS",
+        "projects-title": "PROJETOS",
+        "ideas-title": "IDEIAS",
+        "tot-desc": "Conceito de plataforma para ajudar artistas emergentes a crescer sem depender de grandes orçamentos de marketing. Explorando estratégias de crescimento, engajamento e escalabilidade.",
+        "agave-desc": "Marca premium de licor de agave com duas apresentações exclusivas. Foco em produção sustentável e design de marca de luxo.",
+        "sevensides-desc": "Projeto voltado a reduzir a desigualdade tecnológica através da inovação e cooperação internacional. Focado em identificação de problemas, design de impacto e estruturação de soluções.",
+        "coming-soon": "Em breve",
+        color: "COR",
+        language: "IDIOMA",
+        location: "LOCALIZAÇÃO",
+        "blog-description": "CASO VOCÊ QUEIRA LER O MEU BLOG.",
+        "view-medium": "Ver no Medium",
+        "contact-description": "CASO QUEIRA ENTRAR EM CONTATO COMIGO:",
+        "instagram-link": "📲 CASO QUEIRA ME SEGUIR",
+        "linkedin-link": "💼 SE QUISER VER MEU LADO PROFISSIONAL",
+        "vsco-link": "📷 AQUI VOCÊ PODE JULGAR MINHA CRIATIVIDADE",
+        "email-part": "📩 TEM UM PROJETO INTERESSANTE? MANDA UMA MENSAGEM!"
+      },
+      it: {
+        welcome: "BENVENUTO",
+        menu: "MENU",
+        about: "SU DI ME",
+        contact: "CONTATTO",
+        continue: "CONTINUA",
+        "new-game": "NUOVO GIOCO",
+        settings: "IMPOSTAZIONI",
+        quit: "ESCI",
+        back: "INDIETRO",
+        blog: "BLOG",
+        profile: "PROFILO",
+        "profile-text": "Candidata al master in Gestione dell'Innovazione e della Tecnologia con esperienza in analisi dei dati e ambienti interfunzionali. Proattiva e autodidatta, con forte interesse per la sostenibilità, l'innovazione aziendale e lo sviluppo di prodotti. Esperienza nello sviluppo di progetti indipendenti focalizzati sulla validazione del mercato e la creazione di valore. Interessata a ruoli di product e project management in organizzazioni orientate alla tecnologia.",
+        experience: "ESPERIENZA LAVORATIVA",
+        education: "ISTRUZIONE",
+        interests: "INTERESSI",
+        certificates: "CERTIFICATI E PREMI",
+        "tools-software": "STRUMENTI E SOFTWARE",
+        "professional-skills": "COMPETENZE PROFESSIONALI",
+        "skill-product": "PRODUCT THINKING & MVP",
+        "skill-data": "ANALISI DEI DATI",
+        "skill-decision": "DECISIONI BASATE SUI DATI",
+        "skill-growth": "STRATEGIA DI CRESCITA",
+        "skill-roadmap": "ROADMAPPING",
+        "skill-coord": "COORDINAMENTO DI PROGETTI",
+        "skill-problem": "PROBLEM SOLVING",
+        "skill-ux": "UX / RICERCA UTENTI",
+        "skill-intl": "OPERAZIONI INTERNAZIONALI",
+        languages: "LINGUE",
+        projects: "IL MIO NUOVO GIOCO - PROGETTI & IDEE",
+        "projects-title": "PROGETTI",
+        "ideas-title": "IDEE",
+        "tot-desc": "Concept di piattaforma per aiutare artisti emergenti a crescere senza dipendere da grandi budget di marketing. Esplorazione di strategie di crescita, engagement e scalabilità.",
+        "agave-desc": "Marca premium di liquore di agave con due presentazioni esclusive. Focus su produzione sostenibile e design di marca di lusso.",
+        "sevensides-desc": "Progetto volto a ridurre il divario tecnologico attraverso l'innovazione e la cooperazione internazionale. Focalizzato sull'identificazione dei problemi, la progettazione dell'impatto e la strutturazione delle soluzioni.",
+        "coming-soon": "Prossimamente",
+        color: "COLORE",
+        language: "LINGUA",
+        location: "POSIZIONE",
+        "blog-description": "NEL CASO VOLESSI LEGGERE IL MIO BLOG.",
+        "view-medium": "Vedi su Medium",
+        "contact-description": "NEL CASO VOLESSI METTERTI IN CONTATTO CON ME:",
+        "instagram-link": "📲 SE VUOI SEGUIRMI",
+        "linkedin-link": "💼 SE VUOI SCOPRIRE IL MIO LATO PROFESSIONALE",
+        "vsco-link": "📷 QUI PUOI GIUDICARE LA MIA CREATIVITÀ",
+        "email-part": "📩 HAI UN PROGETTO INTERESSANTE? MANDAMI UN MESSAGGIO!"
+      }
+    };
+
+    function changeLanguage(lang) {
+      document.querySelectorAll('[data-translate]').forEach(el => {
+        const key = el.getAttribute('data-translate');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      document.documentElement.lang = lang;
+    }
+
+    // ─── Navigation ─────────────────────────────────────────────────────────────
+    let screenHistory = ['start-screen'];
+
+    function showScreen(id) {
+      const active = document.querySelector('.screen.active');
+      screenHistory.push(id);
+      updateBackArrow(id);
+      if (active) {
+        active.classList.add('fade-out');
+        setTimeout(() => {
+          active.classList.remove('fade-out', 'active');
+          document.getElementById(id).classList.add('active');
+        }, 400);
+      } else {
+        document.getElementById(id).classList.add('active');
+      }
+    }
+
+    function goBack() {
+      if (screenHistory.length <= 1) return;
+      screenHistory.pop();
+      const prevId = screenHistory[screenHistory.length - 1];
+      const active = document.querySelector('.screen.active');
+      if (active) active.classList.remove('active');
+      document.getElementById(prevId).classList.add('active');
+      updateBackArrow(prevId);
+    }
+
+    function updateBackArrow(screenId) {
+      document.getElementById('nav-back-arrow').style.display =
+        screenId === 'start-screen' ? 'none' : 'flex';
+    }
+
+    function confirmExit() {
+      const overlay  = document.getElementById('gameover-overlay');
+      const text     = document.getElementById('gameover-text');
+      const restart  = document.getElementById('gameover-restart');
+      const canvas   = document.getElementById('matrix-canvas');
+
+      // Hide active screen
+      const active = document.querySelector('.screen.active');
+      if (active) active.style.display = 'none';
+      document.getElementById('nav-back-arrow').style.display = 'none';
+
+      overlay.classList.add('active');
+
+      // Start matrix rain
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const ctx     = canvas.getContext('2d');
+      const chars   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&';
+      const fs      = 14;
+      const cols    = Math.floor(canvas.width / fs);
+      const drops   = new Array(cols).fill(1);
+
+      const rain = setInterval(() => {
+        ctx.fillStyle = 'rgba(0,0,0,0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00ff00';
+        ctx.font = fs + 'px monospace';
+        drops.forEach((y, i) => {
+          ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, y * fs);
+          if (y * fs > canvas.height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        });
+      }, 50);
+
+      // Show GAME OVER text after 0.3s
+      setTimeout(() => text.classList.add('visible'), 300);
+
+      // Stop rain + fade to black after 2.5s
+      setTimeout(() => {
+        clearInterval(rain);
+        overlay.classList.add('blackout');
+      }, 2500);
+
+      // Show restart button 1.5s after blackout
+      setTimeout(() => {
+        restart.style.display = 'block';
+      }, 4000);
+    }
+
+    // ─── Notification ────────────────────────────────────────────────────────────
+    function showNotification() {
+      document.getElementById('news-notification').classList.add('active');
+    }
+
+    function hideNotification() {
+      document.getElementById('news-notification').classList.remove('active');
+    }
+
+    // ─── Boot sequence ───────────────────────────────────────────────────────────
+    function skipBootAnimation() {
+      const bootScreen = document.getElementById('boot-screen');
+      if (!bootScreen) return;
+      document.removeEventListener('keydown', skipBootAnimation);
+      document.removeEventListener('click', skipBootAnimation);
+      bootScreen.style.transition = 'opacity 0.2s ease-out';
+      bootScreen.style.opacity = '0';
+      setTimeout(() => {
+        bootScreen.remove();
+        document.body.classList.remove('loading');
+        setTimeout(showNotification, 1500);
+      }, 200);
+    }
+
+    // ─── Init ────────────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function () {
+      changeLanguage('en');
+      document.body.classList.add('loading');
+
+      document.getElementById('bg-color-picker').addEventListener('input', function () {
+        document.body.style.backgroundColor = this.value;
+      });
+
+      document.getElementById('language-selector').addEventListener('change', function () {
+        changeLanguage(this.value);
+      });
+
+      document.addEventListener('keydown', skipBootAnimation);
+      document.addEventListener('click', skipBootAnimation);
+
+      setTimeout(() => {
+        const bootScreen = document.getElementById('boot-screen');
+        if (!bootScreen) return;
+        document.removeEventListener('keydown', skipBootAnimation);
+        document.removeEventListener('click', skipBootAnimation);
+        bootScreen.style.opacity = '0';
+        bootScreen.style.transition = 'opacity 0.5s ease-out';
+        setTimeout(() => {
+          bootScreen.remove();
+          document.body.classList.remove('loading');
+          setTimeout(showNotification, 1500);
+        }, 500);
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
