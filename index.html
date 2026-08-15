@@ -619,12 +619,12 @@
       display: block;
     }
 
-    /* Sticker sub-rotation */
+    /* Sticker sub-rotation — 3 images (constelacion) */
     .sticker-slide {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       background: black;
       opacity: 0;
       animation: stickerShow 6s infinite;
@@ -632,10 +632,47 @@
     .sticker-slide:nth-child(1) { animation-delay: 0s; }
     .sticker-slide:nth-child(2) { animation-delay: 2s; }
     .sticker-slide:nth-child(3) { animation-delay: 4s; }
-
     @keyframes stickerShow {
       0%, 30%   { opacity: 1; }
       36%, 100% { opacity: 0; }
+    }
+
+    /* 2-image rotation — XC Brand (sin pantalla negra) */
+    .sticker-slide-2 {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      background: black;
+      opacity: 0;
+      animation: stickerShow2 4s infinite;
+    }
+    .sticker-slide-2:nth-child(1) { animation-delay: 0s; }
+    .sticker-slide-2:nth-child(2) { animation-delay: 2s; }
+    @keyframes stickerShow2 {
+      0%, 45%   { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* 6-image rotation — Stickers */
+    .sticker-slide-6 {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      background: black;
+      opacity: 0;
+      animation: stickerShow6 12s infinite;
+    }
+    .sticker-slide-6:nth-child(1) { animation-delay: 0s; }
+    .sticker-slide-6:nth-child(2) { animation-delay: 2s; }
+    .sticker-slide-6:nth-child(3) { animation-delay: 4s; }
+    .sticker-slide-6:nth-child(4) { animation-delay: 6s; }
+    .sticker-slide-6:nth-child(5) { animation-delay: 8s; }
+    .sticker-slide-6:nth-child(6) { animation-delay: 10s; }
+    @keyframes stickerShow6 {
+      0%, 14%   { opacity: 1; }
+      17%, 100% { opacity: 0; }
     }
 
     /* 8 Ball iframe preview */
@@ -1178,16 +1215,19 @@
             </div>
           </div>
 
-          <!-- XC-002 Stickers (3 images rotating) -->
+          <!-- XC-002 Stickers (6 images rotating) -->
           <div class="gallery-item">
             <div class="gallery-img-wrap" style="background:black; position:relative;">
-              <img src="sticker1.png" alt="Ecuador Sticker" class="sticker-slide">
-              <img src="sticker2.png" alt="Chulla Vida Sticker" class="sticker-slide">
-              <img src="sticker3.png" alt="Made in Ecuador Sticker" class="sticker-slide">
+              <img src="sticker1.png" alt="Sticker 1" class="sticker-slide-6">
+              <img src="sticker2.png" alt="Sticker 2" class="sticker-slide-6">
+              <img src="sticker3.png" alt="Sticker 3" class="sticker-slide-6">
+              <img src="sticker4.png" alt="Sticker collage" class="sticker-slide-6">
+              <img src="sticker5.png" alt="Made in Ecuador" class="sticker-slide-6">
+              <img src="sticker6.png" alt="Pixel sticker" class="sticker-slide-6">
             </div>
             <div class="gallery-code">XC-002</div>
             <h4 class="gallery-title">STICKERS</h4>
-            <p class="gallery-desc" data-translate="g-stickers">Custom sticker collection celebrating Ecuadorian culture, icons and identity.</p>
+            <p class="gallery-desc" data-translate="g-stickers">Hand-designed stickers stuck in different parts of the world. Each one carries a piece of my identity and where I come from.</p>
             <div class="gallery-tags">
               <span class="gallery-tag">ILLUSTRATION</span>
               <span class="gallery-tag">PRINT</span>
@@ -1197,8 +1237,8 @@
           <!-- XC-003 XC Brand -->
           <div class="gallery-item">
             <div class="gallery-img-wrap" style="background:black; position:relative;">
-              <img src="xc-gallery.png" alt="XC Logo" class="sticker-slide">
-              <img src="xc-pixel.png" alt="XC Pixel Character" class="sticker-slide" style="object-fit:contain; background:#1a1a2e;">
+              <img src="xc-gallery.png" alt="XC Logo" class="sticker-slide-2">
+              <img src="xc-pixel.png" alt="XC Pixel Character" class="sticker-slide-2">
             </div>
             <div class="gallery-code">XC-003</div>
             <h4 class="gallery-title">XC BRAND</h4>
@@ -1217,7 +1257,7 @@
               <div class="gallery-placeholder-label" style="display:none">MAGIC 8 BALL</div>
             </div>
             <div class="gallery-code">XC-004</div>
-            <h4 class="gallery-title">MAGIC 8 BALL</h4>
+            <h4 class="gallery-title"><a href="https://xcaaaam.github.io/8ball/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">MAGIC 8 BALL ↗</a></h4>
             <p class="gallery-desc" data-translate="g-8ball">An interactive Magic 8 Ball built just for fun, a small web experiment in design and development.</p>
             <div class="gallery-tags">
               <span class="gallery-tag">WEB</span>
@@ -1227,13 +1267,12 @@
 
           <!-- XC-005 Medium Blog -->
           <div class="gallery-item">
-            <div class="gallery-img-wrap" style="background:black;">
-              <img src="medium-gallery.png" alt="Medium Blog"
-                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="gallery-placeholder-label" style="display:none">MEDIUM BLOG</div>
+            <div class="gallery-img-wrap" style="background:black; position:relative;">
+              <img src="medium-self.png" alt="Medium Blog" class="sticker-slide-2">
+              <img src="medium-gallery.png" alt="Medium Articles" class="sticker-slide-2">
             </div>
             <div class="gallery-code">XC-005</div>
-            <h4 class="gallery-title">MEDIUM BLOG</h4>
+            <h4 class="gallery-title"><a href="https://medium.com/@xcaaaam" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">MEDIUM BLOG ↗</a></h4>
             <p class="gallery-desc" data-translate="g-medium">Essays and reflections on technology, innovation and creative thinking. Published on Medium.</p>
             <div class="gallery-tags">
               <span class="gallery-tag">WRITING</span>
@@ -1250,7 +1289,7 @@
             </div>
             <div class="gallery-code">XC-006</div>
             <h4 class="gallery-title">SOLOS FINANCER</h4>
-            <p class="gallery-desc" data-translate="g-solofinancer">Financial management app designed for independent workers, combining expense tracking, income control and a clean visual identity.</p>
+            <p class="gallery-desc" data-translate="g-solofinancer">A personal Telegram bot that tracks your finances automatically. Send a message with your daily expenses and it categorizes them, evaluates each purchase and replies with a full analysis, no extra app needed.</p>
             <div class="gallery-tags">
               <span class="gallery-tag">PRODUCT</span>
               <span class="gallery-tag">BRANDING</span>
@@ -1281,7 +1320,7 @@
               <img src="constelacion3-gallery.png" alt="Orión análisis" class="sticker-slide">
             </div>
             <div class="gallery-code">XC-008</div>
-            <h4 class="gallery-title"><a href="https://xcaaaam.github.io/orion-giza/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">CONSTELACIÓN ↗</a></h4>
+            <h4 class="gallery-title"><a href="https://xcaaaam.github.io/orion-giza/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">ORION CONSTELLATION VISUALIZER ↗</a></h4>
             <p class="gallery-desc" data-translate="g-constelacion">Interactive visual analysis of the alignment between Orion's Belt and the Pyramids of Giza, mapping stars, coordinates and geometric patterns.</p>
             <div class="gallery-tags">
               <span class="gallery-tag">DATA VIZ</span>
@@ -1356,11 +1395,11 @@
         "creative-menu": "XC CREATIVE",
         "creative-subtitle": "EL LADO CREATIVO",
         "g-tot": "Identidad de marca, sistema de diseño y dirección creativa para una plataforma de gestión de talento musical.",
-        "g-stickers": "Colección de stickers personalizados celebrando la cultura, íconos e identidad ecuatoriana.",
+        "g-stickers": "Stickers diseñados a mano, pegados en distintas partes del mundo. Cada uno carga un pedazo de mi identidad y de donde vengo.",
         "g-xc": "Marca personal construida desde cero, incluyendo logotipo, identidad visual y dirección creativa.",
         "g-8ball": "Una Magic 8 Ball interactiva hecha por pura diversión, un pequeño experimento de diseño y desarrollo web.",
         "g-medium": "Ensayos y reflexiones sobre tecnología, innovación y pensamiento creativo. Publicado en Medium.",
-        "g-solofinancer": "App de gestión financiera diseñada para trabajadores independientes, con seguimiento de gastos, control de ingresos y una identidad visual limpia.",
+        "g-solofinancer": "Bot personal de Telegram que registra tus finanzas automáticamente. Manda un mensaje con tus gastos del día y te los categoriza, evalúa cada compra y te responde con un análisis completo, sin depender de ninguna otra app.",
         "g-cardcounter": "Herramienta de entrenamiento para casino, pensada para practicar técnicas de conteo de cartas, con estética dorada oscura y varios niveles de dificultad.",
         "g-constelacion": "Análisis visual interactivo del alineamiento entre el Cinturón de Orión y las Pirámides de Giza, mapeando estrellas, coordenadas y patrones geométricos.",
         blog: "BLOG",
@@ -1413,11 +1452,11 @@
         "creative-menu": "XC CREATIVE",
         "creative-subtitle": "THE CREATIVE SIDE",
         "g-tot": "Brand identity, design system and creative direction for a music talent management platform.",
-        "g-stickers": "Custom sticker collection celebrating Ecuadorian culture, icons and identity.",
+        "g-stickers": "Hand-designed stickers stuck in different parts of the world. Each one carries a piece of my identity and where I come from.",
         "g-xc": "Personal brand built from scratch, covering logo, visual identity and creative direction.",
         "g-8ball": "An interactive Magic 8 Ball built just for fun, a small web experiment in design and development.",
         "g-medium": "Essays and reflections on technology, innovation and creative thinking. Published on Medium.",
-        "g-solofinancer": "Financial management app designed for independent workers, combining expense tracking, income control and a clean visual identity.",
+        "g-solofinancer": "A personal Telegram bot that tracks your finances automatically. Send a message with your daily expenses and it categorizes them, evaluates each purchase and replies with a full analysis, no extra app needed.",
         "g-cardcounter": "Casino training tool built to practice card counting techniques, with a dark gold aesthetic and multiple difficulty levels.",
         "g-constelacion": "Interactive visual analysis of the alignment between Orion's Belt and the Pyramids of Giza, mapping stars, coordinates and geometric patterns.",
         blog: "BLOG",
@@ -1470,11 +1509,11 @@
         "creative-menu": "XC CREATIVE",
         "creative-subtitle": "O LADO CRIATIVO",
         "g-tot": "Identidade de marca, sistema de design e direção criativa para uma plataforma de gestão de talentos musicais.",
-        "g-stickers": "Coleção de stickers personalizados celebrando a cultura, ícones e identidade equatoriana.",
+        "g-stickers": "Stickers desenhados à mão, colados em diferentes partes do mundo. Cada um carrega um pedaço da minha identidade e de onde venho.",
         "g-xc": "Marca pessoal construída do zero, com foco em logotipo, identidade visual e direção criativa.",
         "g-8ball": "Uma Magic 8 Ball interativa feita por diversão, um pequeno experimento de design e desenvolvimento web.",
         "g-medium": "Ensaios e reflexões sobre tecnologia, inovação e pensamento criativo. Publicado no Medium.",
-        "g-solofinancer": "App de gestão financeira criada para trabalhadores independentes, com rastreamento de despesas, controle de receita e uma identidade visual limpa.",
+        "g-solofinancer": "Bot pessoal no Telegram que registra suas finanças automaticamente. Manda uma mensagem com seus gastos do dia e ele categoriza tudo, avalia cada compra e responde com uma análise completa, sem depender de nenhum outro app.",
         "g-cardcounter": "Ferramenta de treinamento para cassino para praticar técnicas de contagem de cartas, com estética dourada escura e vários níveis de dificuldade.",
         "g-constelacion": "Análise visual interativa do alinhamento entre o Cinturão de Órion e as Pirâmides de Gizé, mapeando estrelas, coordenadas e padrões geométricos.",
         blog: "BLOG",
@@ -1527,11 +1566,11 @@
         "creative-menu": "XC CREATIVE",
         "creative-subtitle": "IL LATO CREATIVO",
         "g-tot": "Identità di marca, sistema di design e direzione creativa per una piattaforma di gestione dei talenti musicali.",
-        "g-stickers": "Collezione di sticker personalizzati che celebrano la cultura, le icone e l'identità ecuadoriana.",
+        "g-stickers": "Sticker disegnati a mano, appiccicati in diversi angoli del mondo. Ognuno porta un pezzo della mia identità e di dove vengo.",
         "g-xc": "Brand personale costruito da zero, con logo, identità visiva e direzione creativa.",
         "g-8ball": "Una Magic 8 Ball interattiva fatta per divertimento, un piccolo esperimento di design e sviluppo web.",
         "g-medium": "Saggi e riflessioni su tecnologia, innovazione e pensiero creativo. Pubblicato su Medium.",
-        "g-solofinancer": "App di gestione finanziaria per lavoratori indipendenti, con tracciamento delle spese, controllo delle entrate e un'identità visiva pulita.",
+        "g-solofinancer": "Bot personale su Telegram che traccia le tue finanze in automatico. Mandi un messaggio con le spese del giorno, lui le categorizza, valuta ogni acquisto e risponde con un'analisi completa, senza bisogno di altre app.",
         "g-cardcounter": "Strumento di allenamento per il casinò per praticare le tecniche di conteggio delle carte, con estetica oro scuro e più livelli di difficoltà.",
         "g-constelacion": "Analisi visiva interattiva dell'allineamento tra la Cintura di Orione e le Piramidi di Giza, mappando stelle, coordinate e pattern geometrici.",
         blog: "BLOG",
