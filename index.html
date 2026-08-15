@@ -8,7 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFFF00'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-color: #00ff00;
@@ -565,104 +565,159 @@
     }
 
     /* ── XC Creative Gallery ── */
-    .creative-wrapper {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 10px 0 30px;
+    /* ─── Creative screen WebGL bg ─── */
+    #creative { position: relative; overflow: hidden; }
+    #creative-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
     }
 
+    /* ─── Video intro overlay ─── */
+    #creative-intro {
+      position: fixed; inset: 0;
+      z-index: 9000; background: #000;
+      display: none; pointer-events: none;
+    }
+    #creative-intro.active { display: block; }
+    #creative-video { width: 100%; height: 100%; object-fit: cover; }
+    .video-logo-cover {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 14%;
+      background: linear-gradient(transparent, #000 70%);
+    }
+
+    /* ─── Creative wrapper ─── */
+    .creative-wrapper {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 1100px;
+      margin: 0 auto; padding: 10px 0 30px;
+    }
     .creative-subtitle {
       font-family: 'Nunito', sans-serif;
-      font-size: 12px;
-      color: #aaa;
-      letter-spacing: 2px;
-      margin-bottom: 28px;
+      font-size: 12px; color: #aaa;
+      letter-spacing: 2px; margin-bottom: 20px;
       text-transform: uppercase;
     }
 
-    .gallery-outer {
+    /* ─── 3D Coverflow Carousel ─── */
+    .carousel-viewport {
       width: 100%;
-      overflow: hidden;
+      perspective: 900px;
+      perspective-origin: 50% 45%;
       position: relative;
+      height: 380px;
+      cursor: grab;
+      user-select: none; -webkit-user-select: none;
+      overflow: visible;
+    }
+    .carousel-viewport:active { cursor: grabbing; }
+    .carousel-scene {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d;
+    }
+    .card-3d {
+      position: absolute; left: 50%; top: 50%;
+      width: 200px; height: 300px;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,255,0,0.08);
+      cursor: pointer;
+      transition: box-shadow 0.4s;
+    }
+    .card-3d.active-card {
+      box-shadow: 0 28px 80px rgba(0,255,0,0.2), 0 0 0 1px rgba(0,255,0,0.5);
+    }
+    .card-img-wrap {
+      position: absolute; inset: 0; overflow: hidden;
+    }
+    .card-img-wrap > img:not(.sticker-slide):not(.sticker-slide-2):not(.sticker-slide-6) {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .card-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 36px 12px 12px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.93));
+    }
+    .card-code-badge {
+      font-family: 'Press Start 2P', monospace; font-size: 6px;
+      color: #00ff41; letter-spacing: 1px; margin-bottom: 4px;
+    }
+    .card-title-3d {
+      font-family: 'Bebas Neue', sans-serif; font-size: 20px;
+      color: #fff; margin: 0 0 3px; line-height: 1.1; letter-spacing: 1.5px;
+    }
+    .card-tags-3d {
+      font-family: 'Nunito', sans-serif; font-size: 8px;
+      color: rgba(255,255,255,0.45); letter-spacing: 1.5px; text-transform: uppercase;
     }
 
-    .gallery-track {
-      display: flex;
-      gap: 20px;
-      will-change: transform;
+    /* ─── Scroll hint ─── */
+    .scroll-hint {
+      text-align: center; font-family: 'Nunito', sans-serif;
+      font-size: 11px; color: rgba(0,255,0,0.35);
+      margin: 12px 0 0; letter-spacing: 1px;
     }
 
-    .gallery-item {
-      flex: 0 0 calc(33.33% - 14px);
-      min-width: calc(33.33% - 14px);
-      text-align: left;
+    /* ─── Description panel ─── */
+    .desc-panel {
+      margin: 18px auto 8px; max-width: 460px;
+      min-height: 80px; text-align: center; padding: 0 20px;
+      transition: opacity 0.35s;
+    }
+    .desc-panel.fading { opacity: 0; }
+    .desc-panel p {
+      font-family: 'Nunito', sans-serif; font-size: 13px;
+      color: rgba(255,255,255,0.72); line-height: 1.65; margin: 0 0 12px;
+    }
+    .proj-link {
+      display: inline-block;
+      font-family: 'Press Start 2P', monospace; font-size: 7px;
+      color: #00ff41; text-decoration: none;
+      border: 1px solid rgba(0,255,0,0.35); padding: 6px 12px;
+      letter-spacing: 1px; transition: background 0.2s;
+    }
+    .proj-link:hover { background: rgba(0,255,0,0.08); }
+
+    /* ─── X indicators ─── */
+    .gallery-indicators {
+      display: flex; justify-content: center;
+      gap: 14px; margin: 16px 0 6px;
+    }
+    .x-indicator {
+      font-family: 'Press Start 2P', cursive; font-size: 9px;
+      color: var(--primary-color); opacity: 0.2;
+      transition: opacity 0.3s, text-shadow 0.3s; cursor: pointer;
+    }
+    .x-indicator.active {
+      opacity: 1; text-shadow: 0 0 8px var(--primary-color);
     }
 
-    .gallery-img-wrap {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-      border: 2px solid var(--primary-color);
-      box-shadow: 0 0 12px rgba(0,255,0,0.3);
-      background: rgba(0,255,0,0.04);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .gallery-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Sticker sub-rotation — 3 images (constelacion) */
+    /* ─── Sticker animations (inside cards) ─── */
     .sticker-slide {
-      position: absolute;
-      top: 0; left: 0;
+      position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
-      background: black;
-      opacity: 0;
-      animation: stickerShow 6s infinite;
+      object-fit: cover; background: black;
+      opacity: 0; animation: stickerShow 6s infinite;
     }
     .sticker-slide:nth-child(1) { animation-delay: 0s; }
     .sticker-slide:nth-child(2) { animation-delay: 2s; }
     .sticker-slide:nth-child(3) { animation-delay: 4s; }
-    @keyframes stickerShow {
-      0%, 30%   { opacity: 1; }
-      36%, 100% { opacity: 0; }
-    }
+    @keyframes stickerShow { 0%,30%{opacity:1} 36%,100%{opacity:0} }
 
-    /* 2-image rotation — XC Brand (sin pantalla negra) */
     .sticker-slide-2 {
-      position: absolute;
-      top: 0; left: 0;
+      position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
-      object-fit: contain;
-      background: black;
-      opacity: 0;
-      animation: stickerShow2 4s infinite;
+      object-fit: contain; background: black;
+      opacity: 0; animation: stickerShow2 4s infinite;
     }
     .sticker-slide-2:nth-child(1) { animation-delay: 0s; }
     .sticker-slide-2:nth-child(2) { animation-delay: 2s; }
-    @keyframes stickerShow2 {
-      0%, 45%   { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
+    @keyframes stickerShow2 { 0%,45%{opacity:1} 50%,100%{opacity:0} }
 
-    /* 6-image rotation — Stickers */
     .sticker-slide-6 {
-      position: absolute;
-      top: 0; left: 0;
+      position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
-      background: black;
-      opacity: 0;
-      animation: stickerShow6 12s infinite;
+      object-fit: cover; background: black;
+      opacity: 0; animation: stickerShow6 12s infinite;
     }
     .sticker-slide-6:nth-child(1) { animation-delay: 0s; }
     .sticker-slide-6:nth-child(2) { animation-delay: 2s; }
@@ -670,141 +725,15 @@
     .sticker-slide-6:nth-child(4) { animation-delay: 6s; }
     .sticker-slide-6:nth-child(5) { animation-delay: 8s; }
     .sticker-slide-6:nth-child(6) { animation-delay: 10s; }
-    @keyframes stickerShow6 {
-      0%, 14%   { opacity: 1; }
-      17%, 100% { opacity: 0; }
-    }
-
-    /* 8 Ball iframe preview */
-    .gallery-iframe-wrap {
-      position: relative;
-      overflow: hidden;
-      background: black;
-    }
-    .gallery-iframe-wrap iframe {
-      width: 300%;
-      height: 300%;
-      transform: scale(0.333);
-      transform-origin: top left;
-      pointer-events: none;
-      border: none;
-    }
-
-    .gallery-placeholder-label {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 9px;
-      color: rgba(0,255,0,0.3);
-      text-align: center;
-      padding: 10px;
-    }
-
-    .gallery-code {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 8px;
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 12px;
-    }
-
-    .gallery-code::before {
-      content: '';
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      background: var(--primary-color);
-      flex-shrink: 0;
-    }
-
-    .gallery-title {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 11px;
-      color: var(--white);
-      margin: 6px 0 4px;
-    }
-
-    .gallery-desc {
-      font-family: 'Nunito', sans-serif;
-      font-size: 12px;
-      color: #aaa;
-      line-height: 1.6;
-      margin: 0 0 10px;
-    }
-
-    .gallery-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .gallery-tag {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 7px;
-      color: var(--primary-color);
-      border: 1px solid rgba(0,255,0,0.4);
-      padding: 4px 8px;
-    }
-
-    /* X indicators */
-    .gallery-indicators {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin: 24px 0 8px;
-    }
-
-    /* Gallery arrows */
-    .gallery-arrows {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      margin: 0 0 28px;
-    }
-    .gallery-arrow-btn {
-      background: none;
-      border: none;
-      color: rgba(0,255,0,0.35);
-      font-family: 'Press Start 2P', cursive;
-      font-size: 9px;
-      cursor: pointer;
-      padding: 4px 8px;
-      transition: color 0.2s;
-      letter-spacing: 1px;
-    }
-    .gallery-arrow-btn:hover {
-      color: var(--primary-color);
-      transform: none;
-    }
+    @keyframes stickerShow6 { 0%,14%{opacity:1} 17%,100%{opacity:0} }
 
     /* Global footer */
     #global-footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-family: 'Nunito', sans-serif;
-      font-size: 10px;
-      color: rgba(0,255,0,0.25);
-      padding: 6px 0;
-      letter-spacing: 1px;
-      pointer-events: none;
-      z-index: 50;
-    }
-
-    .x-indicator {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 10px;
-      color: var(--primary-color);
-      opacity: 0.25;
-      transition: opacity 0.3s, text-shadow 0.3s;
-      cursor: default;
-    }
-
-    .x-indicator.active {
-      opacity: 1;
-      text-shadow: 0 0 6px var(--primary-color);
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      text-align: center; font-family: 'Nunito', sans-serif;
+      font-size: 10px; color: rgba(0,255,0,0.25);
+      padding: 6px 0; letter-spacing: 1px;
+      pointer-events: none; z-index: 50;
     }
 
     /* Divider */
@@ -1190,34 +1119,40 @@
     </div>
   </section>
 
+  <!-- Video intro overlay (outside screen so it covers everything) -->
+  <div id="creative-intro">
+    <video id="creative-video" muted playsinline preload="auto">
+      <source src="creative-transition.mp4" type="video/mp4">
+    </video>
+    <div class="video-logo-cover"></div>
+  </div>
+
   <!-- XC Creative -->
   <section id="creative" class="screen" role="region" aria-label="XC Creative">
+    <canvas id="creative-canvas"></canvas>
     <div class="creative-wrapper">
       <h2>XC CREATIVE</h2>
       <p class="creative-subtitle" data-translate="creative-subtitle">THE CREATIVE SIDE</p>
 
-      <div class="gallery-outer">
-        <div class="gallery-track" id="gallery-track">
+      <!-- 3D Carousel -->
+      <div class="carousel-viewport" id="carousel-viewport">
+        <div class="carousel-scene" id="carousel-scene">
 
-          <!-- XC-001 Top of Talent -->
-          <div class="gallery-item">
-            <div class="gallery-img-wrap" style="background:black;">
-              <img src="tot-gallery.png" alt="Top of Talent"
-                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="gallery-placeholder-label" style="display:none">TOP OF TALENT</div>
+          <!-- XC-001 -->
+          <div class="card-3d active-card" data-index="0" data-desc-key="g-tot" data-link="" data-tags="BRANDING · WEB">
+            <div class="card-img-wrap" style="background:#000">
+              <img src="tot-gallery.png" alt="Top of Talent">
             </div>
-            <div class="gallery-code">XC-001</div>
-            <h4 class="gallery-title">TOP OF TALENT</h4>
-            <p class="gallery-desc" data-translate="g-tot">Brand identity, design system and creative direction for a music talent management platform.</p>
-            <div class="gallery-tags">
-              <span class="gallery-tag">BRANDING</span>
-              <span class="gallery-tag">WEB</span>
+            <div class="card-overlay">
+              <div class="card-code-badge">XC-001</div>
+              <div class="card-title-3d">TOP OF TALENT</div>
+              <div class="card-tags-3d">BRANDING · WEB</div>
             </div>
           </div>
 
-          <!-- XC-002 Stickers (6 images rotating) -->
-          <div class="gallery-item">
-            <div class="gallery-img-wrap" style="background:black; position:relative;">
+          <!-- XC-002 -->
+          <div class="card-3d" data-index="1" data-desc-key="g-stickers" data-link="" data-tags="ILLUSTRATION · PRINT">
+            <div class="card-img-wrap" style="background:#000; position:relative;">
               <img src="sticker1.png" alt="Sticker 1" class="sticker-slide-6">
               <img src="sticker2.png" alt="Sticker 2" class="sticker-slide-6">
               <img src="sticker3.png" alt="Sticker 3" class="sticker-slide-6">
@@ -1225,128 +1160,110 @@
               <img src="sticker5.png" alt="Made in Ecuador" class="sticker-slide-6">
               <img src="sticker6.png" alt="Pixel sticker" class="sticker-slide-6">
             </div>
-            <div class="gallery-code">XC-002</div>
-            <h4 class="gallery-title">STICKERS</h4>
-            <p class="gallery-desc" data-translate="g-stickers">Hand-designed stickers stuck in different parts of the world. Each one carries a piece of my identity and where I come from.</p>
-            <div class="gallery-tags">
-              <span class="gallery-tag">ILLUSTRATION</span>
-              <span class="gallery-tag">PRINT</span>
+            <div class="card-overlay">
+              <div class="card-code-badge">XC-002</div>
+              <div class="card-title-3d">STICKERS</div>
+              <div class="card-tags-3d">ILLUSTRATION · PRINT</div>
             </div>
           </div>
 
-          <!-- XC-003 XC Brand -->
-          <div class="gallery-item">
-            <div class="gallery-img-wrap" style="background:black; position:relative;">
+          <!-- XC-003 -->
+          <div class="card-3d" data-index="2" data-desc-key="g-xc" data-link="" data-tags="BRANDING · IDENTITY">
+            <div class="card-img-wrap" style="background:#000; position:relative;">
               <img src="xc-gallery.png" alt="XC Logo" class="sticker-slide-2">
-              <img src="xc-pixel.png" alt="XC Pixel Character" class="sticker-slide-2">
+              <img src="xc-pixel.png" alt="XC Pixel" class="sticker-slide-2">
             </div>
-            <div class="gallery-code">XC-003</div>
-            <h4 class="gallery-title">XC BRAND</h4>
-            <p class="gallery-desc" data-translate="g-xc">Personal brand built from scratch, covering logo, visual identity and creative direction.</p>
-            <div class="gallery-tags">
-              <span class="gallery-tag">BRANDING</span>
-              <span class="gallery-tag">IDENTITY</span>
+            <div class="card-overlay">
+              <div class="card-code-badge">XC-003</div>
+              <div class="card-title-3d">XC BRAND</div>
+              <div class="card-tags-3d">BRANDING · IDENTITY</div>
             </div>
           </div>
 
-          <!-- XC-004 Magic 8 Ball -->
-          <div class="gallery-item">
-            <div class="gallery-img-wrap" style="background:black;">
-              <img src="8ball-gallery.png" alt="Magic 8 Ball"
-                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="gallery-placeholder-label" style="display:none">MAGIC 8 BALL</div>
+          <!-- XC-004 -->
+          <div class="card-3d" data-index="3" data-desc-key="g-8ball" data-link="https://xcaaaam.github.io/8ball/" data-tags="WEB · DESIGN">
+            <div class="card-img-wrap" style="background:#000">
+              <img src="8ball-gallery.png" alt="Magic 8 Ball">
             </div>
-            <div class="gallery-code">XC-004</div>
-            <h4 class="gallery-title"><a href="https://xcaaaam.github.io/8ball/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">MAGIC 8 BALL ↗</a></h4>
-            <p class="gallery-desc" data-translate="g-8ball">An interactive Magic 8 Ball built just for fun, a small web experiment in design and development.</p>
-            <div class="gallery-tags">
-              <span class="gallery-tag">WEB</span>
-              <span class="gallery-tag">DESIGN</span>
+            <div class="card-overlay">
+              <div class="card-code-badge">XC-004</div>
+              <div class="card-title-3d">MAGIC 8 BALL</div>
+              <div class="card-tags-3d">WEB · DESIGN</div>
             </div>
           </div>
 
-          <!-- XC-005 Medium Blog -->
-          <div class="gallery-item">
-            <div class="gallery-img-wrap" style="background:black; position:relative;">
-              <img src="medium-self.png" alt="Medium Blog" class="sticker-slide-2">
+          <!-- XC-005 -->
+          <div class="card-3d" data-index="4" data-desc-key="g-medium" data-link="https://medium.com/@xcaaaam" data-tags="WRITING · MEDIUM">
+            <div class="card-img-wrap" style="background:#000; position:relative;">
+              <img src="medium-self.png" alt="Medium" class="sticker-slide-2">
               <img src="medium-gallery.png" alt="Medium Articles" class="sticker-slide-2">
             </div>
-            <div class="gallery-code">XC-005</div>
-            <h4 class="gallery-title"><a href="https://medium.com/@xcaaaam" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">MEDIUM BLOG ↗</a></h4>
-            <p class="gallery-desc" data-translate="g-medium">Essays and reflections on technology, innovation and creative thinking. Published on Medium.</p>
-            <div class="gallery-tags">
-              <span class="gallery-tag">WRITING</span>
-              <span class="gallery-tag">MEDIUM</span>
+            <div class="card-overlay">
+              <div class="card-code-badge">XC-005</div>
+              <div class="card-title-3d">MEDIUM BLOG</div>
+              <div class="card-tags-3d">WRITING · MEDIUM</div>
             </div>
           </div>
 
-          <!-- XC-006 Solos Financer -->
-          <div class="gallery-item">
-            <div class="gallery-img-wrap" style="background:black;">
-              <img src="solofinancer-gallery.png" alt="Solos Financer"
-                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="gallery-placeholder-label" style="display:none">SOLOS FINANCER</div>
+          <!-- XC-006 -->
+          <div class="card-3d" data-index="5" data-desc-key="g-solofinancer" data-link="" data-tags="PRODUCT · BOT">
+            <div class="card-img-wrap" style="background:#000">
+              <img src="solofinancer-gallery.png" alt="Solos Financer">
             </div>
-            <div class="gallery-code">XC-006</div>
-            <h4 class="gallery-title">SOLOS FINANCER</h4>
-            <p class="gallery-desc" data-translate="g-solofinancer">A personal Telegram bot that tracks your finances automatically. Send a message with your daily expenses and it categorizes them, evaluates each purchase and replies with a full analysis, no extra app needed.</p>
-            <div class="gallery-tags">
-              <span class="gallery-tag">PRODUCT</span>
-              <span class="gallery-tag">BRANDING</span>
+            <div class="card-overlay">
+              <div class="card-code-badge">XC-006</div>
+              <div class="card-title-3d">SOLOS FINANCER</div>
+              <div class="card-tags-3d">PRODUCT · BOT</div>
             </div>
           </div>
 
-          <!-- XC-007 Card Counter -->
-          <div class="gallery-item">
-            <div class="gallery-img-wrap" style="background:black;">
-              <img src="cardcounter-gallery.png" alt="Card Counter"
-                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="gallery-placeholder-label" style="display:none">CARD COUNTER</div>
+          <!-- XC-007 -->
+          <div class="card-3d" data-index="6" data-desc-key="g-cardcounter" data-link="https://xcaaaam.github.io/card-counter/" data-tags="WEB · DEV">
+            <div class="card-img-wrap" style="background:#000">
+              <img src="cardcounter-gallery.png" alt="Card Counter">
             </div>
-            <div class="gallery-code">XC-007</div>
-            <h4 class="gallery-title"><a href="https://xcaaaam.github.io/card-counter/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">CARD COUNTER ↗</a></h4>
-            <p class="gallery-desc" data-translate="g-cardcounter">Casino training tool built to practice card counting techniques, with a dark gold aesthetic and multiple difficulty levels.</p>
-            <div class="gallery-tags">
-              <span class="gallery-tag">WEB</span>
-              <span class="gallery-tag">DEV</span>
+            <div class="card-overlay">
+              <div class="card-code-badge">XC-007</div>
+              <div class="card-title-3d">CARD COUNTER</div>
+              <div class="card-tags-3d">WEB · DEV</div>
             </div>
           </div>
 
-          <!-- XC-008 Orión (3 images rotating) -->
-          <div class="gallery-item">
-            <div class="gallery-img-wrap" style="background:#0a0e1a; position:relative;">
-              <img src="constelacion1-gallery.png" alt="Orión constelación" class="sticker-slide">
+          <!-- XC-008 -->
+          <div class="card-3d" data-index="7" data-desc-key="g-constelacion" data-link="https://xcaaaam.github.io/orion-giza/" data-tags="DATA VIZ · WEB">
+            <div class="card-img-wrap" style="background:#0a0e1a; position:relative;">
+              <img src="constelacion1-gallery.png" alt="Orión" class="sticker-slide">
               <img src="constelacion2-gallery.png" alt="Orión pirámides" class="sticker-slide">
               <img src="constelacion3-gallery.png" alt="Orión análisis" class="sticker-slide">
             </div>
-            <div class="gallery-code">XC-008</div>
-            <h4 class="gallery-title"><a href="https://xcaaaam.github.io/orion-giza/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">ORION CONSTELLATION VISUALIZER ↗</a></h4>
-            <p class="gallery-desc" data-translate="g-constelacion">Interactive visual analysis of the alignment between Orion's Belt and the Pyramids of Giza, mapping stars, coordinates and geometric patterns.</p>
-            <div class="gallery-tags">
-              <span class="gallery-tag">DATA VIZ</span>
-              <span class="gallery-tag">WEB</span>
+            <div class="card-overlay">
+              <div class="card-code-badge">XC-008</div>
+              <div class="card-title-3d">ORION CONSTELLATION VISUALIZER</div>
+              <div class="card-tags-3d">DATA VIZ · WEB</div>
             </div>
           </div>
 
-        </div><!-- /gallery-track -->
-      </div><!-- /gallery-outer -->
+        </div><!-- /carousel-scene -->
+      </div><!-- /carousel-viewport -->
 
-      <!-- X Indicators (8 items) -->
+      <p class="scroll-hint">← scroll or drag to explore →</p>
+
+      <!-- X Indicators -->
       <div class="gallery-indicators" id="gallery-indicators">
-        <span class="x-indicator active">✕</span>
-        <span class="x-indicator">✕</span>
-        <span class="x-indicator">✕</span>
-        <span class="x-indicator">✕</span>
-        <span class="x-indicator">✕</span>
-        <span class="x-indicator">✕</span>
-        <span class="x-indicator">✕</span>
-        <span class="x-indicator">✕</span>
+        <span class="x-indicator active" onclick="carouselGoTo(0)">✕</span>
+        <span class="x-indicator" onclick="carouselGoTo(1)">✕</span>
+        <span class="x-indicator" onclick="carouselGoTo(2)">✕</span>
+        <span class="x-indicator" onclick="carouselGoTo(3)">✕</span>
+        <span class="x-indicator" onclick="carouselGoTo(4)">✕</span>
+        <span class="x-indicator" onclick="carouselGoTo(5)">✕</span>
+        <span class="x-indicator" onclick="carouselGoTo(6)">✕</span>
+        <span class="x-indicator" onclick="carouselGoTo(7)">✕</span>
       </div>
 
-      <!-- Arrows -->
-      <div class="gallery-arrows">
-        <button class="gallery-arrow-btn" onclick="galleryPrev()">◀ prev</button>
-        <button class="gallery-arrow-btn" onclick="galleryNext(true)">next ▶</button>
+      <!-- Description panel -->
+      <div class="desc-panel" id="desc-panel">
+        <p id="desc-text"></p>
+        <a id="desc-link" class="proj-link" href="#" target="_blank" rel="noopener noreferrer" style="display:none" data-translate="view-project">↗ VIEW PROJECT</a>
       </div>
 
       <br>
@@ -1437,7 +1354,8 @@
         "instagram-link": "📲 POR SI QUIERES CONOCER SOBRE MÍ",
         "linkedin-link": "💼 SI QUIERES VER MI LADO PROFESIONAL",
         "vsco-link": "📷 PARA QUE PUEDAS JUZGAR MI CREATIVIDAD",
-        "email-part": "📩 ¿TIENES UN PROYECTO INTERESANTE? ¡ENVÍAME UN MENSAJE!"
+        "email-part": "📩 ¿TIENES UN PROYECTO INTERESANTE? ¡ENVÍAME UN MENSAJE!",
+        "view-project": "↗ VER PROYECTO"
       },
       en: {
         welcome: "WELCOME",
@@ -1494,7 +1412,8 @@
         "instagram-link": "📲 IN CASE YOU WANT TO FOLLOW ME",
         "linkedin-link": "💼 IF YOU WANT TO SEE MY PROFESSIONAL SIDE",
         "vsco-link": "📷 HERE YOU CAN JUDGE MY CREATIVITY",
-        "email-part": "📩 HAVE AN EXCITING PROJECT? DROP ME A MESSAGE!"
+        "email-part": "📩 HAVE AN EXCITING PROJECT? DROP ME A MESSAGE!",
+        "view-project": "↗ VIEW PROJECT"
       },
       pt: {
         welcome: "BEM-VINDO",
@@ -1551,7 +1470,8 @@
         "instagram-link": "📲 CASO QUEIRA ME SEGUIR",
         "linkedin-link": "💼 SE QUISER VER MEU LADO PROFISSIONAL",
         "vsco-link": "📷 AQUI VOCÊ PODE JULGAR MINHA CRIATIVIDADE",
-        "email-part": "📩 TEM UM PROJETO INTERESSANTE? MANDA UMA MENSAGEM!"
+        "email-part": "📩 TEM UM PROJETO INTERESSANTE? MANDA UMA MENSAGEM!",
+        "view-project": "↗ VER PROJETO"
       },
       it: {
         welcome: "BENVENUTO",
@@ -1608,7 +1528,8 @@
         "instagram-link": "📲 SE VUOI SEGUIRMI",
         "linkedin-link": "💼 SE VUOI SCOPRIRE IL MIO LATO PROFESSIONALE",
         "vsco-link": "📷 QUI PUOI GIUDICARE LA MIA CREATIVITÀ",
-        "email-part": "📩 HAI UN PROGETTO INTERESSANTE? MANDAMI UN MESSAGGIO!"
+        "email-part": "📩 HAI UN PROGETTO INTERESSANTE? MANDAMI UN MESSAGGIO!",
+        "view-project": "↗ VEDI PROGETTO"
       }
     };
 
@@ -1620,6 +1541,7 @@
         }
       });
       document.documentElement.lang = lang;
+      if (typeof updateDescPanel === 'function') updateDescPanel();
     }
 
     // ─── Navigation ─────────────────────────────────────────────────────────────
@@ -1732,88 +1654,259 @@
       }, 200);
     }
 
-    // ─── Gallery carousel ────────────────────────────────────────────────────────
-    let galleryIndex   = 0;
-    let galleryTimer   = null;
-    let galleryCloned  = false;
-    const GALLERY_INTERVAL = 4500;
+    // ─── 3D Carousel ────────────────────────────────────────────────────────────
+    const TOTAL_CARDS = 8;
+    const CARD_ANGLE  = 360 / TOTAL_CARDS;  // 45°
+    const RADIUS      = 360;
 
-    function initGallery() {
-      const track = document.getElementById('gallery-track');
-      if (!track || galleryCloned) return;
+    let carouselActive  = 0;
+    let carouselTarget  = 0;   // continuous angle target (degrees)
+    let carouselCurrent = 0;   // smooth current angle
+    let carouselRAF     = null;
+    let carouselInited  = false;
 
-      // Clone all items for seamless infinite loop
-      const originals = [...track.querySelectorAll('.gallery-item')];
-      originals.forEach(item => track.appendChild(item.cloneNode(true)));
-      galleryCloned = true;
-      galleryIndex  = 0;
-      track.style.transform = 'translateX(0)';
+    function initCarousel() {
+      if (carouselInited) return;
+      const cards = document.querySelectorAll('.card-3d');
+      cards.forEach((card, i) => {
+        const angle = i * CARD_ANGLE;
+        card.style.transform = `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${RADIUS}px)`;
+      });
+      carouselInited = true;
+      carouselGoTo(0);
+      startCarouselLoop();
+      setupCarouselEvents();
     }
 
-    function galleryItemWidth() {
-      const track = document.getElementById('gallery-track');
-      const item  = track.querySelector('.gallery-item');
-      if (!item) return 0;
-      const gap = 20;
-      return item.offsetWidth + gap;
-    }
-
-    function galleryNext(manual = false) {
-      const track = document.getElementById('gallery-track');
-      const total = 8;
-      galleryIndex++;
-      track.style.transition = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
-      track.style.transform  = `translateX(-${galleryIndex * galleryItemWidth()}px)`;
-      if (galleryIndex >= total) {
-        setTimeout(() => {
-          track.style.transition = 'none';
-          galleryIndex = 0;
-          track.style.transform = 'translateX(0)';
-        }, 680);
+    function startCarouselLoop() {
+      if (carouselRAF) return;
+      function tick() {
+        carouselCurrent += (carouselTarget - carouselCurrent) * 0.08;
+        document.getElementById('carousel-scene').style.transform =
+          `rotateY(${carouselCurrent}deg)`;
+        carouselRAF = requestAnimationFrame(tick);
       }
-      updateXIndicators(galleryIndex % total);
-      if (manual && galleryTimer) { clearInterval(galleryTimer); galleryTimer = setInterval(() => galleryNext(), GALLERY_INTERVAL); }
+      carouselRAF = requestAnimationFrame(tick);
     }
 
-    function galleryPrev() {
-      const track = document.getElementById('gallery-track');
-      const total = 8;
-      if (galleryIndex <= 0) {
-        // Jump to last clone position silently, then slide back
-        track.style.transition = 'none';
-        galleryIndex = total;
-        track.style.transform = `translateX(-${galleryIndex * galleryItemWidth()}px)`;
-        setTimeout(() => {
-          galleryIndex--;
-          track.style.transition = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
-          track.style.transform  = `translateX(-${galleryIndex * galleryItemWidth()}px)`;
-          updateXIndicators(galleryIndex % total);
-        }, 20);
-      } else {
-        galleryIndex--;
-        track.style.transition = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
-        track.style.transform  = `translateX(-${galleryIndex * galleryItemWidth()}px)`;
-        updateXIndicators(galleryIndex % total);
-      }
-      // Reset auto timer on manual navigation
-      if (galleryTimer) { clearInterval(galleryTimer); galleryTimer = setInterval(galleryNext, GALLERY_INTERVAL); }
+    function stopCarouselLoop() {
+      if (carouselRAF) { cancelAnimationFrame(carouselRAF); carouselRAF = null; }
     }
+
+    function carouselGoTo(index) {
+      carouselActive = index;
+      carouselTarget = -index * CARD_ANGLE;
+      document.querySelectorAll('.card-3d').forEach((c, i) =>
+        c.classList.toggle('active-card', i === index));
+      updateXIndicators(index);
+      updateDescPanel();
+    }
+
+    function carouselNext() { carouselGoTo((carouselActive + 1) % TOTAL_CARDS); }
+    function carouselPrev() { carouselGoTo((carouselActive - 1 + TOTAL_CARDS) % TOTAL_CARDS); }
 
     function updateXIndicators(active) {
-      document.querySelectorAll('.x-indicator').forEach((el, i) => {
-        el.classList.toggle('active', i === active);
+      document.querySelectorAll('.x-indicator').forEach((el, i) =>
+        el.classList.toggle('active', i === active));
+    }
+
+    function updateDescPanel() {
+      const cards = document.querySelectorAll('.card-3d');
+      const card  = cards[carouselActive];
+      if (!card) return;
+      const key   = card.dataset.descKey;
+      const link  = card.dataset.link;
+      const panel = document.getElementById('desc-panel');
+      const text  = document.getElementById('desc-text');
+      const btn   = document.getElementById('desc-link');
+      const lang  = document.getElementById('language-selector')?.value || 'en';
+      panel.classList.add('fading');
+      setTimeout(() => {
+        text.textContent = (translations[lang] && translations[lang][key]) || '';
+        if (link) {
+          btn.href = link;
+          btn.style.display = 'inline-block';
+        } else {
+          btn.style.display = 'none';
+        }
+        panel.classList.remove('fading');
+      }, 200);
+    }
+
+    function setupCarouselEvents() {
+      const vp = document.getElementById('carousel-viewport');
+      if (!vp) return;
+
+      // Wheel
+      vp.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (e.deltaX > 30 || e.deltaY > 30)       carouselNext();
+        else if (e.deltaX < -30 || e.deltaY < -30) carouselPrev();
+      }, { passive: false });
+
+      // Drag / touch
+      let startX = 0, dragging = false;
+      vp.addEventListener('mousedown',  e => { dragging = true; startX = e.clientX; });
+      vp.addEventListener('mousemove',  e => { if (!dragging) return; });
+      vp.addEventListener('mouseup',    e => {
+        if (!dragging) return; dragging = false;
+        const dx = e.clientX - startX;
+        if (dx < -40) carouselNext();
+        else if (dx > 40) carouselPrev();
+      });
+      vp.addEventListener('mouseleave', () => { dragging = false; });
+      vp.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      vp.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (dx < -40) carouselNext();
+        else if (dx > 40) carouselPrev();
+      });
+
+      // Click on card to go to it
+      document.querySelectorAll('.card-3d').forEach(card => {
+        card.addEventListener('click', () => {
+          const idx = parseInt(card.dataset.index);
+          if (idx === carouselActive) {
+            const link = card.dataset.link;
+            if (link) window.open(link, '_blank', 'noopener');
+          } else {
+            carouselGoTo(idx);
+          }
+        });
       });
     }
 
+    // ─── WebGL background ───────────────────────────────────────────────────────
+    let glCtx = null, glProgram = null, glRAF = null;
+
+    const VERT_SRC = `
+      attribute vec2 a_pos;
+      void main(){gl_Position=vec4(a_pos,0,1);}
+    `;
+    const FRAG_SRC = `
+      precision mediump float;
+      uniform float u_time;
+      uniform vec2  u_res;
+
+      float hash(vec2 p){
+        p=fract(p*vec2(234.34,435.345));
+        p+=dot(p,p+34.23);
+        return fract(p.x*p.y);
+      }
+      float noise(vec2 p){
+        vec2 i=floor(p),f=fract(p);
+        f=f*f*(3.-2.*f);
+        return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),
+                   mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);
+      }
+      float fbm(vec2 p){
+        float v=0.,a=.5;
+        for(int i=0;i<6;i++){v+=a*noise(p);p=p*2.1+vec2(1.7,9.2);a*=.5;}
+        return v;
+      }
+      void main(){
+        vec2 uv=gl_FragCoord.xy/u_res;
+        float t=u_time*.25;
+        float n=fbm(uv*2.5+vec2(t*.4,t*.2));
+        n=fbm(vec2(n+t*.15,n*1.4+t*.08));
+        vec3 c1=vec3(0.,.05,0.);
+        vec3 c2=vec3(0.,.25,.04);
+        vec3 c3=vec3(0.,.85,.22);
+        vec3 col=mix(c1,c2,smoothstep(.3,.58,n));
+        col=mix(col,c3,smoothstep(.62,.82,n)*.28);
+        float vign=1.-length(uv-.5)*1.5;
+        col*=clamp(vign,.0,1.);
+        gl_FragColor=vec4(col,1.);
+      }
+    `;
+
+    function initWebGL() {
+      const canvas = document.getElementById('creative-canvas');
+      if (!canvas) return;
+      try {
+        glCtx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      } catch(e) { return; }
+      if (!glCtx) return;
+
+      function compile(type, src) {
+        const s = glCtx.createShader(type);
+        glCtx.shaderSource(s, src);
+        glCtx.compileShader(s);
+        return s;
+      }
+      glProgram = glCtx.createProgram();
+      glCtx.attachShader(glProgram, compile(glCtx.VERTEX_SHADER,   VERT_SRC));
+      glCtx.attachShader(glProgram, compile(glCtx.FRAGMENT_SHADER, FRAG_SRC));
+      glCtx.linkProgram(glProgram);
+      glCtx.useProgram(glProgram);
+
+      const buf = glCtx.createBuffer();
+      glCtx.bindBuffer(glCtx.ARRAY_BUFFER, buf);
+      glCtx.bufferData(glCtx.ARRAY_BUFFER,
+        new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), glCtx.STATIC_DRAW);
+      const aPos = glCtx.getAttribLocation(glProgram, 'a_pos');
+      glCtx.enableVertexAttribArray(aPos);
+      glCtx.vertexAttribPointer(aPos, 2, glCtx.FLOAT, false, 0, 0);
+
+      const uTime = glCtx.getUniformLocation(glProgram, 'u_time');
+      const uRes  = glCtx.getUniformLocation(glProgram, 'u_res');
+
+      function resize() {
+        canvas.width  = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        glCtx.viewport(0, 0, canvas.width, canvas.height);
+        glCtx.uniform2f(uRes, canvas.width, canvas.height);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const t0 = performance.now();
+      function render() {
+        glCtx.uniform1f(uTime, (performance.now() - t0) / 1000);
+        glCtx.drawArrays(glCtx.TRIANGLE_STRIP, 0, 4);
+        glRAF = requestAnimationFrame(render);
+      }
+      glRAF = requestAnimationFrame(render);
+    }
+
+    function stopWebGL() {
+      if (glRAF) { cancelAnimationFrame(glRAF); glRAF = null; }
+    }
+
+    // ─── Video intro ─────────────────────────────────────────────────────────────
+    function playVideoIntro(callback) {
+      const intro = document.getElementById('creative-intro');
+      const vid   = document.getElementById('creative-video');
+      if (!vid || !vid.src && !vid.querySelector('source')?.src) { callback(); return; }
+      intro.classList.add('active');
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+      const done = () => {
+        intro.style.transition = 'opacity 0.6s';
+        intro.style.opacity = '0';
+        setTimeout(() => {
+          intro.classList.remove('active');
+          intro.style.transition = '';
+          intro.style.opacity = '';
+          callback();
+        }, 650);
+      };
+      vid.onended = done;
+      // Fallback: if video doesn't load or is very short, skip after 4s
+      setTimeout(done, 4000);
+    }
+
     function startGallery() {
-      initGallery();
-      if (galleryTimer) clearInterval(galleryTimer);
-      galleryTimer = setInterval(galleryNext, GALLERY_INTERVAL);
+      playVideoIntro(() => {
+        initWebGL();
+        initCarousel();
+        startCarouselLoop();
+      });
     }
 
     function stopGallery() {
-      clearInterval(galleryTimer);
-      galleryTimer = null;
+      stopCarouselLoop();
+      stopWebGL();
     }
 
     // ─── Init ────────────────────────────────────────────────────────────────────
