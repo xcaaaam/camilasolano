@@ -585,6 +585,15 @@
       position: absolute; bottom: 0; left: 0; right: 0; height: 14%;
       background: linear-gradient(transparent, #000 70%);
     }
+    #xc-logo-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Press Start 2P', monospace; font-size: clamp(60px, 15vw, 140px);
+      color: #00ff41; text-shadow: 0 0 40px #00ff41, 0 0 80px rgba(0,255,65,0.4);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    #xc-logo-overlay.visible { opacity: 1; }
 
     /* ─── Creative wrapper ─── */
     .creative-wrapper {
@@ -630,7 +639,7 @@
       position: absolute; inset: 0; overflow: hidden;
     }
     .card-img-wrap > img:not(.sticker-slide):not(.sticker-slide-2):not(.sticker-slide-6) {
-      width: 100%; height: 100%; object-fit: cover; display: block;
+      width: 100%; height: 100%; object-fit: contain; display: block; background: #000;
     }
     .card-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -1125,6 +1134,7 @@
       <source src="creative-transition.mp4" type="video/mp4">
     </video>
     <div class="video-logo-cover"></div>
+    <div id="xc-logo-overlay">XC</div>
   </div>
 
   <!-- XC Creative -->
@@ -1659,11 +1669,12 @@
     const CARD_ANGLE  = 360 / TOTAL_CARDS;  // 45°
     const RADIUS      = 360;
 
-    let carouselActive  = 0;
-    let carouselTarget  = 0;   // continuous angle target (degrees)
-    let carouselCurrent = 0;   // smooth current angle
-    let carouselRAF     = null;
-    let carouselInited  = false;
+    let carouselActive   = 0;
+    let carouselTarget   = 0;
+    let carouselCurrent  = 0;
+    let carouselRAF      = null;
+    let carouselInited   = false;
+    let carouselAutoTimer = null;
 
     function initCarousel() {
       if (carouselInited) return;
@@ -1676,6 +1687,20 @@
       carouselGoTo(0);
       startCarouselLoop();
       setupCarouselEvents();
+      startCarouselAuto();
+    }
+
+    function startCarouselAuto() {
+      if (carouselAutoTimer) clearInterval(carouselAutoTimer);
+      carouselAutoTimer = setInterval(carouselNext, 5000);
+    }
+
+    function resetCarouselAuto() {
+      startCarouselAuto();
+    }
+
+    function stopCarouselAuto() {
+      if (carouselAutoTimer) { clearInterval(carouselAutoTimer); carouselAutoTimer = null; }
     }
 
     function startCarouselLoop() {
@@ -1740,8 +1765,8 @@
       // Wheel
       vp.addEventListener('wheel', (e) => {
         e.preventDefault();
-        if (e.deltaX > 30 || e.deltaY > 30)       carouselNext();
-        else if (e.deltaX < -30 || e.deltaY < -30) carouselPrev();
+        if (e.deltaX > 30 || e.deltaY > 30)       { carouselNext(); resetCarouselAuto(); }
+        else if (e.deltaX < -30 || e.deltaY < -30) { carouselPrev(); resetCarouselAuto(); }
       }, { passive: false });
 
       // Drag / touch
@@ -1751,15 +1776,15 @@
       vp.addEventListener('mouseup',    e => {
         if (!dragging) return; dragging = false;
         const dx = e.clientX - startX;
-        if (dx < -40) carouselNext();
-        else if (dx > 40) carouselPrev();
+        if (dx < -40) { carouselNext(); resetCarouselAuto(); }
+        else if (dx > 40) { carouselPrev(); resetCarouselAuto(); }
       });
       vp.addEventListener('mouseleave', () => { dragging = false; });
       vp.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
       vp.addEventListener('touchend',   e => {
         const dx = e.changedTouches[0].clientX - startX;
-        if (dx < -40) carouselNext();
-        else if (dx > 40) carouselPrev();
+        if (dx < -40) { carouselNext(); resetCarouselAuto(); }
+        else if (dx > 40) { carouselPrev(); resetCarouselAuto(); }
       });
 
       // Click on card to go to it
@@ -1771,6 +1796,7 @@
             if (link) window.open(link, '_blank', 'noopener');
           } else {
             carouselGoTo(idx);
+            resetCarouselAuto();
           }
         });
       });
@@ -1875,25 +1901,32 @@
 
     // ─── Video intro ─────────────────────────────────────────────────────────────
     function playVideoIntro(callback) {
-      const intro = document.getElementById('creative-intro');
-      const vid   = document.getElementById('creative-video');
-      if (!vid || !vid.src && !vid.querySelector('source')?.src) { callback(); return; }
+      const intro   = document.getElementById('creative-intro');
+      const vid     = document.getElementById('creative-video');
+      const xcLogo  = document.getElementById('xc-logo-overlay');
+      const source  = vid?.querySelector('source');
+      if (!vid || !source?.src) { callback(); return; }
+
       intro.classList.add('active');
       vid.currentTime = 0;
-      vid.play().catch(() => {});
-      const done = () => {
-        intro.style.transition = 'opacity 0.6s';
-        intro.style.opacity = '0';
+      vid.playbackRate = 2;       // 2× speed — fast but complete
+      vid.play().catch(() => { callback(); intro.classList.remove('active'); });
+
+      vid.onended = () => {
+        // Flash XC logo for 800ms then fade out
+        xcLogo.classList.add('visible');
         setTimeout(() => {
-          intro.classList.remove('active');
-          intro.style.transition = '';
-          intro.style.opacity = '';
-          callback();
-        }, 650);
+          intro.style.transition = 'opacity 0.7s';
+          intro.style.opacity = '0';
+          setTimeout(() => {
+            intro.classList.remove('active');
+            intro.style.transition = '';
+            intro.style.opacity = '';
+            xcLogo.classList.remove('visible');
+            callback();
+          }, 750);
+        }, 800);
       };
-      vid.onended = done;
-      // Fallback: if video doesn't load or is very short, skip after 4s
-      setTimeout(done, 4000);
     }
 
     function startGallery() {
@@ -1907,6 +1940,7 @@
     function stopGallery() {
       stopCarouselLoop();
       stopWebGL();
+      stopCarouselAuto();
     }
 
     // ─── Init ────────────────────────────────────────────────────────────────────
